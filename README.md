@@ -1,55 +1,48 @@
-# Amazon Simple Queue Service (SQS) (amazon-sqs)
+# Amazon Simple Queue Service (SQS)
+
 Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
-
-**URL:** [Visit APIs.json URL](https://aws.amazon.com/sqs/)
-
-## Tags:
-
- - messaging, queue, cloud, aws, distributed systems, microservices
-
-## Timestamps
-
-- **Created:** 2024-01-01 
-- **Modified:** 2024-01-01 
 
 ## APIs
 
-### Amazon SQS API
-RESTful API for Amazon Simple Queue Service operations
+- **Amazon SQS API** - RESTful API for Amazon Simple Queue Service operations including queue management, sending and receiving messages, batch operations, and dead-letter queue configuration.
 
-**Human URL:** [https://aws.amazon.com/sqs/](https://aws.amazon.com/sqs/)
+## Resources
 
+### Documentation
 
-#### Tags:
+- [Documentation](https://docs.aws.amazon.com/sqs/)
+- [Developer Guide](https://docs.aws.amazon.com/sqs/latest/dg/)
+- [API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/)
+- [API Actions](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html)
+- [Best Practices](https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html)
+- [Security](https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html)
+- [Quotas](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html)
+- [Tutorials](https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html)
 
- - messaging, queue, aws
+### API Specifications
 
-#### Properties
+- [OpenAPI](openapi/amazon-sqs-openapi.yml)
+- [AsyncAPI](asyncapi/amazon-sqs-asyncapi.yml)
+- [JSON Schema](json-schema/amazon-sqs-message-schema.json)
+- [JSON-LD](json-ld/amazon-sqs-context.jsonld)
 
-- [X-documentation](https://docs.aws.amazon.com/sqs/)
-- [X-api-reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/)
-- [X-getting-started](https://docs.aws.amazon.com/sqs/latest/dg/welcome.html)
-- [X-pricing](https://aws.amazon.com/sqs/pricing/)
-- [X-faq](https://aws.amazon.com/sqs/faqs/)
-- [X-service-level-agreement](https://aws.amazon.com/sqs/sla/)
-- [X-best-practices](https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html)
-- [X-developer-guide](https://docs.aws.amazon.com/sqs/latest/dg/)
-- [X-sdk](https://aws.amazon.com/tools/)
-- [X-tutorials](https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html)
-- [X-features](https://aws.amazon.com/sqs/features/)
-- [X-security](https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html)
-- [X-compliance](https://aws.amazon.com/compliance/services-in-scope/)
+### General
 
-## Common Properties
-
-- [X-blog](https://aws.amazon.com/blogs/compute/)
-- [X-console](https://console.aws.amazon.com/sqs/)
-- [X-service-health](https://status.aws.amazon.com/)
-- [X-newsletter](https://aws.amazon.com/newsletters/)
-- [X-whitepapers](https://aws.amazon.com/whitepapers/)
-- [X-terms-of-service](https://aws.amazon.com/service-terms/)
-- [X-privacy-policy](https://aws.amazon.com/privacy/)
+- [Pricing](https://aws.amazon.com/sqs/pricing/)
+- [Getting Started](https://aws.amazon.com/sqs/getting-started/)
+- [FAQ](https://aws.amazon.com/sqs/faqs/)
+- [Features](https://aws.amazon.com/sqs/features/)
+- [Service Level Agreement](https://aws.amazon.com/sqs/sla/)
+- [Blog](https://aws.amazon.com/blogs/aws/category/messaging/amazon-simple-queue-service-sqs/)
+- [Console](https://console.aws.amazon.com/sqs/)
+- [CLI](https://docs.aws.amazon.com/cli/latest/reference/sqs/)
+- [SDK](https://aws.amazon.com/tools/)
+- [SDK Examples](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html)
+- [CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-sqs-queue.html)
+- [Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue)
+- [Community](https://repost.aws/tags/TArrIhIqMgRpiyBqay_RCntg/amazon-simple-queue-service)
+- [Support](https://console.aws.amazon.com/support/home)
 
 ## Maintainers
 
-**FN:** Amazon Web Services
+- Kin Lane - kin@apievangelist.com

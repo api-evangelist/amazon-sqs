@@ -1,0 +1,1753 @@
+openapi: 3.1.0
+info:
+  title: Amazon Simple Queue Service (SQS) API
+  description: >-
+    Amazon Simple Queue Service (SQS) is a fully managed message queuing
+    service that enables you to decouple and scale microservices, distributed
+    systems, and serverless applications. SQS eliminates the complexity and
+    overhead associated with managing and operating message-oriented
+    middleware, and empowers developers to focus on differentiating work.
+    Using SQS, you can send, store, and receive messages between software
+    components at any volume, without losing messages or requiring other
+    services to be available. SQS offers two types of message queues:
+    Standard queues offer maximum throughput, best-effort ordering, and
+    at-least-once delivery. FIFO queues are designed to guarantee that
+    messages are processed exactly once, in the exact order that they are
+    sent.
+  version: '2012-11-05'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+externalDocs:
+  description: Amazon SQS API Reference
+  url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
+servers:
+  - url: https://sqs.{region}.amazonaws.com
+    description: Amazon SQS Regional Endpoint
+    variables:
+      region:
+        default: us-east-1
+        description: The AWS region
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - af-south-1
+          - ap-east-1
+          - ap-south-1
+          - ap-south-2
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-southeast-3
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-northeast-3
+          - ca-central-1
+          - eu-central-1
+          - eu-central-2
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - eu-south-1
+          - eu-south-2
+          - eu-north-1
+          - me-south-1
+          - me-central-1
+          - sa-east-1
+security:
+  - aws_sig_v4: []
+tags:
+  - name: Queues
+    description: Operations for creating, managing, and deleting SQS queues
+  - name: Messages
+    description: >-
+      Operations for sending, receiving, and deleting messages in SQS queues
+  - name: Tags
+    description: Operations for managing tags on SQS queues
+  - name: Permissions
+    description: Operations for managing queue access permissions
+paths:
+  /:
+    post:
+      operationId: CreateQueue
+      summary: Create a new SQS queue
+      description: >-
+        Creates a new standard or FIFO queue. You can pass one or more
+        attributes in the request. If you do not provide a value for an
+        attribute, the queue is created with the default value for the
+        attribute. A FIFO queue name must end with the .fifo suffix.
+      tags:
+        - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - QueueName
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - CreateQueue
+                QueueName:
+                  type: string
+                  description: >-
+                    The name of the new queue. A queue name can have up to
+                    80 characters. Valid values are alphanumeric characters,
+                    hyphens, and underscores. A FIFO queue name must end
+                    with the .fifo suffix.
+                  maxLength: 80
+                Attribute.1.Name:
+                  type: string
+                  description: The name of the first attribute
+                  enum:
+                    - DelaySeconds
+                    - MaximumMessageSize
+                    - MessageRetentionPeriod
+                    - Policy
+                    - ReceiveMessageWaitTimeSeconds
+                    - VisibilityTimeout
+                    - RedrivePolicy
+                    - RedriveAllowPolicy
+                    - FifoQueue
+                    - ContentBasedDeduplication
+                    - DeduplicationScope
+                    - FifoThroughputLimit
+                    - KmsMasterKeyId
+                    - KmsDataKeyReusePeriodSeconds
+                    - SqsManagedSseEnabled
+                Attribute.1.Value:
+                  type: string
+                  description: The value of the first attribute
+                Tag.1.Key:
+                  type: string
+                  description: The key of the first tag
+                Tag.1.Value:
+                  type: string
+                  description: The value of the first tag
+      responses:
+        '200':
+          description: Queue created successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateQueueResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQueueResponse'
+        '400':
+          description: >-
+            The request was rejected. Possible reasons include a queue with
+            the same name already existing with different attributes.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: ReceiveMessage
+      summary: Receive messages from a queue
+      description: >-
+        Retrieves one or more messages (up to 10) from the specified queue.
+        Using the WaitTimeSeconds parameter enables long-poll support. Short
+        poll is the default behavior where a weighted random set of machines
+        is sampled on a ReceiveMessage call. Long polling reduces the number
+        of empty responses and false empty responses.
+      tags:
+        - Messages
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ReceiveMessage
+        - name: MaxNumberOfMessages
+          in: query
+          description: >-
+            The maximum number of messages to return. Amazon SQS never
+            returns more messages than this value. Valid values are 1 to
+            10. Default is 1.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10
+            default: 1
+        - name: VisibilityTimeout
+          in: query
+          description: >-
+            The duration (in seconds) that the received messages are hidden
+            from subsequent retrieve requests after being retrieved by a
+            ReceiveMessage request.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 43200
+        - name: WaitTimeSeconds
+          in: query
+          description: >-
+            The duration (in seconds) for which the call waits for a
+            message to arrive in the queue before returning. If a message
+            is available, the call returns sooner than WaitTimeSeconds.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 20
+        - name: AttributeName.1
+          in: query
+          description: A list of attributes that need to be returned along with each message.
+          schema:
+            type: string
+            enum:
+              - All
+              - SenderId
+              - SentTimestamp
+              - ApproximateReceiveCount
+              - ApproximateFirstReceiveTimestamp
+              - SequenceNumber
+              - MessageDeduplicationId
+              - MessageGroupId
+        - name: MessageAttributeName.1
+          in: query
+          description: >-
+            The name of the message attribute to include. Use All or .* to
+            return all message attributes.
+          schema:
+            type: string
+        - name: MessageSystemAttributeName.1
+          in: query
+          description: The name of the message system attribute to include.
+          schema:
+            type: string
+            enum:
+              - All
+              - SenderId
+              - SentTimestamp
+              - ApproximateReceiveCount
+              - ApproximateFirstReceiveTimestamp
+              - SequenceNumber
+              - MessageDeduplicationId
+              - MessageGroupId
+              - AWSTraceHeader
+        - name: ReceiveRequestAttemptId
+          in: query
+          description: >-
+            Used for FIFO queues. The token used for deduplication of
+            ReceiveMessage calls.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Messages retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReceiveMessageResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiveMessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: SendMessage
+      summary: Send a message to a queue
+      description: >-
+        Delivers a message to the specified queue. A message can include
+        only XML, JSON, and unformatted text. The following Unicode
+        characters are allowed. The maximum message size is 256 KiB.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - MessageBody
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - SendMessage
+                MessageBody:
+                  type: string
+                  description: >-
+                    The message to send. The minimum size is one character.
+                    The maximum size is 256 KiB.
+                  maxLength: 262144
+                DelaySeconds:
+                  type: integer
+                  description: >-
+                    The length of time, in seconds, for which to delay a
+                    specific message. Valid values are 0 to 900.
+                  minimum: 0
+                  maximum: 900
+                MessageAttribute.1.Name:
+                  type: string
+                  description: The name of the first message attribute
+                MessageAttribute.1.Value.StringValue:
+                  type: string
+                  description: The string value of the first message attribute
+                MessageAttribute.1.Value.DataType:
+                  type: string
+                  description: >-
+                    The data type of the first message attribute
+                    (String, Number, or Binary)
+                MessageDeduplicationId:
+                  type: string
+                  description: >-
+                    The token used for deduplication of sent messages.
+                    Required for FIFO queues. Each message must have a
+                    unique MessageDeduplicationId.
+                MessageGroupId:
+                  type: string
+                  description: >-
+                    The tag that specifies that a message belongs to a
+                    specific message group. Required for FIFO queues.
+                MessageSystemAttribute.1.Name:
+                  type: string
+                  description: The name of a system message attribute
+                  enum:
+                    - AWSTraceHeader
+                MessageSystemAttribute.1.Value.StringValue:
+                  type: string
+                  description: The string value of a system message attribute
+                MessageSystemAttribute.1.Value.DataType:
+                  type: string
+                  description: The data type of a system message attribute
+      responses:
+        '200':
+          description: Message sent successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: DeleteQueue
+      summary: Delete a queue
+      description: >-
+        Deletes the queue specified by the QueueUrl, regardless of the
+        queue's contents. When you delete a queue, any messages in the
+        queue are no longer available. When you delete a queue, the
+        deletion process takes up to 60 seconds.
+      tags:
+        - Queues
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - DeleteQueue
+      responses:
+        '200':
+          description: Queue deleted successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/delete-message:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: DeleteMessage
+      summary: Delete a message from a queue
+      description: >-
+        Deletes the specified message from the specified queue. To select
+        the message to delete, use the ReceiptHandle of the message (not
+        the MessageId which you receive when you send the message). Amazon
+        SQS can delete a message from a queue even if a visibility timeout
+        setting causes the message to be locked by another consumer.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - ReceiptHandle
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - DeleteMessage
+                ReceiptHandle:
+                  type: string
+                  description: >-
+                    The receipt handle associated with the message to
+                    delete. This is returned by the ReceiveMessage action.
+      responses:
+        '200':
+          description: Message deleted successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request - invalid receipt handle
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/send-message-batch:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: SendMessageBatch
+      summary: Send up to 10 messages to a queue in a single request
+      description: >-
+        Delivers up to ten messages to the specified queue. This is a batch
+        version of SendMessage. For a FIFO queue, multiple messages within
+        a single batch are enqueued in the order they are sent. The maximum
+        allowed individual message size and the maximum total payload size
+        (the sum of the individual lengths of all of the batched messages)
+        are both 256 KiB.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - SendMessageBatchRequestEntry.1.Id
+                - SendMessageBatchRequestEntry.1.MessageBody
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - SendMessageBatch
+                SendMessageBatchRequestEntry.1.Id:
+                  type: string
+                  description: >-
+                    An identifier for a message in this batch used to
+                    communicate the result.
+                SendMessageBatchRequestEntry.1.MessageBody:
+                  type: string
+                  description: The body of the message
+                SendMessageBatchRequestEntry.1.DelaySeconds:
+                  type: integer
+                  description: Delay in seconds for this message
+                SendMessageBatchRequestEntry.1.MessageDeduplicationId:
+                  type: string
+                  description: Deduplication ID for FIFO queues
+                SendMessageBatchRequestEntry.1.MessageGroupId:
+                  type: string
+                  description: Group ID for FIFO queues
+      responses:
+        '200':
+          description: Batch send completed
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SendMessageBatchResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageBatchResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/delete-message-batch:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: DeleteMessageBatch
+      summary: Delete up to 10 messages from a queue in a single request
+      description: >-
+        Deletes up to ten messages from the specified queue. This is a
+        batch version of DeleteMessage. The result of the action on each
+        message is reported individually in the response.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - DeleteMessageBatchRequestEntry.1.Id
+                - DeleteMessageBatchRequestEntry.1.ReceiptHandle
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - DeleteMessageBatch
+                DeleteMessageBatchRequestEntry.1.Id:
+                  type: string
+                  description: An identifier for this particular receipt handle
+                DeleteMessageBatchRequestEntry.1.ReceiptHandle:
+                  type: string
+                  description: A receipt handle
+      responses:
+        '200':
+          description: Batch delete completed
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeleteMessageBatchResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/change-message-visibility:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: ChangeMessageVisibility
+      summary: Change the visibility timeout of a message
+      description: >-
+        Changes the visibility timeout of a specified message in a queue
+        to a new value. The default visibility timeout for a message is
+        30 seconds. The minimum is 0 seconds. The maximum is 12 hours.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - ReceiptHandle
+                - VisibilityTimeout
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - ChangeMessageVisibility
+                ReceiptHandle:
+                  type: string
+                  description: >-
+                    The receipt handle associated with the message whose
+                    visibility timeout is changed.
+                VisibilityTimeout:
+                  type: integer
+                  description: >-
+                    The new value for the message's visibility timeout
+                    (in seconds). Values range from 0 to 43200.
+                  minimum: 0
+                  maximum: 43200
+      responses:
+        '200':
+          description: Visibility timeout changed successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/change-message-visibility-batch:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: ChangeMessageVisibilityBatch
+      summary: Change the visibility timeout of multiple messages
+      description: >-
+        Changes the visibility timeout of multiple messages. This is a
+        batch version of ChangeMessageVisibility. The result of each
+        action is reported individually in the response. Up to 10 messages
+        can be changed per request.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - ChangeMessageVisibilityBatchRequestEntry.1.Id
+                - ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle
+                - ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - ChangeMessageVisibilityBatch
+                ChangeMessageVisibilityBatchRequestEntry.1.Id:
+                  type: string
+                  description: An identifier for this particular receipt handle
+                ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle:
+                  type: string
+                  description: A receipt handle
+                ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout:
+                  type: integer
+                  description: >-
+                    The new value for the message's visibility timeout
+                  minimum: 0
+                  maximum: 43200
+      responses:
+        '200':
+          description: Batch visibility change completed
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ChangeMessageVisibilityBatchResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/attributes:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: GetQueueAttributes
+      summary: Get attributes for a queue
+      description: >-
+        Gets attributes for the specified queue. To determine whether a
+        queue is FIFO, you can check whether QueueName ends with the
+        .fifo suffix.
+      tags:
+        - Queues
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - GetQueueAttributes
+        - name: AttributeName.1
+          in: query
+          description: An attribute name to retrieve information for.
+          schema:
+            type: string
+            enum:
+              - All
+              - ApproximateNumberOfMessages
+              - ApproximateNumberOfMessagesDelayed
+              - ApproximateNumberOfMessagesNotVisible
+              - CreatedTimestamp
+              - DelaySeconds
+              - LastModifiedTimestamp
+              - MaximumMessageSize
+              - MessageRetentionPeriod
+              - Policy
+              - QueueArn
+              - ReceiveMessageWaitTimeSeconds
+              - RedrivePolicy
+              - RedriveAllowPolicy
+              - VisibilityTimeout
+              - FifoQueue
+              - ContentBasedDeduplication
+              - KmsMasterKeyId
+              - KmsDataKeyReusePeriodSeconds
+              - DeduplicationScope
+              - FifoThroughputLimit
+              - SqsManagedSseEnabled
+      responses:
+        '200':
+          description: Queue attributes retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetQueueAttributesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetQueueAttributesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: SetQueueAttributes
+      summary: Set attributes for a queue
+      description: >-
+        Sets the value of one or more queue attributes, like a policy.
+        When you change a queue's attributes, the change can take up to
+        60 seconds for most of the attributes to propagate throughout the
+        Amazon SQS system.
+      tags:
+        - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - Attribute.1.Name
+                - Attribute.1.Value
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - SetQueueAttributes
+                Attribute.1.Name:
+                  type: string
+                  description: The name of the attribute to set
+                  enum:
+                    - DelaySeconds
+                    - MaximumMessageSize
+                    - MessageRetentionPeriod
+                    - Policy
+                    - ReceiveMessageWaitTimeSeconds
+                    - VisibilityTimeout
+                    - RedrivePolicy
+                    - RedriveAllowPolicy
+                    - ContentBasedDeduplication
+                    - DeduplicationScope
+                    - FifoThroughputLimit
+                    - KmsMasterKeyId
+                    - KmsDataKeyReusePeriodSeconds
+                    - SqsManagedSseEnabled
+                Attribute.1.Value:
+                  type: string
+                  description: The value of the attribute to set
+      responses:
+        '200':
+          description: Queue attributes set successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/purge:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: PurgeQueue
+      summary: Purge all messages from a queue
+      description: >-
+        Deletes all messages in a queue. When you use the PurgeQueue
+        action, you cannot retrieve any messages deleted from a queue.
+        The message deletion process takes up to 60 seconds. You cannot
+        purge a queue more than once every 60 seconds.
+      tags:
+        - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - PurgeQueue
+      responses:
+        '200':
+          description: Queue purged successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '403':
+          description: >-
+            PurgeQueue is in progress. Only one PurgeQueue action on a
+            queue is allowed every 60 seconds.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/tags:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: ListQueueTags
+      summary: List all tags for a queue
+      description: >-
+        List all cost allocation tags added to the specified Amazon SQS
+        queue.
+      tags:
+        - Tags
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ListQueueTags
+      responses:
+        '200':
+          description: Tags retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListQueueTagsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: TagQueue
+      summary: Add tags to a queue
+      description: >-
+        Add cost allocation tags to the specified Amazon SQS queue. Tags
+        are key-value pairs. For a full list of tag restrictions, see
+        Quotas related to queues in the Amazon SQS Developer Guide. When
+        you use queue tags, keep in mind that SQS supports a maximum of
+        50 tags per queue.
+      tags:
+        - Tags
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - Tag.1.Key
+                - Tag.1.Value
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - TagQueue
+                Tag.1.Key:
+                  type: string
+                  description: The key of the first tag
+                Tag.1.Value:
+                  type: string
+                  description: The value of the first tag
+      responses:
+        '200':
+          description: Tags added successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: UntagQueue
+      summary: Remove tags from a queue
+      description: >-
+        Remove cost allocation tags from the specified Amazon SQS queue.
+      tags:
+        - Tags
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - UntagQueue
+        - name: TagKey.1
+          in: query
+          required: true
+          description: The tag key to remove
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tags removed successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /queues:
+    get:
+      operationId: ListQueues
+      summary: List all queues in the account
+      description: >-
+        Returns a list of your queues in the current region. The response
+        includes a maximum of 1,000 results. If you specify a value for
+        the optional QueueNamePrefix parameter, only queues with a name
+        that begins with the specified value are returned. The
+        listQueues methods supports pagination.
+      tags:
+        - Queues
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ListQueues
+        - name: QueueNamePrefix
+          in: query
+          description: >-
+            A string to use for filtering the list results. Only those
+            queues whose name begins with the specified string are
+            returned.
+          schema:
+            type: string
+        - name: MaxResults
+          in: query
+          description: >-
+            Maximum number of results to include in the response. Value
+            range is 1 to 1000.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+        - name: NextToken
+          in: query
+          description: >-
+            Pagination token to request the next set of results.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of queues retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListQueuesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListQueuesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /queue-url:
+    get:
+      operationId: GetQueueUrl
+      summary: Get the URL for a queue
+      description: >-
+        Returns the URL of an existing Amazon SQS queue. To access a
+        queue that belongs to another AWS account, use the
+        QueueOwnerAWSAccountId parameter to specify the account ID of
+        the queue's owner.
+      tags:
+        - Queues
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - GetQueueUrl
+        - name: QueueName
+          in: query
+          required: true
+          description: The name of the queue
+          schema:
+            type: string
+        - name: QueueOwnerAWSAccountId
+          in: query
+          description: >-
+            The account ID of the account that created the queue.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue URL retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetQueueUrlResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetQueueUrlResponse'
+        '400':
+          description: Queue does not exist
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/dead-letter-source-queues:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: ListDeadLetterSourceQueues
+      summary: List queues that have this queue as a dead-letter queue
+      description: >-
+        Returns a list of your queues that have the RedrivePolicy queue
+        attribute configured with a dead-letter queue.
+      tags:
+        - Queues
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ListDeadLetterSourceQueues
+        - name: MaxResults
+          in: query
+          description: Maximum number of results to include in the response
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+        - name: NextToken
+          in: query
+          description: Pagination token to request the next set of results
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dead-letter source queues retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListDeadLetterSourceQueuesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/start-message-move-task:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: StartMessageMoveTask
+      summary: Start an asynchronous task to move messages
+      description: >-
+        Starts an asynchronous task to move messages from a specified
+        source queue to a specified destination queue. This action is
+        currently limited to supporting message redrive from queues that
+        are configured as dead-letter queues.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - SourceArn
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - StartMessageMoveTask
+                SourceArn:
+                  type: string
+                  description: The ARN of the queue that contains the messages to be moved
+                DestinationArn:
+                  type: string
+                  description: >-
+                    The ARN of the queue that receives the moved messages.
+                    If not specified, the source queue's dead-letter queue
+                    configuration is used.
+                MaxNumberOfMessagesPerSecond:
+                  type: integer
+                  description: >-
+                    The number of messages to be moved per second. If not
+                    specified, the system chooses an optimal rate.
+      responses:
+        '200':
+          description: Message move task started successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/StartMessageMoveTaskResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/list-message-move-tasks:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: ListMessageMoveTasks
+      summary: List message move tasks
+      description: >-
+        Gets the most recent message movement tasks (up to 10) under a
+        specific source queue.
+      tags:
+        - Messages
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ListMessageMoveTasks
+        - name: MaxResults
+          in: query
+          description: The maximum number of results to include in the response
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10
+      responses:
+        '200':
+          description: Message move tasks retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListMessageMoveTasksResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/cancel-message-move-task:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: CancelMessageMoveTask
+      summary: Cancel a message move task
+      description: >-
+        Cancels a specified message movement task. A message movement
+        can only be cancelled when the current status is RUNNING.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - TaskHandle
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - CancelMessageMoveTask
+                TaskHandle:
+                  type: string
+                  description: >-
+                    An identifier associated with a message movement task.
+      responses:
+        '200':
+          description: Message move task cancelled successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CancelMessageMoveTaskResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{accountId}/{queueName}/permissions:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: AddPermission
+      summary: Add a permission to a queue
+      description: >-
+        Adds a permission to a queue for a specific principal. This
+        allows sharing access to the queue. When you create a queue, you
+        have full control access rights for the queue.
+      tags:
+        - Permissions
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - Action
+                - Label
+                - AWSAccountId.1
+                - ActionName.1
+              properties:
+                Action:
+                  type: string
+                  enum:
+                    - AddPermission
+                Label:
+                  type: string
+                  description: >-
+                    The unique identification of the permission you are
+                    setting.
+                AWSAccountId.1:
+                  type: string
+                  description: The account number of the principal to grant permission to
+                ActionName.1:
+                  type: string
+                  description: The action the client wants to allow for the specified principal
+                  enum:
+                    - SendMessage
+                    - ReceiveMessage
+                    - DeleteMessage
+                    - ChangeMessageVisibility
+                    - GetQueueAttributes
+                    - GetQueueUrl
+                    - '*'
+      responses:
+        '200':
+          description: Permission added successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: RemovePermission
+      summary: Remove a permission from a queue
+      description: >-
+        Revokes any permissions in the queue policy that matches the
+        specified Label parameter.
+      tags:
+        - Permissions
+      parameters:
+        - name: Action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - RemovePermission
+        - name: Label
+          in: query
+          required: true
+          description: >-
+            The identification of the permission to remove. This is the
+            label added using the AddPermission action.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Permission removed successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    aws_sig_v4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: >-
+        AWS Signature Version 4 authentication. All SQS API requests
+        must be signed using AWS credentials (Access Key ID and Secret
+        Access Key). The signature is included in the Authorization
+        header.
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: '^\d{12}$'
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: >-
+        The name of the queue. For FIFO queues, the name must end with
+        the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
+  schemas:
+    CreateQueueResponse:
+      type: object
+      properties:
+        CreateQueueResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: string
+              description: The URL of the created Amazon SQS queue
+              format: uri
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    SendMessageResponse:
+      type: object
+      properties:
+        SendMessageResult:
+          type: object
+          properties:
+            MD5OfMessageBody:
+              type: string
+              description: An MD5 digest of the non-URL-encoded message body string
+            MD5OfMessageAttributes:
+              type: string
+              description: An MD5 digest of the non-URL-encoded message attribute string
+            MD5OfMessageSystemAttributes:
+              type: string
+              description: An MD5 digest of the non-URL-encoded system attribute string
+            MessageId:
+              type: string
+              description: An attribute containing the MessageId of the message sent
+              format: uuid
+            SequenceNumber:
+              type: string
+              description: >-
+                This parameter applies only to FIFO queues. The large,
+                non-consecutive number that Amazon SQS assigns to each
+                message.
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    SendMessageBatchResponse:
+      type: object
+      properties:
+        SendMessageBatchResult:
+          type: object
+          properties:
+            SendMessageBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+                  MessageId:
+                    type: string
+                    format: uuid
+                  MD5OfMessageBody:
+                    type: string
+                  MD5OfMessageAttributes:
+                    type: string
+                  SequenceNumber:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ReceiveMessageResponse:
+      type: object
+      properties:
+        ReceiveMessageResult:
+          type: object
+          properties:
+            Message:
+              type: array
+              items:
+                $ref: '#/components/schemas/Message'
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    DeleteMessageBatchResponse:
+      type: object
+      properties:
+        DeleteMessageBatchResult:
+          type: object
+          properties:
+            DeleteMessageBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ChangeMessageVisibilityBatchResponse:
+      type: object
+      properties:
+        ChangeMessageVisibilityBatchResult:
+          type: object
+          properties:
+            ChangeMessageVisibilityBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    GetQueueAttributesResponse:
+      type: object
+      properties:
+        GetQueueAttributesResult:
+          type: object
+          properties:
+            Attribute:
+              type: array
+              items:
+                type: object
+                properties:
+                  Name:
+                    type: string
+                  Value:
+                    type: string
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ListQueuesResponse:
+      type: object
+      properties:
+        ListQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+              description: Pagination token for the next set of results
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    GetQueueUrlResponse:
+      type: object
+      properties:
+        GetQueueUrlResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: string
+              description: The URL of the queue
+              format: uri
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ListQueueTagsResponse:
+      type: object
+      properties:
+        ListQueueTagsResult:
+          type: object
+          properties:
+            Tag:
+              type: array
+              items:
+                type: object
+                properties:
+                  Key:
+                    type: string
+                  Value:
+                    type: string
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ListDeadLetterSourceQueuesResponse:
+      type: object
+      properties:
+        ListDeadLetterSourceQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    StartMessageMoveTaskResponse:
+      type: object
+      properties:
+        StartMessageMoveTaskResult:
+          type: object
+          properties:
+            TaskHandle:
+              type: string
+              description: An identifier associated with a message movement task
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ListMessageMoveTasksResponse:
+      type: object
+      properties:
+        ListMessageMoveTasksResult:
+          type: object
+          properties:
+            Results:
+              type: array
+              items:
+                type: object
+                properties:
+                  TaskHandle:
+                    type: string
+                  Status:
+                    type: string
+                    enum:
+                      - RUNNING
+                      - COMPLETED
+                      - CANCELLING
+                      - CANCELLED
+                      - FAILED
+                  SourceArn:
+                    type: string
+                  DestinationArn:
+                    type: string
+                  MaxNumberOfMessagesPerSecond:
+                    type: integer
+                  ApproximateNumberOfMessagesMoved:
+                    type: integer
+                  ApproximateNumberOfMessagesToMove:
+                    type: integer
+                  StartedTimestamp:
+                    type: integer
+                    description: Unix timestamp in milliseconds
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    CancelMessageMoveTaskResponse:
+      type: object
+      properties:
+        CancelMessageMoveTaskResult:
+          type: object
+          properties:
+            ApproximateNumberOfMessagesMoved:
+              type: integer
+              description: >-
+                The approximate number of messages already moved to the
+                destination queue.
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    Message:
+      type: object
+      description: An Amazon SQS message
+      properties:
+        MessageId:
+          type: string
+          description: A unique identifier for the message
+          format: uuid
+        ReceiptHandle:
+          type: string
+          description: >-
+            An identifier associated with the act of receiving the
+            message. A new receipt handle is returned every time you
+            receive a message. When deleting a message, you provide the
+            last received receipt handle to delete the message.
+        MD5OfBody:
+          type: string
+          description: An MD5 digest of the non-URL-encoded message body string
+        Body:
+          type: string
+          description: The message's contents (not URL-encoded)
+        Attribute:
+          type: array
+          description: >-
+            A map of the attributes requested in ReceiveMessage to their
+            respective values.
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                enum:
+                  - SenderId
+                  - SentTimestamp
+                  - ApproximateReceiveCount
+                  - ApproximateFirstReceiveTimestamp
+                  - SequenceNumber
+                  - MessageDeduplicationId
+                  - MessageGroupId
+                  - AWSTraceHeader
+              Value:
+                type: string
+        MessageAttribute:
+          type: array
+          description: >-
+            Each message attribute consists of a Name, Type, and Value.
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Value:
+                type: object
+                properties:
+                  StringValue:
+                    type: string
+                  BinaryValue:
+                    type: string
+                    format: byte
+                  DataType:
+                    type: string
+                    description: >-
+                      The message attribute data type. Supported types
+                      include String, Number, and Binary.
+    BatchResultErrorEntry:
+      type: object
+      description: A batch result error entry
+      properties:
+        Id:
+          type: string
+          description: The Id of the entry that caused the error
+        Code:
+          type: string
+          description: An error code representing the type of error
+        Message:
+          type: string
+          description: A message explaining the error
+        SenderFault:
+          type: boolean
+          description: >-
+            Specifies whether the error happened due to the caller of
+            the batch API action
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          type: object
+          properties:
+            Type:
+              type: string
+              description: The error type (Sender or Receiver)
+              enum:
+                - Sender
+                - Receiver
+            Code:
+              type: string
+              description: The error code
+              examples:
+                - AWS.SimpleQueueService.NonExistentQueue
+                - AWS.SimpleQueueService.QueueDeletedRecently
+                - InvalidParameterValue
+                - MissingParameter
+                - QueueAlreadyExists
+                - OverLimit
+                - AccessDenied
+                - InvalidAddress
+                - InvalidAction
+                - InvalidAttributeName
+                - InvalidAttributeValue
+                - InvalidBatchEntryId
+                - TooManyEntriesInBatchRequest
+                - BatchEntryIdsNotDistinct
+                - EmptyBatchRequest
+                - BatchRequestTooLong
+                - UnsupportedOperation
+                - PurgeQueueInProgress
+                - MessageNotInflight
+                - ReceiptHandleIsInvalid
+                - ResourceNotFoundException
+            Message:
+              type: string
+              description: A human-readable description of the error
+        RequestId:
+          type: string
+          description: The unique request identifier
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request

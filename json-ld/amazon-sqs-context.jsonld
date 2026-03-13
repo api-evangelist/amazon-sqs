@@ -1,0 +1,392 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "sqs": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/",
+    "aws": "https://aws.amazon.com/",
+    "iam": "https://docs.aws.amazon.com/IAM/latest/UserReference/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+
+    "SQSQueue": {
+      "@id": "sqs:SQSQueue",
+      "@context": {
+        "queueName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "queueUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "queueArn": {
+          "@id": "sqs:QueueArn",
+          "@type": "xsd:string"
+        },
+        "queueType": {
+          "@id": "sqs:QueueType",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "aws:Region",
+          "@type": "xsd:string"
+        },
+        "accountId": {
+          "@id": "aws:AccountId",
+          "@type": "xsd:string"
+        },
+        "createdTimestamp": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "lastModifiedTimestamp": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "visibilityTimeout": {
+          "@id": "sqs:VisibilityTimeout",
+          "@type": "xsd:integer"
+        },
+        "maximumMessageSize": {
+          "@id": "sqs:MaximumMessageSize",
+          "@type": "xsd:integer"
+        },
+        "messageRetentionPeriod": {
+          "@id": "sqs:MessageRetentionPeriod",
+          "@type": "xsd:integer"
+        },
+        "delaySeconds": {
+          "@id": "sqs:DelaySeconds",
+          "@type": "xsd:integer"
+        },
+        "receiveMessageWaitTimeSeconds": {
+          "@id": "sqs:ReceiveMessageWaitTimeSeconds",
+          "@type": "xsd:integer"
+        },
+        "approximateNumberOfMessages": {
+          "@id": "sqs:ApproximateNumberOfMessages",
+          "@type": "xsd:integer"
+        },
+        "approximateNumberOfMessagesNotVisible": {
+          "@id": "sqs:ApproximateNumberOfMessagesNotVisible",
+          "@type": "xsd:integer"
+        },
+        "approximateNumberOfMessagesDelayed": {
+          "@id": "sqs:ApproximateNumberOfMessagesDelayed",
+          "@type": "xsd:integer"
+        },
+        "fifoQueue": {
+          "@id": "sqs:FifoQueue",
+          "@type": "xsd:boolean"
+        },
+        "contentBasedDeduplication": {
+          "@id": "sqs:ContentBasedDeduplication",
+          "@type": "xsd:boolean"
+        },
+        "deduplicationScope": {
+          "@id": "sqs:DeduplicationScope",
+          "@type": "xsd:string"
+        },
+        "fifoThroughputLimit": {
+          "@id": "sqs:FifoThroughputLimit",
+          "@type": "xsd:string"
+        },
+        "kmsMasterKeyId": {
+          "@id": "sqs:KmsMasterKeyId",
+          "@type": "xsd:string"
+        },
+        "kmsDataKeyReusePeriodSeconds": {
+          "@id": "sqs:KmsDataKeyReusePeriodSeconds",
+          "@type": "xsd:integer"
+        },
+        "sqsManagedSseEnabled": {
+          "@id": "sqs:SqsManagedSseEnabled",
+          "@type": "xsd:boolean"
+        },
+        "policy": {
+          "@id": "sqs:Policy",
+          "@type": "xsd:string"
+        },
+        "redrivePolicy": {
+          "@id": "sqs:RedrivePolicy"
+        },
+        "redriveAllowPolicy": {
+          "@id": "sqs:RedriveAllowPolicy"
+        },
+        "tags": {
+          "@id": "sqs:Tags",
+          "@container": "@index"
+        }
+      }
+    },
+
+    "SQSMessage": {
+      "@id": "sqs:SQSMessage",
+      "@context": {
+        "messageId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "receiptHandle": {
+          "@id": "sqs:ReceiptHandle",
+          "@type": "xsd:string"
+        },
+        "body": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "md5OfBody": {
+          "@id": "sqs:MD5OfBody",
+          "@type": "xsd:string"
+        },
+        "md5OfMessageAttributes": {
+          "@id": "sqs:MD5OfMessageAttributes",
+          "@type": "xsd:string"
+        },
+        "senderId": {
+          "@id": "sqs:SenderId",
+          "@type": "xsd:string"
+        },
+        "sentTimestamp": {
+          "@id": "schema:dateSent",
+          "@type": "xsd:dateTime"
+        },
+        "approximateReceiveCount": {
+          "@id": "sqs:ApproximateReceiveCount",
+          "@type": "xsd:integer"
+        },
+        "approximateFirstReceiveTimestamp": {
+          "@id": "sqs:ApproximateFirstReceiveTimestamp",
+          "@type": "xsd:dateTime"
+        },
+        "sequenceNumber": {
+          "@id": "sqs:SequenceNumber",
+          "@type": "xsd:string"
+        },
+        "messageDeduplicationId": {
+          "@id": "sqs:MessageDeduplicationId",
+          "@type": "xsd:string"
+        },
+        "messageGroupId": {
+          "@id": "sqs:MessageGroupId",
+          "@type": "xsd:string"
+        },
+        "messageAttributes": {
+          "@id": "sqs:MessageAttributes",
+          "@container": "@index"
+        }
+      }
+    },
+
+    "SQSMessageAttribute": {
+      "@id": "sqs:MessageAttribute",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "stringValue": {
+          "@id": "sqs:StringValue",
+          "@type": "xsd:string"
+        },
+        "binaryValue": {
+          "@id": "sqs:BinaryValue",
+          "@type": "xsd:base64Binary"
+        },
+        "dataType": {
+          "@id": "sqs:DataType",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "SendMessageAction": {
+      "@id": "sqs:API_SendMessage",
+      "@context": {
+        "queueUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "messageBody": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "delaySeconds": {
+          "@id": "sqs:DelaySeconds",
+          "@type": "xsd:integer"
+        },
+        "messageAttributes": {
+          "@id": "sqs:MessageAttributes",
+          "@container": "@index"
+        },
+        "messageDeduplicationId": {
+          "@id": "sqs:MessageDeduplicationId",
+          "@type": "xsd:string"
+        },
+        "messageGroupId": {
+          "@id": "sqs:MessageGroupId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "ReceiveMessageAction": {
+      "@id": "sqs:API_ReceiveMessage",
+      "@context": {
+        "queueUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "maxNumberOfMessages": {
+          "@id": "sqs:MaxNumberOfMessages",
+          "@type": "xsd:integer"
+        },
+        "visibilityTimeout": {
+          "@id": "sqs:VisibilityTimeout",
+          "@type": "xsd:integer"
+        },
+        "waitTimeSeconds": {
+          "@id": "sqs:WaitTimeSeconds",
+          "@type": "xsd:integer"
+        },
+        "messages": {
+          "@id": "sqs:Messages",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "DeleteMessageAction": {
+      "@id": "sqs:API_DeleteMessage",
+      "@context": {
+        "queueUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "receiptHandle": {
+          "@id": "sqs:ReceiptHandle",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "RedrivePolicy": {
+      "@id": "sqs:RedrivePolicy",
+      "@context": {
+        "deadLetterTargetArn": {
+          "@id": "sqs:DeadLetterTargetArn",
+          "@type": "xsd:string"
+        },
+        "maxReceiveCount": {
+          "@id": "sqs:MaxReceiveCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "LambdaEventSourceMapping": {
+      "@id": "sqs:LambdaEventSourceMapping",
+      "@context": {
+        "eventSourceArn": {
+          "@id": "sqs:EventSourceArn",
+          "@type": "xsd:string"
+        },
+        "functionArn": {
+          "@id": "aws:LambdaFunctionArn",
+          "@type": "xsd:string"
+        },
+        "batchSize": {
+          "@id": "sqs:BatchSize",
+          "@type": "xsd:integer"
+        },
+        "maximumBatchingWindowInSeconds": {
+          "@id": "sqs:MaximumBatchingWindowInSeconds",
+          "@type": "xsd:integer"
+        },
+        "enabled": {
+          "@id": "sqs:Enabled",
+          "@type": "xsd:boolean"
+        },
+        "functionResponseTypes": {
+          "@id": "sqs:FunctionResponseTypes",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "LambdaSQSEventRecord": {
+      "@id": "sqs:LambdaSQSEventRecord",
+      "@context": {
+        "messageId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "receiptHandle": {
+          "@id": "sqs:ReceiptHandle",
+          "@type": "xsd:string"
+        },
+        "body": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "md5OfBody": {
+          "@id": "sqs:MD5OfBody",
+          "@type": "xsd:string"
+        },
+        "eventSource": {
+          "@id": "sqs:EventSource",
+          "@type": "xsd:string"
+        },
+        "eventSourceARN": {
+          "@id": "sqs:EventSourceARN",
+          "@type": "xsd:string"
+        },
+        "awsRegion": {
+          "@id": "aws:Region",
+          "@type": "xsd:string"
+        },
+        "attributes": {
+          "@id": "sqs:SystemAttributes"
+        },
+        "messageAttributes": {
+          "@id": "sqs:MessageAttributes",
+          "@container": "@index"
+        }
+      }
+    },
+
+    "MessageMoveTask": {
+      "@id": "sqs:MessageMoveTask",
+      "@context": {
+        "taskHandle": {
+          "@id": "sqs:TaskHandle",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "sqs:TaskStatus",
+          "@type": "xsd:string"
+        },
+        "sourceArn": {
+          "@id": "sqs:SourceArn",
+          "@type": "xsd:string"
+        },
+        "destinationArn": {
+          "@id": "sqs:DestinationArn",
+          "@type": "xsd:string"
+        },
+        "maxNumberOfMessagesPerSecond": {
+          "@id": "sqs:MaxNumberOfMessagesPerSecond",
+          "@type": "xsd:integer"
+        },
+        "approximateNumberOfMessagesMoved": {
+          "@id": "sqs:ApproximateNumberOfMessagesMoved",
+          "@type": "xsd:integer"
+        },
+        "approximateNumberOfMessagesToMove": {
+          "@id": "sqs:ApproximateNumberOfMessagesToMove",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}

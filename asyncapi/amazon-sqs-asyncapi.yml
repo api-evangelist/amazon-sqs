@@ -1,0 +1,638 @@
+asyncapi: 3.0.0
+info:
+  title: Amazon Simple Queue Service (SQS) Event Source Mapping
+  version: '2012-11-05'
+  description: >-
+    AsyncAPI specification for Amazon SQS event-driven messaging patterns.
+    Amazon SQS provides reliable, highly-scalable hosted queues for storing
+    messages as they travel between applications or microservices. SQS
+    supports both standard queues (maximum throughput, best-effort ordering,
+    at-least-once delivery) and FIFO queues (exactly-once processing, in
+    order). This specification describes the asynchronous messaging channels
+    and message formats used when integrating with SQS, including AWS Lambda
+    event source mappings that automatically poll SQS queues and invoke
+    Lambda functions with batches of messages.
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  tags:
+    - name: messaging
+      description: Message queuing operations
+    - name: aws
+      description: Amazon Web Services
+    - name: event-source-mapping
+      description: AWS Lambda event source mappings for SQS
+  externalDocs:
+    description: Amazon SQS Developer Guide
+    url: https://docs.aws.amazon.com/sqs/latest/dg/
+servers:
+  production:
+    host: sqs.{region}.amazonaws.com
+    protocol: https
+    description: Amazon SQS Regional Endpoint
+    variables:
+      region:
+        default: us-east-1
+        description: The AWS region for the SQS endpoint
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - eu-central-1
+          - eu-north-1
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-south-1
+          - sa-east-1
+          - ca-central-1
+    security:
+      - $ref: '#/components/securitySchemes/awsSigV4'
+defaultContentType: application/json
+channels:
+  standardQueue:
+    address: 'https://sqs.{region}.amazonaws.com/{accountId}/{queueName}'
+    title: SQS Standard Queue
+    description: >-
+      A standard Amazon SQS queue. Standard queues offer maximum throughput,
+      best-effort ordering, and at-least-once delivery. Messages can be
+      received out of the order in which they were sent, and a message might
+      be delivered more than once.
+    parameters:
+      region:
+        description: The AWS region where the queue is hosted
+      accountId:
+        description: The 12-digit AWS account ID of the queue owner
+      queueName:
+        description: >-
+          The name of the SQS queue. Must be unique within an AWS account
+          and region. Can contain up to 80 alphanumeric characters, hyphens,
+          and underscores.
+    messages:
+      sqsMessage:
+        $ref: '#/components/messages/sqsMessage'
+      sqsBatchMessage:
+        $ref: '#/components/messages/sqsBatchMessage'
+    bindings:
+      sqs:
+        queue:
+          fifoQueue: false
+          deduplicationScope: queue
+          visibilityTimeout: 30
+          receiveMessageWaitTimeSeconds: 0
+          messageRetentionPeriod: 345600
+          maximumMessageSize: 262144
+          delaySeconds: 0
+  fifoQueue:
+    address: 'https://sqs.{region}.amazonaws.com/{accountId}/{queueName}.fifo'
+    title: SQS FIFO Queue
+    description: >-
+      A FIFO (First-In-First-Out) Amazon SQS queue. FIFO queues are
+      designed to guarantee that messages are processed exactly once, in
+      the exact order that they are sent. FIFO queue names must end with
+      the .fifo suffix.
+    parameters:
+      region:
+        description: The AWS region where the queue is hosted
+      accountId:
+        description: The 12-digit AWS account ID of the queue owner
+      queueName:
+        description: >-
+          The base name of the FIFO queue (without the .fifo suffix). The
+          full queue name will have .fifo appended automatically.
+    messages:
+      sqsFifoMessage:
+        $ref: '#/components/messages/sqsFifoMessage'
+    bindings:
+      sqs:
+        queue:
+          fifoQueue: true
+          contentBasedDeduplication: false
+          deduplicationScope: queue
+          fifoThroughputLimit: perQueue
+          visibilityTimeout: 30
+          receiveMessageWaitTimeSeconds: 0
+          messageRetentionPeriod: 345600
+          maximumMessageSize: 262144
+          delaySeconds: 0
+  deadLetterQueue:
+    address: 'https://sqs.{region}.amazonaws.com/{accountId}/{dlqName}'
+    title: SQS Dead-Letter Queue
+    description: >-
+      A dead-letter queue (DLQ) that receives messages that could not be
+      processed successfully from their source queue. Messages are moved
+      to the DLQ after the maximum number of receive attempts
+      (maxReceiveCount) has been exceeded. DLQs help isolate and debug
+      problematic messages.
+    parameters:
+      region:
+        description: The AWS region where the queue is hosted
+      accountId:
+        description: The 12-digit AWS account ID of the queue owner
+      dlqName:
+        description: >-
+          The name of the dead-letter queue. If the source queue is a FIFO
+          queue, the dead-letter queue must also be a FIFO queue.
+    messages:
+      sqsDeadLetterMessage:
+        $ref: '#/components/messages/sqsDeadLetterMessage'
+  lambdaEventSource:
+    address: 'arn:aws:sqs:{region}:{accountId}:{queueName}'
+    title: SQS Lambda Event Source Mapping
+    description: >-
+      An AWS Lambda event source mapping for Amazon SQS. Lambda polls the
+      SQS queue and invokes your Lambda function synchronously with an
+      event that contains queue messages. Lambda reads messages in batches
+      and invokes the function once for each batch. The event source
+      mapping reads messages from the queue, constructs a batch, and
+      invokes the function. For standard queues, Lambda uses long polling
+      to poll the queue until it becomes active. For FIFO queues, Lambda
+      sends messages to the function in the order that it receives them.
+    parameters:
+      region:
+        description: The AWS region of the SQS queue
+      accountId:
+        description: The 12-digit AWS account ID
+      queueName:
+        description: The name of the SQS queue (including .fifo suffix for FIFO queues)
+    messages:
+      lambdaSqsEvent:
+        $ref: '#/components/messages/lambdaSqsEvent'
+operations:
+  sendMessage:
+    action: send
+    channel:
+      $ref: '#/channels/standardQueue'
+    title: Send Message
+    summary: Send a message to an SQS standard queue
+    description: >-
+      Delivers a message to the specified standard queue. A message can
+      include only XML, JSON, and unformatted text. The maximum message
+      size is 256 KiB. You can use message attributes to attach custom
+      metadata to messages. You can also use the DelaySeconds parameter
+      to set a per-message delay.
+    messages:
+      - $ref: '#/channels/standardQueue/messages/sqsMessage'
+    bindings:
+      sqs:
+        queues: []
+  sendFifoMessage:
+    action: send
+    channel:
+      $ref: '#/channels/fifoQueue'
+    title: Send FIFO Message
+    summary: Send a message to an SQS FIFO queue
+    description: >-
+      Delivers a message to the specified FIFO queue. FIFO messages require
+      a MessageGroupId, which specifies that a message belongs to a
+      specific message group. Messages within the same group are processed
+      in a strict order. A MessageDeduplicationId is also required unless
+      content-based deduplication is enabled on the queue.
+    messages:
+      - $ref: '#/channels/fifoQueue/messages/sqsFifoMessage'
+  receiveMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/standardQueue'
+    title: Receive Message
+    summary: Receive messages from an SQS standard queue
+    description: >-
+      Retrieves one or more messages (up to 10) from the specified queue.
+      Using the WaitTimeSeconds parameter enables long-poll support. After
+      a message is received, it becomes invisible for the duration of the
+      visibility timeout. If the message is not deleted before the
+      visibility timeout expires, it becomes visible again.
+    messages:
+      - $ref: '#/channels/standardQueue/messages/sqsMessage'
+  sendBatchMessages:
+    action: send
+    channel:
+      $ref: '#/channels/standardQueue'
+    title: Send Message Batch
+    summary: Send up to 10 messages to an SQS queue in a single request
+    description: >-
+      Delivers up to 10 messages to the specified queue in a single batch
+      request. The maximum total payload size is 256 KiB. Each entry in
+      the batch can have its own delay, message attributes, and body.
+      Batch operations return individual success and failure results for
+      each entry.
+    messages:
+      - $ref: '#/channels/standardQueue/messages/sqsBatchMessage'
+  processDeadLetterMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/deadLetterQueue'
+    title: Process Dead-Letter Queue Message
+    summary: Receive and process messages from a dead-letter queue
+    description: >-
+      Retrieves messages from the dead-letter queue for inspection and
+      reprocessing. Messages arrive in the DLQ after failing to be
+      processed from the source queue after the configured maximum
+      number of receive attempts. You can use the StartMessageMoveTask
+      API to redrive messages back to the source queue.
+    messages:
+      - $ref: '#/channels/deadLetterQueue/messages/sqsDeadLetterMessage'
+  lambdaTrigger:
+    action: receive
+    channel:
+      $ref: '#/channels/lambdaEventSource'
+    title: Lambda SQS Event Source Mapping Trigger
+    summary: AWS Lambda polls SQS and invokes the function with message batches
+    description: >-
+      AWS Lambda automatically polls the SQS queue and invokes your
+      Lambda function with a batch of messages. For standard queues,
+      Lambda uses long polling and may invoke multiple Lambda functions
+      in parallel. For FIFO queues, Lambda respects message group
+      ordering and processes messages from each group sequentially.
+      The batch size, batch window, and other parameters are configurable
+      on the event source mapping. If the function returns an error,
+      all messages in the batch become visible again after the
+      visibility timeout.
+    messages:
+      - $ref: '#/channels/lambdaEventSource/messages/lambdaSqsEvent'
+components:
+  securitySchemes:
+    awsSigV4:
+      type: httpApiKey
+      name: Authorization
+      in: header
+      description: >-
+        AWS Signature Version 4 authentication. All SQS API requests must
+        be signed using AWS credentials.
+  messages:
+    sqsMessage:
+      name: SQSMessage
+      title: SQS Standard Queue Message
+      summary: A message in an Amazon SQS standard queue
+      description: >-
+        An SQS message that can be sent to or received from a standard
+        queue. Messages can contain up to 256 KiB of text data including
+        XML, JSON, and unformatted text. Custom message attributes can
+        be attached for additional metadata.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SQSMessagePayload'
+      headers:
+        type: object
+        properties:
+          MessageId:
+            type: string
+            format: uuid
+            description: A unique identifier for the message
+          ReceiptHandle:
+            type: string
+            description: >-
+              The receipt handle, required for deleting the message
+          MD5OfBody:
+            type: string
+            description: An MD5 digest of the message body
+      correlationId:
+        location: $message.header#/MessageId
+    sqsFifoMessage:
+      name: SQSFifoMessage
+      title: SQS FIFO Queue Message
+      summary: A message in an Amazon SQS FIFO queue
+      description: >-
+        An SQS FIFO message that guarantees exactly-once processing and
+        ordered delivery within a message group. FIFO messages require a
+        MessageGroupId and either a MessageDeduplicationId or content-based
+        deduplication must be enabled on the queue.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SQSFifoMessagePayload'
+      headers:
+        type: object
+        properties:
+          MessageId:
+            type: string
+            format: uuid
+            description: A unique identifier for the message
+          SequenceNumber:
+            type: string
+            description: >-
+              A large, non-consecutive number assigned to each message
+              in FIFO queues
+          MessageGroupId:
+            type: string
+            description: The message group that this message belongs to
+          MessageDeduplicationId:
+            type: string
+            description: The token used for deduplication
+    sqsBatchMessage:
+      name: SQSBatchMessage
+      title: SQS Batch Message
+      summary: A batch of up to 10 messages for an SQS queue
+      description: >-
+        A collection of up to 10 messages to be sent to an SQS queue in
+        a single batch request. The total payload size of all messages
+        combined must not exceed 256 KiB.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SQSBatchPayload'
+    sqsDeadLetterMessage:
+      name: SQSDeadLetterMessage
+      title: SQS Dead-Letter Queue Message
+      summary: A message in an SQS dead-letter queue
+      description: >-
+        A message that was moved to a dead-letter queue after exceeding
+        the maximum receive count on its source queue. The message retains
+        its original body and attributes, along with system attributes
+        indicating how many times it was received and when it was first
+        received.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SQSDeadLetterMessagePayload'
+    lambdaSqsEvent:
+      name: LambdaSQSEvent
+      title: Lambda SQS Event
+      summary: The event payload sent to AWS Lambda from an SQS event source mapping
+      description: >-
+        When Lambda polls an SQS queue and finds messages, it constructs
+        a batch and invokes the function synchronously with this event
+        payload. The event contains an array of SQS message records, each
+        with the message body, attributes, and metadata. For standard
+        queues, Lambda may invoke the function with multiple batches in
+        parallel. For FIFO queues, Lambda processes messages within a
+        message group sequentially.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LambdaSQSEventPayload'
+  schemas:
+    SQSMessagePayload:
+      type: object
+      description: The payload of an SQS standard queue message
+      required:
+        - Body
+      properties:
+        Body:
+          type: string
+          description: >-
+            The message body. Can contain up to 256 KiB of text in XML,
+            JSON, or unformatted text.
+          maxLength: 262144
+        DelaySeconds:
+          type: integer
+          description: >-
+            The length of time, in seconds, for which to delay the
+            message. Valid values are 0 to 900 seconds.
+          minimum: 0
+          maximum: 900
+          default: 0
+        MessageAttributes:
+          type: object
+          description: Custom message attributes as key-value pairs
+          additionalProperties:
+            $ref: '#/components/schemas/MessageAttributeValue'
+        MessageSystemAttributes:
+          type: object
+          description: System message attributes
+          properties:
+            AWSTraceHeader:
+              $ref: '#/components/schemas/MessageAttributeValue'
+    SQSFifoMessagePayload:
+      type: object
+      description: The payload of an SQS FIFO queue message
+      required:
+        - Body
+        - MessageGroupId
+      properties:
+        Body:
+          type: string
+          description: >-
+            The message body. Can contain up to 256 KiB of text.
+          maxLength: 262144
+        MessageGroupId:
+          type: string
+          description: >-
+            The tag that specifies that a message belongs to a specific
+            message group. Messages belonging to the same message group
+            are processed in a FIFO manner.
+        MessageDeduplicationId:
+          type: string
+          description: >-
+            The token used for deduplication of sent messages. If a
+            message with a particular deduplication ID is sent
+            successfully, any messages sent with the same deduplication
+            ID are accepted but not delivered during the 5-minute
+            deduplication interval.
+        MessageAttributes:
+          type: object
+          description: Custom message attributes
+          additionalProperties:
+            $ref: '#/components/schemas/MessageAttributeValue'
+    SQSBatchPayload:
+      type: object
+      description: A batch of messages to send to SQS
+      required:
+        - Entries
+      properties:
+        Entries:
+          type: array
+          description: A list of up to 10 messages to send
+          minItems: 1
+          maxItems: 10
+          items:
+            type: object
+            required:
+              - Id
+              - MessageBody
+            properties:
+              Id:
+                type: string
+                description: >-
+                  An identifier for the message in this batch, used to
+                  communicate the result
+              MessageBody:
+                type: string
+                description: The body of the message
+                maxLength: 262144
+              DelaySeconds:
+                type: integer
+                minimum: 0
+                maximum: 900
+              MessageAttributes:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MessageAttributeValue'
+              MessageDeduplicationId:
+                type: string
+                description: Required for FIFO queues
+              MessageGroupId:
+                type: string
+                description: Required for FIFO queues
+    SQSDeadLetterMessagePayload:
+      type: object
+      description: >-
+        A message in a dead-letter queue, including the original message
+        body and attributes tracking delivery attempts
+      properties:
+        Body:
+          type: string
+          description: The original message body
+        MessageAttributes:
+          type: object
+          description: The original message attributes
+          additionalProperties:
+            $ref: '#/components/schemas/MessageAttributeValue'
+        Attributes:
+          type: object
+          description: System attributes of the dead-letter message
+          properties:
+            ApproximateReceiveCount:
+              type: string
+              description: >-
+                The number of times the message was received from the
+                source queue before being moved to the DLQ
+            ApproximateFirstReceiveTimestamp:
+              type: string
+              description: >-
+                The time the message was first received from the source
+                queue (epoch time in milliseconds)
+            SenderId:
+              type: string
+              description: The AWS account ID or IAM identity of the sender
+            SentTimestamp:
+              type: string
+              description: >-
+                The time the message was sent to the source queue (epoch
+                time in milliseconds)
+            DeadLetterQueueSourceArn:
+              type: string
+              description: The ARN of the source queue
+    LambdaSQSEventPayload:
+      type: object
+      description: >-
+        The event payload that AWS Lambda receives from an SQS event
+        source mapping. Contains an array of SQS message records.
+      required:
+        - Records
+      properties:
+        Records:
+          type: array
+          description: An array of SQS message records
+          items:
+            $ref: '#/components/schemas/SQSEventRecord'
+    SQSEventRecord:
+      type: object
+      description: A single SQS message record in a Lambda event
+      required:
+        - messageId
+        - receiptHandle
+        - body
+        - attributes
+        - messageAttributes
+        - md5OfBody
+        - eventSource
+        - eventSourceARN
+        - awsRegion
+      properties:
+        messageId:
+          type: string
+          format: uuid
+          description: A unique identifier for the message
+        receiptHandle:
+          type: string
+          description: The receipt handle for the message
+        body:
+          type: string
+          description: The message body
+        attributes:
+          type: object
+          description: >-
+            A map of system attributes for the message
+          properties:
+            ApproximateReceiveCount:
+              type: string
+              description: The number of times a message has been received
+            SentTimestamp:
+              type: string
+              description: >-
+                The time the message was sent to the queue (epoch time
+                in milliseconds)
+            SenderId:
+              type: string
+              description: >-
+                For an IAM user, the IAM user ID. For an IAM role, the
+                IAM role ID.
+            ApproximateFirstReceiveTimestamp:
+              type: string
+              description: >-
+                The time the message was first received from the queue
+                (epoch time in milliseconds)
+            SequenceNumber:
+              type: string
+              description: >-
+                The large, non-consecutive number assigned to FIFO
+                queue messages
+            MessageGroupId:
+              type: string
+              description: The message group ID for FIFO queues
+            MessageDeduplicationId:
+              type: string
+              description: The deduplication ID for FIFO queues
+            AWSTraceHeader:
+              type: string
+              description: The X-Ray trace header
+        messageAttributes:
+          type: object
+          description: Custom message attributes
+          additionalProperties:
+            type: object
+            properties:
+              stringValue:
+                type: string
+              binaryValue:
+                type: string
+                format: byte
+              dataType:
+                type: string
+        md5OfBody:
+          type: string
+          description: An MD5 digest of the message body
+        md5OfMessageAttributes:
+          type: string
+          description: An MD5 digest of the message attributes
+        eventSource:
+          type: string
+          const: 'aws:sqs'
+          description: The AWS service that generated the event
+        eventSourceARN:
+          type: string
+          description: The ARN of the SQS queue
+          pattern: '^arn:aws:sqs:[a-z0-9-]+:\d{12}:.+$'
+        awsRegion:
+          type: string
+          description: The AWS region where the queue is located
+    MessageAttributeValue:
+      type: object
+      description: The value of a message attribute
+      required:
+        - DataType
+      properties:
+        StringValue:
+          type: string
+          description: >-
+            Strings are Unicode with UTF-8 binary encoding
+        BinaryValue:
+          type: string
+          format: byte
+          description: >-
+            Binary type attributes can store any binary data, such as
+            compressed data, encrypted data, or images
+        DataType:
+          type: string
+          description: >-
+            Amazon SQS supports the following logical data types:
+            String, Number, and Binary.
+          enum:
+            - String
+            - Number
+            - Binary

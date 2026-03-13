@@ -1,0 +1,636 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.api.dev/amazon-sqs/amazon-sqs-message-schema.json",
+  "title": "Amazon SQS Message Schema",
+  "description": "JSON Schema defining the structure of Amazon Simple Queue Service (SQS) messages, including standard messages, FIFO messages, batch operations, dead-letter queue messages, and Lambda event source mapping payloads.",
+  "type": "object",
+  "$defs": {
+    "MessageAttributeValue": {
+      "title": "Message Attribute Value",
+      "description": "The value of a custom message attribute. SQS supports String, Number, and Binary data types for message attributes.",
+      "type": "object",
+      "required": ["DataType"],
+      "properties": {
+        "StringValue": {
+          "type": "string",
+          "description": "Strings are Unicode with UTF-8 binary encoding. For the Number data type, use StringValue to send a numeric value."
+        },
+        "BinaryValue": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "description": "Binary type attributes can store any binary data, such as compressed data, encrypted data, or images."
+        },
+        "StringListValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Not implemented. Reserved for future use."
+        },
+        "BinaryListValues": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "contentEncoding": "base64"
+          },
+          "description": "Not implemented. Reserved for future use."
+        },
+        "DataType": {
+          "type": "string",
+          "description": "Amazon SQS supports String, Number, and Binary data types. Custom data types using the format 'Type.CustomType' are also supported.",
+          "pattern": "^(String|Number|Binary)(\\..+)?$",
+          "examples": [
+            "String",
+            "Number",
+            "Binary",
+            "String.custom"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MessageSystemAttribute": {
+      "title": "Message System Attribute",
+      "description": "System attributes that can be set on a message at send time.",
+      "type": "object",
+      "properties": {
+        "AWSTraceHeader": {
+          "$ref": "#/$defs/MessageAttributeValue",
+          "description": "The X-Ray trace header string for distributed tracing."
+        }
+      },
+      "additionalProperties": false
+    },
+    "RedrivePolicy": {
+      "title": "Redrive Policy",
+      "description": "The redrive policy configuration for a queue, specifying the dead-letter queue and maximum receive count.",
+      "type": "object",
+      "required": ["deadLetterTargetArn", "maxReceiveCount"],
+      "properties": {
+        "deadLetterTargetArn": {
+          "type": "string",
+          "description": "The Amazon Resource Name (ARN) of the dead-letter queue to which messages are moved after maxReceiveCount is exceeded.",
+          "pattern": "^arn:aws:sqs:[a-z0-9-]+:\\d{12}:.+$"
+        },
+        "maxReceiveCount": {
+          "type": "integer",
+          "description": "The number of times a message can be received before being moved to the dead-letter queue. Valid values are 1 to 1000.",
+          "minimum": 1,
+          "maximum": 1000
+        }
+      },
+      "additionalProperties": false
+    },
+    "SQSMessage": {
+      "title": "SQS Message",
+      "description": "An Amazon SQS message as returned by the ReceiveMessage API action. Contains the message body, system attributes, custom attributes, and metadata needed for message processing.",
+      "type": "object",
+      "required": ["MessageId", "ReceiptHandle", "Body", "MD5OfBody"],
+      "properties": {
+        "MessageId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "A unique identifier for the message. A MessageId is considered unique across all AWS accounts for an extended period of time."
+        },
+        "ReceiptHandle": {
+          "type": "string",
+          "description": "An identifier associated with the act of receiving the message. A new receipt handle is returned every time you receive a message. When deleting a message, you provide the last received receipt handle."
+        },
+        "Body": {
+          "type": "string",
+          "description": "The message's contents. Not URL-encoded.",
+          "maxLength": 262144
+        },
+        "MD5OfBody": {
+          "type": "string",
+          "description": "An MD5 digest of the non-URL-encoded message body string.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "MD5OfMessageAttributes": {
+          "type": "string",
+          "description": "An MD5 digest of the non-URL-encoded message attribute string. Returned only if message attributes were requested.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "Attributes": {
+          "type": "object",
+          "description": "A map of the system attributes requested in ReceiveMessage.",
+          "properties": {
+            "SenderId": {
+              "type": "string",
+              "description": "For an IAM user, returns the IAM user ID. For an IAM role, returns the IAM role ID."
+            },
+            "SentTimestamp": {
+              "type": "string",
+              "description": "The time the message was sent to the queue (epoch time in milliseconds).",
+              "pattern": "^\\d+$"
+            },
+            "ApproximateReceiveCount": {
+              "type": "string",
+              "description": "The number of times a message has been received across all queues but not deleted.",
+              "pattern": "^\\d+$"
+            },
+            "ApproximateFirstReceiveTimestamp": {
+              "type": "string",
+              "description": "The time the message was first received from the queue (epoch time in milliseconds).",
+              "pattern": "^\\d+$"
+            },
+            "SequenceNumber": {
+              "type": "string",
+              "description": "The large, non-consecutive number that Amazon SQS assigns to each message in FIFO queues."
+            },
+            "MessageDeduplicationId": {
+              "type": "string",
+              "description": "The deduplication ID provided when the message was sent to a FIFO queue."
+            },
+            "MessageGroupId": {
+              "type": "string",
+              "description": "The message group ID provided when the message was sent to a FIFO queue."
+            },
+            "AWSTraceHeader": {
+              "type": "string",
+              "description": "The X-Ray trace header string."
+            },
+            "DeadLetterQueueSourceArn": {
+              "type": "string",
+              "description": "The ARN of the source queue in case the message comes from a dead-letter queue redrive."
+            }
+          },
+          "additionalProperties": false
+        },
+        "MessageAttributes": {
+          "type": "object",
+          "description": "Each message attribute consists of a Name, Type, and Value.",
+          "additionalProperties": {
+            "$ref": "#/$defs/MessageAttributeValue"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SendMessageRequest": {
+      "title": "Send Message Request",
+      "description": "The request payload for sending a single message to an SQS queue.",
+      "type": "object",
+      "required": ["MessageBody"],
+      "properties": {
+        "MessageBody": {
+          "type": "string",
+          "description": "The message to send. The minimum size is one character. The maximum size is 256 KiB.",
+          "minLength": 1,
+          "maxLength": 262144
+        },
+        "DelaySeconds": {
+          "type": "integer",
+          "description": "The length of time, in seconds, for which to delay a specific message. Valid values are 0 to 900.",
+          "minimum": 0,
+          "maximum": 900
+        },
+        "MessageAttributes": {
+          "type": "object",
+          "description": "Custom message attributes. A maximum of 10 message attributes per message is supported.",
+          "additionalProperties": {
+            "$ref": "#/$defs/MessageAttributeValue"
+          },
+          "maxProperties": 10
+        },
+        "MessageSystemAttributes": {
+          "$ref": "#/$defs/MessageSystemAttribute",
+          "description": "System message attributes to set on the message."
+        },
+        "MessageDeduplicationId": {
+          "type": "string",
+          "description": "The token used for deduplication of sent messages. Required for FIFO queues if content-based deduplication is not enabled.",
+          "maxLength": 128
+        },
+        "MessageGroupId": {
+          "type": "string",
+          "description": "The tag that specifies that a message belongs to a specific message group. Required for FIFO queues.",
+          "maxLength": 128
+        }
+      },
+      "additionalProperties": false
+    },
+    "SendMessageResponse": {
+      "title": "Send Message Response",
+      "description": "The response from the SendMessage API action.",
+      "type": "object",
+      "required": ["MessageId", "MD5OfMessageBody"],
+      "properties": {
+        "MessageId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "An attribute containing the MessageId of the message sent to the queue."
+        },
+        "MD5OfMessageBody": {
+          "type": "string",
+          "description": "An MD5 digest of the non-URL-encoded message body string.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "MD5OfMessageAttributes": {
+          "type": "string",
+          "description": "An MD5 digest of the non-URL-encoded message attribute string.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "MD5OfMessageSystemAttributes": {
+          "type": "string",
+          "description": "An MD5 digest of the non-URL-encoded message system attribute string.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "SequenceNumber": {
+          "type": "string",
+          "description": "This parameter applies only to FIFO queues. The large, non-consecutive number that Amazon SQS assigns to each message."
+        }
+      },
+      "additionalProperties": false
+    },
+    "SendMessageBatchRequestEntry": {
+      "title": "Send Message Batch Request Entry",
+      "description": "Contains the details of a single Amazon SQS message along with an identifier.",
+      "type": "object",
+      "required": ["Id", "MessageBody"],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "An identifier for a message in this batch used to communicate the result. The Ids of the batch entries must be unique within a request.",
+          "maxLength": 80
+        },
+        "MessageBody": {
+          "type": "string",
+          "description": "The body of the message.",
+          "minLength": 1,
+          "maxLength": 262144
+        },
+        "DelaySeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 900
+        },
+        "MessageAttributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/MessageAttributeValue"
+          },
+          "maxProperties": 10
+        },
+        "MessageSystemAttributes": {
+          "$ref": "#/$defs/MessageSystemAttribute"
+        },
+        "MessageDeduplicationId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "MessageGroupId": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "additionalProperties": false
+    },
+    "SendMessageBatchRequest": {
+      "title": "Send Message Batch Request",
+      "description": "The request payload for sending up to 10 messages to an SQS queue in a single batch.",
+      "type": "object",
+      "required": ["Entries"],
+      "properties": {
+        "Entries": {
+          "type": "array",
+          "description": "A list of SendMessageBatchRequestEntry items.",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/SendMessageBatchRequestEntry"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "DeleteMessageRequest": {
+      "title": "Delete Message Request",
+      "description": "The request payload for deleting a message from an SQS queue.",
+      "type": "object",
+      "required": ["ReceiptHandle"],
+      "properties": {
+        "ReceiptHandle": {
+          "type": "string",
+          "description": "The receipt handle associated with the message to delete."
+        }
+      },
+      "additionalProperties": false
+    },
+    "DeleteMessageBatchRequestEntry": {
+      "title": "Delete Message Batch Request Entry",
+      "description": "Encloses a receipt handle and an identifier for it.",
+      "type": "object",
+      "required": ["Id", "ReceiptHandle"],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "An identifier for this particular receipt handle used to communicate the result.",
+          "maxLength": 80
+        },
+        "ReceiptHandle": {
+          "type": "string",
+          "description": "A receipt handle."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ChangeMessageVisibilityRequest": {
+      "title": "Change Message Visibility Request",
+      "description": "The request payload for changing the visibility timeout of a message in an SQS queue.",
+      "type": "object",
+      "required": ["ReceiptHandle", "VisibilityTimeout"],
+      "properties": {
+        "ReceiptHandle": {
+          "type": "string",
+          "description": "The receipt handle associated with the message whose visibility timeout is changed."
+        },
+        "VisibilityTimeout": {
+          "type": "integer",
+          "description": "The new value for the message's visibility timeout (in seconds).",
+          "minimum": 0,
+          "maximum": 43200
+        }
+      },
+      "additionalProperties": false
+    },
+    "QueueAttributes": {
+      "title": "Queue Attributes",
+      "description": "The configurable and reportable attributes of an SQS queue.",
+      "type": "object",
+      "properties": {
+        "QueueArn": {
+          "type": "string",
+          "description": "The Amazon Resource Name (ARN) of the queue.",
+          "pattern": "^arn:aws:sqs:[a-z0-9-]+:\\d{12}:.+$"
+        },
+        "ApproximateNumberOfMessages": {
+          "type": "string",
+          "description": "The approximate number of messages available for retrieval from the queue.",
+          "pattern": "^\\d+$"
+        },
+        "ApproximateNumberOfMessagesNotVisible": {
+          "type": "string",
+          "description": "The approximate number of messages that are in flight (sent to a client but not yet deleted or not yet past visibility timeout).",
+          "pattern": "^\\d+$"
+        },
+        "ApproximateNumberOfMessagesDelayed": {
+          "type": "string",
+          "description": "The approximate number of messages in the queue that are delayed and not available for reading immediately.",
+          "pattern": "^\\d+$"
+        },
+        "CreatedTimestamp": {
+          "type": "string",
+          "description": "The time when the queue was created (epoch time in seconds).",
+          "pattern": "^\\d+$"
+        },
+        "LastModifiedTimestamp": {
+          "type": "string",
+          "description": "The time when the queue was last changed (epoch time in seconds).",
+          "pattern": "^\\d+$"
+        },
+        "VisibilityTimeout": {
+          "type": "string",
+          "description": "The visibility timeout for the queue, in seconds. Valid values are 0 to 43200 (12 hours). Default is 30.",
+          "pattern": "^\\d+$"
+        },
+        "MaximumMessageSize": {
+          "type": "string",
+          "description": "The limit of how many bytes a message can contain. Valid values are 1024 to 262144 (1 KiB to 256 KiB). Default is 262144.",
+          "pattern": "^\\d+$"
+        },
+        "MessageRetentionPeriod": {
+          "type": "string",
+          "description": "The length of time, in seconds, for which Amazon SQS retains a message. Valid values are 60 to 1209600 (1 minute to 14 days). Default is 345600 (4 days).",
+          "pattern": "^\\d+$"
+        },
+        "DelaySeconds": {
+          "type": "string",
+          "description": "The default delay on the queue, in seconds. Valid values are 0 to 900 (15 minutes). Default is 0.",
+          "pattern": "^\\d+$"
+        },
+        "ReceiveMessageWaitTimeSeconds": {
+          "type": "string",
+          "description": "The length of time, in seconds, for which the ReceiveMessage action waits for a message to arrive. Valid values are 0 to 20. Default is 0 (short polling).",
+          "pattern": "^\\d+$"
+        },
+        "Policy": {
+          "type": "string",
+          "description": "The queue's policy as a JSON string. A valid AWS policy."
+        },
+        "RedrivePolicy": {
+          "type": "string",
+          "description": "The string that includes the parameters for the dead-letter queue functionality as a JSON object."
+        },
+        "RedriveAllowPolicy": {
+          "type": "string",
+          "description": "The string that includes the parameters for the permissions to the dead-letter queue redrive permission as a JSON object."
+        },
+        "FifoQueue": {
+          "type": "string",
+          "description": "Whether the queue is FIFO. Set to true to designate a queue as FIFO.",
+          "enum": ["true", "false"]
+        },
+        "ContentBasedDeduplication": {
+          "type": "string",
+          "description": "Whether content-based deduplication is enabled for the FIFO queue.",
+          "enum": ["true", "false"]
+        },
+        "DeduplicationScope": {
+          "type": "string",
+          "description": "Specifies whether message deduplication occurs at the message group or queue level.",
+          "enum": ["messageGroup", "queue"]
+        },
+        "FifoThroughputLimit": {
+          "type": "string",
+          "description": "Specifies whether the FIFO queue throughput quota applies to the entire queue or per message group.",
+          "enum": ["perQueue", "perMessageGroupId"]
+        },
+        "KmsMasterKeyId": {
+          "type": "string",
+          "description": "The ID of an AWS managed customer master key (CMK) for Amazon SQS or a custom CMK."
+        },
+        "KmsDataKeyReusePeriodSeconds": {
+          "type": "string",
+          "description": "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages. Valid values are 60 to 86400 (1 minute to 24 hours). Default is 300 (5 minutes).",
+          "pattern": "^\\d+$"
+        },
+        "SqsManagedSseEnabled": {
+          "type": "string",
+          "description": "Whether server-side encryption (SSE) is enabled using SQS-owned encryption keys.",
+          "enum": ["true", "false"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "LambdaEventSourceMappingRecord": {
+      "title": "Lambda SQS Event Source Mapping Record",
+      "description": "A single SQS message record as received by an AWS Lambda function through an event source mapping.",
+      "type": "object",
+      "required": [
+        "messageId",
+        "receiptHandle",
+        "body",
+        "attributes",
+        "messageAttributes",
+        "md5OfBody",
+        "eventSource",
+        "eventSourceARN",
+        "awsRegion"
+      ],
+      "properties": {
+        "messageId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "A unique identifier for the message."
+        },
+        "receiptHandle": {
+          "type": "string",
+          "description": "An identifier associated with the act of receiving the message."
+        },
+        "body": {
+          "type": "string",
+          "description": "The message body."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "A map of system attributes associated with the message.",
+          "properties": {
+            "ApproximateReceiveCount": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            },
+            "SentTimestamp": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            },
+            "SenderId": {
+              "type": "string"
+            },
+            "ApproximateFirstReceiveTimestamp": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            },
+            "SequenceNumber": {
+              "type": "string"
+            },
+            "MessageGroupId": {
+              "type": "string"
+            },
+            "MessageDeduplicationId": {
+              "type": "string"
+            },
+            "AWSTraceHeader": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "messageAttributes": {
+          "type": "object",
+          "description": "Custom message attributes.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "stringValue": {
+                "type": "string"
+              },
+              "binaryValue": {
+                "type": "string",
+                "contentEncoding": "base64"
+              },
+              "stringListValues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "binaryListValues": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "contentEncoding": "base64"
+                }
+              },
+              "dataType": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "md5OfBody": {
+          "type": "string",
+          "description": "An MD5 digest of the message body.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "md5OfMessageAttributes": {
+          "type": "string",
+          "description": "An MD5 digest of the message attributes.",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "eventSource": {
+          "type": "string",
+          "const": "aws:sqs",
+          "description": "The event source identifier."
+        },
+        "eventSourceARN": {
+          "type": "string",
+          "description": "The ARN of the SQS queue.",
+          "pattern": "^arn:aws:sqs:[a-z0-9-]+:\\d{12}:.+$"
+        },
+        "awsRegion": {
+          "type": "string",
+          "description": "The AWS region where the SQS queue is located."
+        }
+      },
+      "additionalProperties": false
+    },
+    "LambdaSQSEvent": {
+      "title": "Lambda SQS Event",
+      "description": "The complete event payload that AWS Lambda receives from an SQS event source mapping. Contains an array of one or more SQS message records.",
+      "type": "object",
+      "required": ["Records"],
+      "properties": {
+        "Records": {
+          "type": "array",
+          "description": "An array of SQS message records.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/LambdaEventSourceMappingRecord"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/SQSMessage",
+      "title": "Received SQS Message"
+    },
+    {
+      "$ref": "#/$defs/SendMessageRequest",
+      "title": "Send Message Request"
+    },
+    {
+      "$ref": "#/$defs/SendMessageResponse",
+      "title": "Send Message Response"
+    },
+    {
+      "$ref": "#/$defs/SendMessageBatchRequest",
+      "title": "Send Message Batch Request"
+    },
+    {
+      "$ref": "#/$defs/DeleteMessageRequest",
+      "title": "Delete Message Request"
+    },
+    {
+      "$ref": "#/$defs/ChangeMessageVisibilityRequest",
+      "title": "Change Message Visibility Request"
+    },
+    {
+      "$ref": "#/$defs/LambdaSQSEvent",
+      "title": "Lambda SQS Event"
+    }
+  ]
+}

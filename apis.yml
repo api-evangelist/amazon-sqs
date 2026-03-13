@@ -3,7 +3,7 @@ description: Amazon Simple Queue Service (SQS) is a fully managed message queuin
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/sqs/
 created: '2024-01-01'
-modified: '2024-01-01'
+modified: '2026-03-03'
 specificationVersion: '0.18'
 tags:
 - messaging
@@ -49,6 +49,42 @@ apis:
     url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
   - type: X-compliance
     url: https://aws.amazon.com/compliance/services-in-scope/
+  - type: X-api-actions
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html
+  - type: X-api-permissions
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-api-permissions-reference.html
+  - type: X-cli
+    url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
+  - type: X-sdk-examples
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
+  - type: X-cloudformation
+    url: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-sqs-queue.html
+  - type: X-terraform
+    url: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue
+  - type: X-quotas
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
+  - type: X-endpoints
+    url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
+  - type: X-documentation-history
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
+  - type: X-getting-started-guide
+    url: https://aws.amazon.com/sqs/getting-started/
+  - type: X-resources
+    url: https://aws.amazon.com/sqs/resources/
+  - type: X-documentation-overview
+    url: https://aws.amazon.com/documentation-overview/sqs/
+  - type: X-batch-actions
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-batch-api-actions.html
+  - type: X-iam-authorization
+    url: https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsqs.html
+  - type: openapi
+    url: openapi/amazon-sqs-openapi.yml
+  - type: asyncapi
+    url: asyncapi/amazon-sqs-asyncapi.yml
+  - type: json-schema
+    url: json-schema/amazon-sqs-message-schema.json
+  - type: json-ld-context
+    url: json-ld/amazon-sqs-context.jsonld
   contact:
   - FN: AWS Support
     url: https://aws.amazon.com/contact-us/
@@ -68,7 +104,21 @@ common:
   url: https://aws.amazon.com/service-terms/
 - type: X-privacy-policy
   url: https://aws.amazon.com/privacy/
+- type: X-blog-sqs
+  url: https://aws.amazon.com/blogs/aws/category/messaging/amazon-simple-queue-service-sqs/
+- type: X-community
+  url: https://repost.aws/tags/TArrIhIqMgRpiyBqay_RCntg/amazon-simple-queue-service
+- type: X-knowledge-center
+  url: https://repost.aws/knowledge-center
+- type: X-case-studies
+  url: https://aws.amazon.com/solutions/case-studies/
+- type: X-github-examples
+  url: https://github.com/awsdocs/aws-doc-sdk-examples
+- type: X-code-library
+  url: https://docs.aws.amazon.com/code-library/latest/ug/sqs_code_examples.html
+- type: X-api-pdf
+  url: https://docs.aws.amazon.com/pdfs/AWSSimpleQueueService/latest/APIReference/sqs-api.pdf
 maintainers:
-- FN: Amazon Web Services
-  email: ''
-  url: https://aws.amazon.com/
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com/
