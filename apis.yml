@@ -3,7 +3,7 @@ description: Amazon Simple Queue Service (SQS) is a fully managed message queuin
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/sqs/
 created: '2024-01-01'
-modified: '2026-03-03'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 tags:
 - messaging
