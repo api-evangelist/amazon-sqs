@@ -63,15 +63,13 @@ servers:
 security:
   - aws_sig_v4: []
 tags:
-  - name: Queues
-    description: Operations for creating, managing, and deleting SQS queues
   - name: Messages
     description: >-
       Operations for sending, receiving, and deleting messages in SQS queues
-  - name: Tags
-    description: Operations for managing tags on SQS queues
   - name: Permissions
     description: Operations for managing queue access permissions
+  - name: Queues
+    description: Operations for creating, managing, and deleting SQS queues
 paths:
   /:
     post:
@@ -835,8 +833,7 @@ paths:
       description: >-
         List all cost allocation tags added to the specified Amazon SQS
         queue.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - name: Action
           in: query
@@ -867,8 +864,7 @@ paths:
         Quotas related to queues in the Amazon SQS Developer Guide. When
         you use queue tags, keep in mind that SQS supports a maximum of
         50 tags per queue.
-      tags:
-        - Tags
+      tags: []
       requestBody:
         required: true
         content:
@@ -908,8 +904,7 @@ paths:
       summary: Amazon SQS Remove tags from a queue
       description: >-
         Remove cost allocation tags from the specified Amazon SQS queue.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - name: Action
           in: query
