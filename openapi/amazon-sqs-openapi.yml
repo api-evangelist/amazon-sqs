@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Amazon Simple Queue Service (SQS) API
+  title: Amazon SQS Amazon Simple Queue Service (SQS) API
   description: >-
     Amazon Simple Queue Service (SQS) is a fully managed message queuing
     service that enables you to decouple and scale microservices, distributed
@@ -76,7 +76,7 @@ paths:
   /:
     post:
       operationId: CreateQueue
-      summary: Create a new SQS queue
+      summary: Amazon SQS Create a new SQS queue
       description: >-
         Creates a new standard or FIFO queue. You can pass one or more
         attributes in the request. If you do not provide a value for an
@@ -164,7 +164,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     get:
       operationId: ReceiveMessage
-      summary: Receive messages from a queue
+      summary: Amazon SQS Receive messages from a queue
       description: >-
         Retrieves one or more messages (up to 10) from the specified queue.
         Using the WaitTimeSeconds parameter enables long-poll support. Short
@@ -273,7 +273,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: SendMessage
-      summary: Send a message to a queue
+      summary: Amazon SQS Send a message to a queue
       description: >-
         Delivers a message to the specified queue. A message can include
         only XML, JSON, and unformatted text. The following Unicode
@@ -358,7 +358,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: DeleteQueue
-      summary: Delete a queue
+      summary: Amazon SQS Delete a queue
       description: >-
         Deletes the queue specified by the QueueUrl, regardless of the
         queue's contents. When you delete a queue, any messages in the
@@ -399,7 +399,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: DeleteMessage
-      summary: Delete a message from a queue
+      summary: Amazon SQS Delete a message from a queue
       description: >-
         Deletes the specified message from the specified queue. To select
         the message to delete, use the ReceiptHandle of the message (not
@@ -446,7 +446,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: SendMessageBatch
-      summary: Send up to 10 messages to a queue in a single request
+      summary: Amazon SQS Send up to 10 messages to a queue in a single request
       description: >-
         Delivers up to ten messages to the specified queue. This is a batch
         version of SendMessage. For a FIFO queue, multiple messages within
@@ -510,7 +510,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: DeleteMessageBatch
-      summary: Delete up to 10 messages from a queue in a single request
+      summary: Amazon SQS Delete up to 10 messages from a queue in a single request
       description: >-
         Deletes up to ten messages from the specified queue. This is a
         batch version of DeleteMessage. The result of the action on each
@@ -557,7 +557,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: ChangeMessageVisibility
-      summary: Change the visibility timeout of a message
+      summary: Amazon SQS Change the visibility timeout of a message
       description: >-
         Changes the visibility timeout of a specified message in a queue
         to a new value. The default visibility timeout for a message is
@@ -610,7 +610,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: ChangeMessageVisibilityBatch
-      summary: Change the visibility timeout of multiple messages
+      summary: Amazon SQS Change the visibility timeout of multiple messages
       description: >-
         Changes the visibility timeout of multiple messages. This is a
         batch version of ChangeMessageVisibility. The result of each
@@ -665,7 +665,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     get:
       operationId: GetQueueAttributes
-      summary: Get attributes for a queue
+      summary: Amazon SQS Get attributes for a queue
       description: >-
         Gets attributes for the specified queue. To determine whether a
         queue is FIFO, you can check whether QueueName ends with the
@@ -726,7 +726,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: SetQueueAttributes
-      summary: Set attributes for a queue
+      summary: Amazon SQS Set attributes for a queue
       description: >-
         Sets the value of one or more queue attributes, like a policy.
         When you change a queue's attributes, the change can take up to
@@ -789,7 +789,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: PurgeQueue
-      summary: Purge all messages from a queue
+      summary: Amazon SQS Purge all messages from a queue
       description: >-
         Deletes all messages in a queue. When you use the PurgeQueue
         action, you cannot retrieve any messages deleted from a queue.
@@ -831,7 +831,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     get:
       operationId: ListQueueTags
-      summary: List all tags for a queue
+      summary: Amazon SQS List all tags for a queue
       description: >-
         List all cost allocation tags added to the specified Amazon SQS
         queue.
@@ -860,7 +860,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: TagQueue
-      summary: Add tags to a queue
+      summary: Amazon SQS Add tags to a queue
       description: >-
         Add cost allocation tags to the specified Amazon SQS queue. Tags
         are key-value pairs. For a full list of tag restrictions, see
@@ -905,7 +905,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: UntagQueue
-      summary: Remove tags from a queue
+      summary: Amazon SQS Remove tags from a queue
       description: >-
         Remove cost allocation tags from the specified Amazon SQS queue.
       tags:
@@ -940,7 +940,7 @@ paths:
   /queues:
     get:
       operationId: ListQueues
-      summary: List all queues in the account
+      summary: Amazon SQS List all queues in the account
       description: >-
         Returns a list of your queues in the current region. The response
         includes a maximum of 1,000 results. If you specify a value for
@@ -1005,7 +1005,7 @@ paths:
   /queue-url:
     get:
       operationId: GetQueueUrl
-      summary: Get the URL for a queue
+      summary: Amazon SQS Get the URL for a queue
       description: >-
         Returns the URL of an existing Amazon SQS queue. To access a
         queue that belongs to another AWS account, use the
@@ -1055,7 +1055,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     get:
       operationId: ListDeadLetterSourceQueues
-      summary: List queues that have this queue as a dead-letter queue
+      summary: Amazon SQS List queues that have this queue as a dead-letter queue
       description: >-
         Returns a list of your queues that have the RedrivePolicy queue
         attribute configured with a dead-letter queue.
@@ -1100,7 +1100,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: StartMessageMoveTask
-      summary: Start an asynchronous task to move messages
+      summary: Amazon SQS Start an asynchronous task to move messages
       description: >-
         Starts an asynchronous task to move messages from a specified
         source queue to a specified destination queue. This action is
@@ -1155,7 +1155,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     get:
       operationId: ListMessageMoveTasks
-      summary: List message move tasks
+      summary: Amazon SQS List message move tasks
       description: >-
         Gets the most recent message movement tasks (up to 10) under a
         specific source queue.
@@ -1195,7 +1195,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: CancelMessageMoveTask
-      summary: Cancel a message move task
+      summary: Amazon SQS Cancel a message move task
       description: >-
         Cancels a specified message movement task. A message movement
         can only be cancelled when the current status is RUNNING.
@@ -1238,7 +1238,7 @@ paths:
       - $ref: '#/components/parameters/QueueName'
     post:
       operationId: AddPermission
-      summary: Add a permission to a queue
+      summary: Amazon SQS Add a permission to a queue
       description: >-
         Adds a permission to a queue for a specific principal. This
         allows sharing access to the queue. When you create a queue, you
@@ -1295,7 +1295,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: RemovePermission
-      summary: Remove a permission from a queue
+      summary: Amazon SQS Remove a permission from a queue
       description: >-
         Revokes any permissions in the queue policy that matches the
         specified Label parameter.
