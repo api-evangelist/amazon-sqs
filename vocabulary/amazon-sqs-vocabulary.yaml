@@ -1,0 +1,10 @@
+name: amazon-sqs API Vocabulary
+provider: amazon-sqs
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 23
+schemas: 19
+tags:
+- Messages
+- Permissions
+- Queues

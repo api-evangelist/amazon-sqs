@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BatchResultErrorEntry",
+  "type": "object",
+  "description": "A batch result error entry",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The Id of the entry that caused the error"
+    },
+    "Code": {
+      "type": "string",
+      "description": "An error code representing the type of error"
+    },
+    "Message": {
+      "type": "string",
+      "description": "A message explaining the error"
+    },
+    "SenderFault": {
+      "type": "boolean",
+      "description": "Specifies whether the error happened due to the caller of the batch API action"
+    }
+  }
+}
