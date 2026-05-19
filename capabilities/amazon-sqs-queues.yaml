@@ -1,0 +1,415 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon SQS Amazon Simple Queue Service (SQS) API — Queues
+  description: 'Amazon SQS Amazon Simple Queue Service (SQS) API — Queues. 8 operations. Lead operation: Amazon Sqs Create
+    a New Sqs Queue. Self-contained Naftiko capability covering one Amazon Sqs business surface.'
+  tags:
+  - Amazon Sqs
+  - Queues
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_SQS_API_KEY: AMAZON_SQS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-sqs-queues
+    baseUri: https://sqs.{region}.amazonaws.com
+    description: Amazon SQS Amazon Simple Queue Service (SQS) API — Queues business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: root
+      path: /
+      operations:
+      - name: createqueue
+        method: POST
+        description: Amazon Sqs Create a New Sqs Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: queue-url
+      path: /queue-url
+      operations:
+      - name: getqueueurl
+        method: GET
+        description: Amazon Sqs Get the Url for a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: QueueName
+          in: query
+          type: string
+          description: The name of the queue
+          required: true
+        - name: QueueOwnerAWSAccountId
+          in: query
+          type: string
+          description: The account ID of the account that created the queue.
+    - name: queues
+      path: /queues
+      operations:
+      - name: listqueues
+        method: GET
+        description: Amazon Sqs List All Queues in the Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: QueueNamePrefix
+          in: query
+          type: string
+          description: A string to use for filtering the list results. Only those queues whose name begins with the specified
+            string are returned.
+        - name: MaxResults
+          in: query
+          type: integer
+          description: Maximum number of results to include in the response. Value range is 1 to 1000.
+        - name: NextToken
+          in: query
+          type: string
+          description: Pagination token to request the next set of results.
+    - name: accountId-queueName
+      path: /{accountId}/{queueName}
+      operations:
+      - name: deletequeue
+        method: DELETE
+        description: Amazon Sqs Delete a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+    - name: accountId-queueName-attributes
+      path: /{accountId}/{queueName}/attributes
+      operations:
+      - name: getqueueattributes
+        method: GET
+        description: Amazon Sqs Get Attributes for a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: AttributeName.1
+          in: query
+          type: string
+          description: An attribute name to retrieve information for.
+      - name: setqueueattributes
+        method: POST
+        description: Amazon Sqs Set Attributes for a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-dead-letter-source-queues
+      path: /{accountId}/{queueName}/dead-letter-source-queues
+      operations:
+      - name: listdeadlettersourcequeues
+        method: GET
+        description: Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: MaxResults
+          in: query
+          type: integer
+          description: Maximum number of results to include in the response
+        - name: NextToken
+          in: query
+          type: string
+          description: Pagination token to request the next set of results
+    - name: accountId-queueName-purge
+      path: /{accountId}/{queueName}/purge
+      operations:
+      - name: purgequeue
+        method: POST
+        description: Amazon Sqs Purge All Messages From a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_SQS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-sqs-queues-rest
+    port: 8080
+    description: REST adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Queues. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1
+      name: root
+      description: REST surface for root.
+      operations:
+      - method: POST
+        name: createqueue
+        description: Amazon Sqs Create a New Sqs Queue
+        call: amazon-sqs-queues.createqueue
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/queue-url
+      name: queue-url
+      description: REST surface for queue-url.
+      operations:
+      - method: GET
+        name: getqueueurl
+        description: Amazon Sqs Get the Url for a Queue
+        call: amazon-sqs-queues.getqueueurl
+        with:
+          Action: rest.Action
+          QueueName: rest.QueueName
+          QueueOwnerAWSAccountId: rest.QueueOwnerAWSAccountId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/queues
+      name: queues
+      description: REST surface for queues.
+      operations:
+      - method: GET
+        name: listqueues
+        description: Amazon Sqs List All Queues in the Account
+        call: amazon-sqs-queues.listqueues
+        with:
+          Action: rest.Action
+          QueueNamePrefix: rest.QueueNamePrefix
+          MaxResults: rest.MaxResults
+          NextToken: rest.NextToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}
+      name: accountid-queuename
+      description: REST surface for accountId-queueName.
+      operations:
+      - method: DELETE
+        name: deletequeue
+        description: Amazon Sqs Delete a Queue
+        call: amazon-sqs-queues.deletequeue
+        with:
+          Action: rest.Action
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/attributes
+      name: accountid-queuename-attributes
+      description: REST surface for accountId-queueName-attributes.
+      operations:
+      - method: GET
+        name: getqueueattributes
+        description: Amazon Sqs Get Attributes for a Queue
+        call: amazon-sqs-queues.getqueueattributes
+        with:
+          Action: rest.Action
+          AttributeName.1: rest.AttributeName.1
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: setqueueattributes
+        description: Amazon Sqs Set Attributes for a Queue
+        call: amazon-sqs-queues.setqueueattributes
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/dead-letter-source-queues
+      name: accountid-queuename-dead-letter-source-queues
+      description: REST surface for accountId-queueName-dead-letter-source-queues.
+      operations:
+      - method: GET
+        name: listdeadlettersourcequeues
+        description: Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue
+        call: amazon-sqs-queues.listdeadlettersourcequeues
+        with:
+          Action: rest.Action
+          MaxResults: rest.MaxResults
+          NextToken: rest.NextToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/purge
+      name: accountid-queuename-purge
+      description: REST surface for accountId-queueName-purge.
+      operations:
+      - method: POST
+        name: purgequeue
+        description: Amazon Sqs Purge All Messages From a Queue
+        call: amazon-sqs-queues.purgequeue
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-sqs-queues-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Queues. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: amazon-sqs-create-new-sqs
+      description: Amazon Sqs Create a New Sqs Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-queues.createqueue
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-get-url-queue
+      description: Amazon Sqs Get the Url for a Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-queues.getqueueurl
+      with:
+        Action: tools.Action
+        QueueName: tools.QueueName
+        QueueOwnerAWSAccountId: tools.QueueOwnerAWSAccountId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-list-all-queues
+      description: Amazon Sqs List All Queues in the Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-queues.listqueues
+      with:
+        Action: tools.Action
+        QueueNamePrefix: tools.QueueNamePrefix
+        MaxResults: tools.MaxResults
+        NextToken: tools.NextToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-delete-queue
+      description: Amazon Sqs Delete a Queue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-sqs-queues.deletequeue
+      with:
+        Action: tools.Action
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-get-attributes-queue
+      description: Amazon Sqs Get Attributes for a Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-queues.getqueueattributes
+      with:
+        Action: tools.Action
+        AttributeName.1: tools.AttributeName.1
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-set-attributes-queue
+      description: Amazon Sqs Set Attributes for a Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-queues.setqueueattributes
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-list-queues-that
+      description: Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-queues.listdeadlettersourcequeues
+      with:
+        Action: tools.Action
+        MaxResults: tools.MaxResults
+        NextToken: tools.NextToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-purge-all-messages
+      description: Amazon Sqs Purge All Messages From a Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-queues.purgequeue
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

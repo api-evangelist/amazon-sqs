@@ -1,0 +1,503 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon SQS Amazon Simple Queue Service (SQS) API — Messages
+  description: 'Amazon SQS Amazon Simple Queue Service (SQS) API — Messages. 10 operations. Lead operation: Amazon Sqs Receive
+    Messages From a Queue. Self-contained Naftiko capability covering one Amazon Sqs business surface.'
+  tags:
+  - Amazon Sqs
+  - Messages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_SQS_API_KEY: AMAZON_SQS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-sqs-messages
+    baseUri: https://sqs.{region}.amazonaws.com
+    description: Amazon SQS Amazon Simple Queue Service (SQS) API — Messages business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: accountId-queueName
+      path: /{accountId}/{queueName}
+      operations:
+      - name: receivemessage
+        method: GET
+        description: Amazon Sqs Receive Messages From a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: MaxNumberOfMessages
+          in: query
+          type: integer
+          description: The maximum number of messages to return. Amazon SQS never returns more messages than this value. Valid
+            values are 1 to 10. Default is 1.
+        - name: VisibilityTimeout
+          in: query
+          type: integer
+          description: The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after
+            being retrieved by a ReceiveMessage request.
+        - name: WaitTimeSeconds
+          in: query
+          type: integer
+          description: The duration (in seconds) for which the call waits for a message to arrive in the queue before returning.
+            If a message is available, the call returns sooner tha
+        - name: AttributeName.1
+          in: query
+          type: string
+          description: A list of attributes that need to be returned along with each message.
+        - name: MessageAttributeName.1
+          in: query
+          type: string
+          description: The name of the message attribute to include. Use All or .* to return all message attributes.
+        - name: MessageSystemAttributeName.1
+          in: query
+          type: string
+          description: The name of the message system attribute to include.
+        - name: ReceiveRequestAttemptId
+          in: query
+          type: string
+          description: Used for FIFO queues. The token used for deduplication of ReceiveMessage calls.
+      - name: sendmessage
+        method: POST
+        description: Amazon Sqs Send a Message to a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-cancel-message-move-task
+      path: /{accountId}/{queueName}/cancel-message-move-task
+      operations:
+      - name: cancelmessagemovetask
+        method: POST
+        description: Amazon Sqs Cancel a Message Move Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-change-message-visibility
+      path: /{accountId}/{queueName}/change-message-visibility
+      operations:
+      - name: changemessagevisibility
+        method: POST
+        description: Amazon Sqs Change the Visibility Timeout of a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-change-message-visibility-batch
+      path: /{accountId}/{queueName}/change-message-visibility-batch
+      operations:
+      - name: changemessagevisibilitybatch
+        method: POST
+        description: Amazon Sqs Change the Visibility Timeout of Multiple Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-delete-message
+      path: /{accountId}/{queueName}/delete-message
+      operations:
+      - name: deletemessage
+        method: POST
+        description: Amazon Sqs Delete a Message From a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-delete-message-batch
+      path: /{accountId}/{queueName}/delete-message-batch
+      operations:
+      - name: deletemessagebatch
+        method: POST
+        description: Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-list-message-move-tasks
+      path: /{accountId}/{queueName}/list-message-move-tasks
+      operations:
+      - name: listmessagemovetasks
+        method: GET
+        description: Amazon Sqs List Message Move Tasks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: MaxResults
+          in: query
+          type: integer
+          description: The maximum number of results to include in the response
+    - name: accountId-queueName-send-message-batch
+      path: /{accountId}/{queueName}/send-message-batch
+      operations:
+      - name: sendmessagebatch
+        method: POST
+        description: Amazon Sqs Send up to 10 Messages to a Queue in a Single Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accountId-queueName-start-message-move-task
+      path: /{accountId}/{queueName}/start-message-move-task
+      operations:
+      - name: startmessagemovetask
+        method: POST
+        description: Amazon Sqs Start an Asynchronous Task to Move Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_SQS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-sqs-messages-rest
+    port: 8080
+    description: REST adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Messages. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/{accountid}/{queuename}
+      name: accountid-queuename
+      description: REST surface for accountId-queueName.
+      operations:
+      - method: GET
+        name: receivemessage
+        description: Amazon Sqs Receive Messages From a Queue
+        call: amazon-sqs-messages.receivemessage
+        with:
+          Action: rest.Action
+          MaxNumberOfMessages: rest.MaxNumberOfMessages
+          VisibilityTimeout: rest.VisibilityTimeout
+          WaitTimeSeconds: rest.WaitTimeSeconds
+          AttributeName.1: rest.AttributeName.1
+          MessageAttributeName.1: rest.MessageAttributeName.1
+          MessageSystemAttributeName.1: rest.MessageSystemAttributeName.1
+          ReceiveRequestAttemptId: rest.ReceiveRequestAttemptId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: sendmessage
+        description: Amazon Sqs Send a Message to a Queue
+        call: amazon-sqs-messages.sendmessage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/cancel-message-move-task
+      name: accountid-queuename-cancel-message-move-task
+      description: REST surface for accountId-queueName-cancel-message-move-task.
+      operations:
+      - method: POST
+        name: cancelmessagemovetask
+        description: Amazon Sqs Cancel a Message Move Task
+        call: amazon-sqs-messages.cancelmessagemovetask
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/change-message-visibility
+      name: accountid-queuename-change-message-visibility
+      description: REST surface for accountId-queueName-change-message-visibility.
+      operations:
+      - method: POST
+        name: changemessagevisibility
+        description: Amazon Sqs Change the Visibility Timeout of a Message
+        call: amazon-sqs-messages.changemessagevisibility
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/change-message-visibility-batch
+      name: accountid-queuename-change-message-visibility-batch
+      description: REST surface for accountId-queueName-change-message-visibility-batch.
+      operations:
+      - method: POST
+        name: changemessagevisibilitybatch
+        description: Amazon Sqs Change the Visibility Timeout of Multiple Messages
+        call: amazon-sqs-messages.changemessagevisibilitybatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/delete-message
+      name: accountid-queuename-delete-message
+      description: REST surface for accountId-queueName-delete-message.
+      operations:
+      - method: POST
+        name: deletemessage
+        description: Amazon Sqs Delete a Message From a Queue
+        call: amazon-sqs-messages.deletemessage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/delete-message-batch
+      name: accountid-queuename-delete-message-batch
+      description: REST surface for accountId-queueName-delete-message-batch.
+      operations:
+      - method: POST
+        name: deletemessagebatch
+        description: Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request
+        call: amazon-sqs-messages.deletemessagebatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/list-message-move-tasks
+      name: accountid-queuename-list-message-move-tasks
+      description: REST surface for accountId-queueName-list-message-move-tasks.
+      operations:
+      - method: GET
+        name: listmessagemovetasks
+        description: Amazon Sqs List Message Move Tasks
+        call: amazon-sqs-messages.listmessagemovetasks
+        with:
+          Action: rest.Action
+          MaxResults: rest.MaxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/send-message-batch
+      name: accountid-queuename-send-message-batch
+      description: REST surface for accountId-queueName-send-message-batch.
+      operations:
+      - method: POST
+        name: sendmessagebatch
+        description: Amazon Sqs Send up to 10 Messages to a Queue in a Single Request
+        call: amazon-sqs-messages.sendmessagebatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{accountid}/{queuename}/start-message-move-task
+      name: accountid-queuename-start-message-move-task
+      description: REST surface for accountId-queueName-start-message-move-task.
+      operations:
+      - method: POST
+        name: startmessagemovetask
+        description: Amazon Sqs Start an Asynchronous Task to Move Messages
+        call: amazon-sqs-messages.startmessagemovetask
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-sqs-messages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Messages. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: amazon-sqs-receive-messages-queue
+      description: Amazon Sqs Receive Messages From a Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-messages.receivemessage
+      with:
+        Action: tools.Action
+        MaxNumberOfMessages: tools.MaxNumberOfMessages
+        VisibilityTimeout: tools.VisibilityTimeout
+        WaitTimeSeconds: tools.WaitTimeSeconds
+        AttributeName.1: tools.AttributeName.1
+        MessageAttributeName.1: tools.MessageAttributeName.1
+        MessageSystemAttributeName.1: tools.MessageSystemAttributeName.1
+        ReceiveRequestAttemptId: tools.ReceiveRequestAttemptId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-send-message-queue
+      description: Amazon Sqs Send a Message to a Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.sendmessage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-cancel-message-move
+      description: Amazon Sqs Cancel a Message Move Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.cancelmessagemovetask
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-change-visibility-timeout
+      description: Amazon Sqs Change the Visibility Timeout of a Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.changemessagevisibility
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-change-visibility-timeout-2
+      description: Amazon Sqs Change the Visibility Timeout of Multiple Messages
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.changemessagevisibilitybatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-delete-message-queue
+      description: Amazon Sqs Delete a Message From a Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.deletemessage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-delete-up-10
+      description: Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.deletemessagebatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-list-message-move
+      description: Amazon Sqs List Message Move Tasks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-sqs-messages.listmessagemovetasks
+      with:
+        Action: tools.Action
+        MaxResults: tools.MaxResults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-send-up-10
+      description: Amazon Sqs Send up to 10 Messages to a Queue in a Single Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.sendmessagebatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-start-asynchronous-task
+      description: Amazon Sqs Start an Asynchronous Task to Move Messages
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-messages.startmessagemovetask
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

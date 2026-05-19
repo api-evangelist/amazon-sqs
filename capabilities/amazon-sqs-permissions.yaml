@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon SQS Amazon Simple Queue Service (SQS) API — Permissions
+  description: 'Amazon SQS Amazon Simple Queue Service (SQS) API — Permissions. 2 operations. Lead operation: Amazon Sqs Add
+    a Permission to a Queue. Self-contained Naftiko capability covering one Amazon Sqs business surface.'
+  tags:
+  - Amazon Sqs
+  - Permissions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_SQS_API_KEY: AMAZON_SQS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-sqs-permissions
+    baseUri: https://sqs.{region}.amazonaws.com
+    description: Amazon SQS Amazon Simple Queue Service (SQS) API — Permissions business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: accountId-queueName-permissions
+      path: /{accountId}/{queueName}/permissions
+      operations:
+      - name: addpermission
+        method: POST
+        description: Amazon Sqs Add a Permission to a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: removepermission
+        method: DELETE
+        description: Amazon Sqs Remove a Permission From a Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Action
+          in: query
+          type: string
+          required: true
+        - name: Label
+          in: query
+          type: string
+          description: The identification of the permission to remove. This is the label added using the AddPermission action.
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_SQS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-sqs-permissions-rest
+    port: 8080
+    description: REST adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Permissions. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/{accountid}/{queuename}/permissions
+      name: accountid-queuename-permissions
+      description: REST surface for accountId-queueName-permissions.
+      operations:
+      - method: POST
+        name: addpermission
+        description: Amazon Sqs Add a Permission to a Queue
+        call: amazon-sqs-permissions.addpermission
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removepermission
+        description: Amazon Sqs Remove a Permission From a Queue
+        call: amazon-sqs-permissions.removepermission
+        with:
+          Action: rest.Action
+          Label: rest.Label
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-sqs-permissions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon SQS Amazon Simple Queue Service (SQS) API — Permissions. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: amazon-sqs-add-permission-queue
+      description: Amazon Sqs Add a Permission to a Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sqs-permissions.addpermission
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sqs-remove-permission-queue
+      description: Amazon Sqs Remove a Permission From a Queue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-sqs-permissions.removepermission
+      with:
+        Action: tools.Action
+        Label: tools.Label
+      outputParameters:
+      - type: object
+        mapping: $.
