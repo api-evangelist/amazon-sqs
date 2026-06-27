@@ -42,7 +42,7 @@ apis:
         url: https://aws.amazon.com/sqs/faqs/
       - type: BestPractices
         url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
-      - type: SDK
+      - type: SDKs
         url: https://aws.amazon.com/tools/
       - type: Tutorials
         url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
