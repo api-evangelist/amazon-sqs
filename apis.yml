@@ -67,6 +67,14 @@ apis:
         url: https://aws.amazon.com/contact-us/
         email: ''
 common:
+  - type: TrustCenter
+    url: security/amazon-sqs-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/amazon-sqs-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-sqs-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-sqs-authentication.yml
   - type: Blog
     url: https://aws.amazon.com/blogs/compute/
   - type: Console

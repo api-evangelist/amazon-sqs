@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/amazon-sqs-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: aws_sig_v4
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: AWS Signature Version 4 authentication. All SQS API requests must be signed using
+    AWS credentials (Access Key ID and Secret Access Key). The signature is included in the
+    Authorization header.
+  sources:
+  - openapi/amazon-sqs-openapi.yml
