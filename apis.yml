@@ -67,6 +67,8 @@ apis:
         url: https://aws.amazon.com/contact-us/
         email: ''
 common:
+  - type: AgenticAccess
+    url: agentic-access/amazon-sqs-agentic-access.yml
   - type: TrustCenter
     url: security/amazon-sqs-trust-center.yml
   - type: VulnerabilityDisclosure
