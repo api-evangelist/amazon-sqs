@@ -1,0 +1,233 @@
+openapi: 3.1.0
+info:
+  title: Amazon SQS Amazon Simple Queue Service (SQS) Messages Permissions API
+  description: 'Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.'
+  version: '2012-11-05'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+- url: https://sqs.{region}.amazonaws.com
+  description: Amazon SQS Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - af-south-1
+      - ap-east-1
+      - ap-south-1
+      - ap-south-2
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-southeast-3
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-northeast-3
+      - ca-central-1
+      - eu-central-1
+      - eu-central-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-south-1
+      - eu-south-2
+      - eu-north-1
+      - me-south-1
+      - me-central-1
+      - sa-east-1
+security:
+- aws_sig_v4: []
+tags:
+- name: Permissions
+  description: Operations for managing queue access permissions
+paths:
+  /{accountId}/{queueName}/permissions:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: AddPermission
+      summary: Amazon Sqs Add a Permission to a Queue
+      description: Adds a permission to a queue for a specific principal. This allows sharing access to the queue. When you create a queue, you have full control access rights for the queue.
+      tags:
+      - Permissions
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - Action
+              - Label
+              - AWSAccountId.1
+              - ActionName.1
+              properties:
+                Action:
+                  type: string
+                  enum:
+                  - AddPermission
+                Label:
+                  type: string
+                  description: The unique identification of the permission you are setting.
+                AWSAccountId.1:
+                  type: string
+                  description: The account number of the principal to grant permission to
+                ActionName.1:
+                  type: string
+                  description: The action the client wants to allow for the specified principal
+                  enum:
+                  - SendMessage
+                  - ReceiveMessage
+                  - DeleteMessage
+                  - ChangeMessageVisibility
+                  - GetQueueAttributes
+                  - GetQueueUrl
+                  - '*'
+      responses:
+        '200':
+          description: Permission added successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: RemovePermission
+      summary: Amazon Sqs Remove a Permission From a Queue
+      description: Revokes any permissions in the queue policy that matches the specified Label parameter.
+      tags:
+      - Permissions
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - RemovePermission
+      - name: Label
+        in: query
+        required: true
+        description: The identification of the permission to remove. This is the label added using the AddPermission action.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission removed successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          type: object
+          properties:
+            Type:
+              type: string
+              description: The error type (Sender or Receiver)
+              enum:
+              - Sender
+              - Receiver
+            Code:
+              type: string
+              description: The error code
+              examples:
+              - AWS.SimpleQueueService.NonExistentQueue
+              - AWS.SimpleQueueService.QueueDeletedRecently
+              - InvalidParameterValue
+              - MissingParameter
+              - QueueAlreadyExists
+              - OverLimit
+              - AccessDenied
+              - InvalidAddress
+              - InvalidAction
+              - InvalidAttributeName
+              - InvalidAttributeValue
+              - InvalidBatchEntryId
+              - TooManyEntriesInBatchRequest
+              - BatchEntryIdsNotDistinct
+              - EmptyBatchRequest
+              - BatchRequestTooLong
+              - UnsupportedOperation
+              - PurgeQueueInProgress
+              - MessageNotInflight
+              - ReceiptHandleIsInvalid
+              - ResourceNotFoundException
+            Message:
+              type: string
+              description: A human-readable description of the error
+          example: example_value
+        RequestId:
+          type: string
+          description: The unique request identifier
+          example: '500123'
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
+  securitySchemes:
+    aws_sig_v4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication. All SQS API requests must be signed using AWS credentials (Access Key ID and Secret Access Key). The signature is included in the Authorization header.
+externalDocs:
+  description: Amazon SQS API Reference
+  url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/

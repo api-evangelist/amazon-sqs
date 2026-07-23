@@ -1,0 +1,643 @@
+openapi: 3.1.0
+info:
+  title: Amazon SQS Amazon Simple Queue Service (SQS) Messages Queues API
+  description: 'Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.'
+  version: '2012-11-05'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+- url: https://sqs.{region}.amazonaws.com
+  description: Amazon SQS Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - af-south-1
+      - ap-east-1
+      - ap-south-1
+      - ap-south-2
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-southeast-3
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-northeast-3
+      - ca-central-1
+      - eu-central-1
+      - eu-central-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-south-1
+      - eu-south-2
+      - eu-north-1
+      - me-south-1
+      - me-central-1
+      - sa-east-1
+security:
+- aws_sig_v4: []
+tags:
+- name: Queues
+  description: Operations for creating, managing, and deleting SQS queues
+paths:
+  /:
+    post:
+      operationId: CreateQueue
+      summary: Amazon Sqs Create a New Sqs Queue
+      description: Creates a new standard or FIFO queue. You can pass one or more attributes in the request. If you do not provide a value for an attribute, the queue is created with the default value for the attribute. A FIFO queue name must end with the .fifo suffix.
+      tags:
+      - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - Action
+              - QueueName
+              properties:
+                Action:
+                  type: string
+                  enum:
+                  - CreateQueue
+                QueueName:
+                  type: string
+                  description: The name of the new queue. A queue name can have up to 80 characters. Valid values are alphanumeric characters, hyphens, and underscores. A FIFO queue name must end with the .fifo suffix.
+                  maxLength: 80
+                Attribute.1.Name:
+                  type: string
+                  description: The name of the first attribute
+                  enum:
+                  - DelaySeconds
+                  - MaximumMessageSize
+                  - MessageRetentionPeriod
+                  - Policy
+                  - ReceiveMessageWaitTimeSeconds
+                  - VisibilityTimeout
+                  - RedrivePolicy
+                  - RedriveAllowPolicy
+                  - FifoQueue
+                  - ContentBasedDeduplication
+                  - DeduplicationScope
+                  - FifoThroughputLimit
+                  - KmsMasterKeyId
+                  - KmsDataKeyReusePeriodSeconds
+                  - SqsManagedSseEnabled
+                Attribute.1.Value:
+                  type: string
+                  description: The value of the first attribute
+                Tag.1.Key:
+                  type: string
+                  description: The key of the first tag
+                Tag.1.Value:
+                  type: string
+                  description: The value of the first tag
+      responses:
+        '200':
+          description: Queue created successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateQueueResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQueueResponse'
+        '400':
+          description: The request was rejected. Possible reasons include a queue with the same name already existing with different attributes.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{accountId}/{queueName}:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - $ref: '#/components/parameters/QueueName'
+    delete:
+      operationId: DeleteQueue
+      summary: Amazon Sqs Delete a Queue
+      description: Deletes the queue specified by the QueueUrl, regardless of the queue's contents. When you delete a queue, any messages in the queue are no longer available. When you delete a queue, the deletion process takes up to 60 seconds.
+      tags:
+      - Queues
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - DeleteQueue
+      responses:
+        '200':
+          description: Queue deleted successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{accountId}/{queueName}/attributes:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: GetQueueAttributes
+      summary: Amazon Sqs Get Attributes for a Queue
+      description: Gets attributes for the specified queue. To determine whether a queue is FIFO, you can check whether QueueName ends with the .fifo suffix.
+      tags:
+      - Queues
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - GetQueueAttributes
+      - name: AttributeName.1
+        in: query
+        description: An attribute name to retrieve information for.
+        schema:
+          type: string
+          enum:
+          - All
+          - ApproximateNumberOfMessages
+          - ApproximateNumberOfMessagesDelayed
+          - ApproximateNumberOfMessagesNotVisible
+          - CreatedTimestamp
+          - DelaySeconds
+          - LastModifiedTimestamp
+          - MaximumMessageSize
+          - MessageRetentionPeriod
+          - Policy
+          - QueueArn
+          - ReceiveMessageWaitTimeSeconds
+          - RedrivePolicy
+          - RedriveAllowPolicy
+          - VisibilityTimeout
+          - FifoQueue
+          - ContentBasedDeduplication
+          - KmsMasterKeyId
+          - KmsDataKeyReusePeriodSeconds
+          - DeduplicationScope
+          - FifoThroughputLimit
+          - SqsManagedSseEnabled
+      responses:
+        '200':
+          description: Queue attributes retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetQueueAttributesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetQueueAttributesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: SetQueueAttributes
+      summary: Amazon Sqs Set Attributes for a Queue
+      description: Sets the value of one or more queue attributes, like a policy. When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to propagate throughout the Amazon SQS system.
+      tags:
+      - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - Action
+              - Attribute.1.Name
+              - Attribute.1.Value
+              properties:
+                Action:
+                  type: string
+                  enum:
+                  - SetQueueAttributes
+                Attribute.1.Name:
+                  type: string
+                  description: The name of the attribute to set
+                  enum:
+                  - DelaySeconds
+                  - MaximumMessageSize
+                  - MessageRetentionPeriod
+                  - Policy
+                  - ReceiveMessageWaitTimeSeconds
+                  - VisibilityTimeout
+                  - RedrivePolicy
+                  - RedriveAllowPolicy
+                  - ContentBasedDeduplication
+                  - DeduplicationScope
+                  - FifoThroughputLimit
+                  - KmsMasterKeyId
+                  - KmsDataKeyReusePeriodSeconds
+                  - SqsManagedSseEnabled
+                Attribute.1.Value:
+                  type: string
+                  description: The value of the attribute to set
+      responses:
+        '200':
+          description: Queue attributes set successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{accountId}/{queueName}/purge:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - $ref: '#/components/parameters/QueueName'
+    post:
+      operationId: PurgeQueue
+      summary: Amazon Sqs Purge All Messages From a Queue
+      description: Deletes all messages in a queue. When you use the PurgeQueue action, you cannot retrieve any messages deleted from a queue. The message deletion process takes up to 60 seconds. You cannot purge a queue more than once every 60 seconds.
+      tags:
+      - Queues
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - Action
+              properties:
+                Action:
+                  type: string
+                  enum:
+                  - PurgeQueue
+      responses:
+        '200':
+          description: Queue purged successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '403':
+          description: PurgeQueue is in progress. Only one PurgeQueue action on a queue is allowed every 60 seconds.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queues:
+    get:
+      operationId: ListQueues
+      summary: Amazon Sqs List All Queues in the Account
+      description: Returns a list of your queues in the current region. The response includes a maximum of 1,000 results. If you specify a value for the optional QueueNamePrefix parameter, only queues with a name that begins with the specified value are returned. The listQueues methods supports pagination.
+      tags:
+      - Queues
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ListQueues
+      - name: QueueNamePrefix
+        in: query
+        description: A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned.
+        schema:
+          type: string
+      - name: MaxResults
+        in: query
+        description: Maximum number of results to include in the response. Value range is 1 to 1000.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+      - name: NextToken
+        in: query
+        description: Pagination token to request the next set of results.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of queues retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListQueuesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListQueuesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queue-url:
+    get:
+      operationId: GetQueueUrl
+      summary: Amazon Sqs Get the Url for a Queue
+      description: Returns the URL of an existing Amazon SQS queue. To access a queue that belongs to another AWS account, use the QueueOwnerAWSAccountId parameter to specify the account ID of the queue's owner.
+      tags:
+      - Queues
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - GetQueueUrl
+      - name: QueueName
+        in: query
+        required: true
+        description: The name of the queue
+        schema:
+          type: string
+      - name: QueueOwnerAWSAccountId
+        in: query
+        description: The account ID of the account that created the queue.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Queue URL retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetQueueUrlResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetQueueUrlResponse'
+        '400':
+          description: Queue does not exist
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{accountId}/{queueName}/dead-letter-source-queues:
+    parameters:
+    - $ref: '#/components/parameters/AccountId'
+    - $ref: '#/components/parameters/QueueName'
+    get:
+      operationId: ListDeadLetterSourceQueues
+      summary: Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue
+      description: Returns a list of your queues that have the RedrivePolicy queue attribute configured with a dead-letter queue.
+      tags:
+      - Queues
+      parameters:
+      - name: Action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ListDeadLetterSourceQueues
+      - name: MaxResults
+        in: query
+        description: Maximum number of results to include in the response
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+      - name: NextToken
+        in: query
+        description: Pagination token to request the next set of results
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Dead-letter source queues retrieved successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListDeadLetterSourceQueuesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GetQueueUrlResponse:
+      type: object
+      properties:
+        GetQueueUrlResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: string
+              description: The URL of the queue
+              format: uri
+          example: https://www.example.com
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    GetQueueAttributesResponse:
+      type: object
+      properties:
+        GetQueueAttributesResult:
+          type: object
+          properties:
+            Attribute:
+              type: array
+              items:
+                type: object
+                properties:
+                  Name:
+                    type: string
+                  Value:
+                    type: string
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          type: object
+          properties:
+            Type:
+              type: string
+              description: The error type (Sender or Receiver)
+              enum:
+              - Sender
+              - Receiver
+            Code:
+              type: string
+              description: The error code
+              examples:
+              - AWS.SimpleQueueService.NonExistentQueue
+              - AWS.SimpleQueueService.QueueDeletedRecently
+              - InvalidParameterValue
+              - MissingParameter
+              - QueueAlreadyExists
+              - OverLimit
+              - AccessDenied
+              - InvalidAddress
+              - InvalidAction
+              - InvalidAttributeName
+              - InvalidAttributeValue
+              - InvalidBatchEntryId
+              - TooManyEntriesInBatchRequest
+              - BatchEntryIdsNotDistinct
+              - EmptyBatchRequest
+              - BatchRequestTooLong
+              - UnsupportedOperation
+              - PurgeQueueInProgress
+              - MessageNotInflight
+              - ReceiptHandleIsInvalid
+              - ResourceNotFoundException
+            Message:
+              type: string
+              description: A human-readable description of the error
+          example: example_value
+        RequestId:
+          type: string
+          description: The unique request identifier
+          example: '500123'
+    ListQueuesResponse:
+      type: object
+      properties:
+        ListQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+              description: Pagination token for the next set of results
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
+    ListDeadLetterSourceQueuesResponse:
+      type: object
+      properties:
+        ListDeadLetterSourceQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    CreateQueueResponse:
+      type: object
+      properties:
+        CreateQueueResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: string
+              description: The URL of the created Amazon SQS queue
+              format: uri
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+  parameters:
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
+  securitySchemes:
+    aws_sig_v4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication. All SQS API requests must be signed using AWS credentials (Access Key ID and Secret Access Key). The signature is included in the Authorization header.
+externalDocs:
+  description: Amazon SQS API Reference
+  url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
