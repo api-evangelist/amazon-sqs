@@ -3,6 +3,19 @@ name: Amazon SQS
 description: >-
   Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale
   microservices, distributed systems, and serverless applications.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://raw.githubusercontent.com/api-evangelist/amazon-sqs/refs/heads/main/apis.yml
 created: '2024-01-01'
@@ -16,57 +29,189 @@ tags:
   - Microservices
   - Queue
 apis:
-  - name: Amazon SQS API
-    description: >-
-      RESTful API for Amazon Simple Queue Service operations including queue management, message sending and receiving,
-      batch operations, dead-letter queues, and access control.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://aws.amazon.com/sqs/
-    baseURL: https://sqs.{region}.amazonaws.com/
-    tags:
-      - AWS
-      - Messaging
-      - Queue
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/sqs/
-      - type: OpenAPI
-        url: openapi/amazon-sqs-openapi.yml
-      - type: APIReference
-        url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
-      - type: GettingStarted
-        url: https://aws.amazon.com/sqs/getting-started/
-      - type: Pricing
-        url: https://aws.amazon.com/sqs/pricing/
-      - type: FAQ
-        url: https://aws.amazon.com/sqs/faqs/
-      - type: BestPractices
-        url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
-      - type: SDKs
-        url: https://aws.amazon.com/tools/
-      - type: Tutorials
-        url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
-      - type: Features
-        url: https://aws.amazon.com/sqs/features/
-      - type: Security
-        url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
-      - type: Compliance
-        url: https://aws.amazon.com/compliance/services-in-scope/
-      - type: CLI
-        url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
-      - type: CodeExamples
-        url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
-      - type: RateLimits
-        url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
-      - type: Regions
-        url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
-      - type: ReleaseNotes
-        url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
-    contact:
-      - FN: AWS Support
-        url: https://aws.amazon.com/contact-us/
-        email: ''
+- aid: amazon-sqs:amazon-sqs-messages-api
+  name: Amazon SQS Messages API
+  description: Operations for sending, receiving, and deleting messages in SQS queues
+  humanURL: https://aws.amazon.com/sqs/
+  baseURL: https://sqs.{region}.amazonaws.com/
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sqs-messages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
+  - type: GettingStarted
+    url: https://aws.amazon.com/sqs/getting-started/
+  - type: Pricing
+    url: https://aws.amazon.com/sqs/pricing/
+  - type: FAQ
+    url: https://aws.amazon.com/sqs/faqs/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Tutorials
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
+  - type: Features
+    url: https://aws.amazon.com/sqs/features/
+  - type: Security
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
+  - type: Compliance
+    url: https://aws.amazon.com/compliance/services-in-scope/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
+  - type: CodeExamples
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
+  - type: RateLimits
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
+  - type: Regions
+    url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
+  - type: ReleaseNotes
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
+- aid: amazon-sqs:amazon-sqs-permissions-api
+  name: Amazon SQS Permissions API
+  description: Operations for managing queue access permissions
+  humanURL: https://aws.amazon.com/sqs/
+  baseURL: https://sqs.{region}.amazonaws.com/
+  tags:
+  - Permissions
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sqs-permissions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
+  - type: GettingStarted
+    url: https://aws.amazon.com/sqs/getting-started/
+  - type: Pricing
+    url: https://aws.amazon.com/sqs/pricing/
+  - type: FAQ
+    url: https://aws.amazon.com/sqs/faqs/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Tutorials
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
+  - type: Features
+    url: https://aws.amazon.com/sqs/features/
+  - type: Security
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
+  - type: Compliance
+    url: https://aws.amazon.com/compliance/services-in-scope/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
+  - type: CodeExamples
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
+  - type: RateLimits
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
+  - type: Regions
+    url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
+  - type: ReleaseNotes
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
+- aid: amazon-sqs:amazon-sqs-queues-api
+  name: Amazon SQS Queues API
+  description: Operations for creating, managing, and deleting SQS queues
+  humanURL: https://aws.amazon.com/sqs/
+  baseURL: https://sqs.{region}.amazonaws.com/
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sqs-queues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
+  - type: GettingStarted
+    url: https://aws.amazon.com/sqs/getting-started/
+  - type: Pricing
+    url: https://aws.amazon.com/sqs/pricing/
+  - type: FAQ
+    url: https://aws.amazon.com/sqs/faqs/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Tutorials
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
+  - type: Features
+    url: https://aws.amazon.com/sqs/features/
+  - type: Security
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
+  - type: Compliance
+    url: https://aws.amazon.com/compliance/services-in-scope/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
+  - type: CodeExamples
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
+  - type: RateLimits
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
+  - type: Regions
+    url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
+  - type: ReleaseNotes
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
+- aid: amazon-sqs:amazon-sqs-tags-api
+  name: Amazon SQS Tags API
+  description: The Tags API from Amazon SQS — 1 operation(s) for tags.
+  humanURL: https://aws.amazon.com/sqs/
+  baseURL: https://sqs.{region}.amazonaws.com/
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sqs-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/
+  - type: GettingStarted
+    url: https://aws.amazon.com/sqs/getting-started/
+  - type: Pricing
+    url: https://aws.amazon.com/sqs/pricing/
+  - type: FAQ
+    url: https://aws.amazon.com/sqs/faqs/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Tutorials
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html
+  - type: Features
+    url: https://aws.amazon.com/sqs/features/
+  - type: Security
+    url: https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html
+  - type: Compliance
+    url: https://aws.amazon.com/compliance/services-in-scope/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/sqs/
+  - type: CodeExamples
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html
+  - type: RateLimits
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html
+  - type: Regions
+    url: https://docs.aws.amazon.com/general/latest/gr/sqs-service.html
+  - type: ReleaseNotes
+    url: >-
+      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/amazon-sqs/overview
   - type: AgenticAccess
     url: agentic-access/amazon-sqs-agentic-access.yml
   - type: TrustCenter
