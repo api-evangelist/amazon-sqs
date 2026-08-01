@@ -1,0 +1,1872 @@
+{
+  "info": {
+    "_postman_id": "280d88e2-2513-4eb3-8708-54f285e9def4",
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Queues API",
+    "description": "Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T00:54:50.000Z",
+    "updatedAt": "2026-07-28T00:54:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-280d88e2-2513-4eb3-8708-54f285e9def4"
+  },
+  "item": [
+    {
+      "name": "/",
+      "item": [
+        {
+          "name": "Amazon Sqs Create a New Sqs Queue",
+          "id": "2a9a1218-84ec-4d82-83f7-60175f3e7024",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "Action",
+                  "value": "CreateQueue"
+                },
+                {
+                  "description": "(Required) The name of the new queue. A queue name can have up to 80 characters. Valid values are alphanumeric characters, hyphens, and underscores. A FIFO queue name must end with the .fifo suffix.",
+                  "key": "QueueName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The name of the first attribute",
+                  "key": "Attribute.1.Name",
+                  "value": "MessageRetentionPeriod"
+                },
+                {
+                  "description": "The value of the first attribute",
+                  "key": "Attribute.1.Value",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The key of the first tag",
+                  "key": "Tag.1.Key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The value of the first tag",
+                  "key": "Tag.1.Value",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Creates a new standard or FIFO queue. You can pass one or more attributes in the request. If you do not provide a value for an attribute, the queue is created with the default value for the attribute. A FIFO queue name must end with the .fifo suffix."
+          },
+          "response": [
+            {
+              "id": "f369a9ad-261b-419c-94fd-e3cb4a4398f5",
+              "name": "Queue created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "CreateQueue"
+                    },
+                    {
+                      "description": "(Required) The name of the new queue. A queue name can have up to 80 characters. Valid values are alphanumeric characters, hyphens, and underscores. A FIFO queue name must end with the .fifo suffix.",
+                      "key": "QueueName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the first attribute",
+                      "key": "Attribute.1.Name",
+                      "value": "MessageRetentionPeriod"
+                    },
+                    {
+                      "description": "The value of the first attribute",
+                      "key": "Attribute.1.Value",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The key of the first tag",
+                      "key": "Tag.1.Key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The value of the first tag",
+                      "key": "Tag.1.Value",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"CreateQueueResult\": {\n    \"QueueUrl\": \"<uri>\"\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-f369a9ad-261b-419c-94fd-e3cb4a4398f5"
+            },
+            {
+              "id": "4dc88f06-7ed3-43aa-93fa-b5a1caea33fd",
+              "name": "The request was rejected. Possible reasons include a queue with the same name already existing with different attributes.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "CreateQueue"
+                    },
+                    {
+                      "description": "(Required) The name of the new queue. A queue name can have up to 80 characters. Valid values are alphanumeric characters, hyphens, and underscores. A FIFO queue name must end with the .fifo suffix.",
+                      "key": "QueueName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the first attribute",
+                      "key": "Attribute.1.Name",
+                      "value": "MessageRetentionPeriod"
+                    },
+                    {
+                      "description": "The value of the first attribute",
+                      "key": "Attribute.1.Value",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The key of the first tag",
+                      "key": "Tag.1.Key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The value of the first tag",
+                      "key": "Tag.1.Value",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-4dc88f06-7ed3-43aa-93fa-b5a1caea33fd"
+            },
+            {
+              "id": "6b86c001-a862-4186-b0b4-43e62d22e0d6",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "CreateQueue"
+                    },
+                    {
+                      "description": "(Required) The name of the new queue. A queue name can have up to 80 characters. Valid values are alphanumeric characters, hyphens, and underscores. A FIFO queue name must end with the .fifo suffix.",
+                      "key": "QueueName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the first attribute",
+                      "key": "Attribute.1.Name",
+                      "value": "MessageRetentionPeriod"
+                    },
+                    {
+                      "description": "The value of the first attribute",
+                      "key": "Attribute.1.Value",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The key of the first tag",
+                      "key": "Tag.1.Key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The value of the first tag",
+                      "key": "Tag.1.Value",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-6b86c001-a862-4186-b0b4-43e62d22e0d6"
+            }
+          ],
+          "createdAt": "2026-07-28T00:54:51.000Z",
+          "updatedAt": "2026-07-28T00:54:51.000Z",
+          "uid": "35240-2a9a1218-84ec-4d82-83f7-60175f3e7024"
+        }
+      ],
+      "id": "1256837d-099c-42fc-a98d-03e418d49bd0",
+      "createdAt": "2026-07-28T00:54:51.000Z",
+      "updatedAt": "2026-07-28T00:54:51.000Z",
+      "uid": "35240-1256837d-099c-42fc-a98d-03e418d49bd0"
+    },
+    {
+      "name": "{accountId}",
+      "item": [
+        {
+          "name": "{queueName}",
+          "item": [
+            {
+              "name": "attributes",
+              "item": [
+                {
+                  "name": "Amazon Sqs Get Attributes for a Queue",
+                  "id": "31076732-a4ab-41bc-989f-a550aacc156f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/attributes?Action=GetQueueAttributes&AttributeName.1=FifoThroughputLimit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "attributes"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "GetQueueAttributes"
+                        },
+                        {
+                          "description": "An attribute name to retrieve information for.",
+                          "key": "AttributeName.1",
+                          "value": "FifoThroughputLimit"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "29b5d500-2cf1-4970-ad2f-f23c744ffe95",
+                          "key": "accountId",
+                          "value": "365205431479",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "50f9dae0-07a5-4669-879b-2554f30bbea3",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Gets attributes for the specified queue. To determine whether a queue is FIFO, you can check whether QueueName ends with the .fifo suffix."
+                  },
+                  "response": [
+                    {
+                      "id": "52744e3d-b0e6-4df6-a255-cce90559bf09",
+                      "name": "Queue attributes retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/attributes?Action=GetQueueAttributes&AttributeName.1=FifoThroughputLimit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "attributes"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "GetQueueAttributes"
+                            },
+                            {
+                              "description": "An attribute name to retrieve information for.",
+                              "key": "AttributeName.1",
+                              "value": "FifoThroughputLimit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"GetQueueAttributesResult\": {\n    \"Attribute\": [\n      {\n        \"Name\": \"<string>\",\n        \"Value\": \"<string>\"\n      },\n      {\n        \"Name\": \"<string>\",\n        \"Value\": \"<string>\"\n      }\n    ]\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-52744e3d-b0e6-4df6-a255-cce90559bf09"
+                    },
+                    {
+                      "id": "097eee25-60ba-48a9-97b2-0bc659562fa5",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/attributes?Action=GetQueueAttributes&AttributeName.1=FifoThroughputLimit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "attributes"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "GetQueueAttributes"
+                            },
+                            {
+                              "description": "An attribute name to retrieve information for.",
+                              "key": "AttributeName.1",
+                              "value": "FifoThroughputLimit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-097eee25-60ba-48a9-97b2-0bc659562fa5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-31076732-a4ab-41bc-989f-a550aacc156f"
+                },
+                {
+                  "name": "Amazon Sqs Set Attributes for a Queue",
+                  "id": "4edaaec4-d88b-4a11-80cf-feff5851f691",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "SetQueueAttributes"
+                        },
+                        {
+                          "description": "(Required) The name of the attribute to set",
+                          "key": "Attribute.1.Name",
+                          "value": "ContentBasedDeduplication"
+                        },
+                        {
+                          "description": "(Required) The value of the attribute to set",
+                          "key": "Attribute.1.Value",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/attributes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "attributes"
+                      ],
+                      "variable": [
+                        {
+                          "id": "657b3ddf-9da3-4e89-b39d-347c23696768",
+                          "key": "accountId",
+                          "value": "365205431479",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "9e2ffd01-3f54-4209-96df-b3a4e0feb06f",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Sets the value of one or more queue attributes, like a policy. When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to propagate throughout the Amazon SQS system."
+                  },
+                  "response": [
+                    {
+                      "id": "6a45036c-6233-474a-aeb5-706466040f41",
+                      "name": "Queue attributes set successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "SetQueueAttributes"
+                            },
+                            {
+                              "description": "(Required) The name of the attribute to set",
+                              "key": "Attribute.1.Name",
+                              "value": "ContentBasedDeduplication"
+                            },
+                            {
+                              "description": "(Required) The value of the attribute to set",
+                              "key": "Attribute.1.Value",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/attributes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "attributes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-6a45036c-6233-474a-aeb5-706466040f41"
+                    },
+                    {
+                      "id": "d9352f6f-4bbc-4f38-ae90-74a5074c04a7",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "SetQueueAttributes"
+                            },
+                            {
+                              "description": "(Required) The name of the attribute to set",
+                              "key": "Attribute.1.Name",
+                              "value": "ContentBasedDeduplication"
+                            },
+                            {
+                              "description": "(Required) The value of the attribute to set",
+                              "key": "Attribute.1.Value",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/attributes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "attributes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-d9352f6f-4bbc-4f38-ae90-74a5074c04a7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-4edaaec4-d88b-4a11-80cf-feff5851f691"
+                }
+              ],
+              "id": "6b491487-e14a-4a12-9006-e31e864d5bfa",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-6b491487-e14a-4a12-9006-e31e864d5bfa"
+            },
+            {
+              "name": "purge",
+              "item": [
+                {
+                  "name": "Amazon Sqs Purge All Messages From a Queue",
+                  "id": "67f21ec4-0e6c-481d-8135-547f28a0d04e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "PurgeQueue"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/purge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "purge"
+                      ],
+                      "variable": [
+                        {
+                          "id": "723273e6-d870-4a04-8d85-4b5752959e6b",
+                          "key": "accountId",
+                          "value": "365205431479",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "30565b60-f55f-4193-850a-1b8df333c412",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Deletes all messages in a queue. When you use the PurgeQueue action, you cannot retrieve any messages deleted from a queue. The message deletion process takes up to 60 seconds. You cannot purge a queue more than once every 60 seconds."
+                  },
+                  "response": [
+                    {
+                      "id": "654f57d5-dd41-413d-93a1-8ce03b78e885",
+                      "name": "Queue purged successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "PurgeQueue"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-654f57d5-dd41-413d-93a1-8ce03b78e885"
+                    },
+                    {
+                      "id": "26dbd419-907c-41c5-b83f-9966a4ab89d3",
+                      "name": "PurgeQueue is in progress. Only one PurgeQueue action on a queue is allowed every 60 seconds.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "PurgeQueue"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-26dbd419-907c-41c5-b83f-9966a4ab89d3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-67f21ec4-0e6c-481d-8135-547f28a0d04e"
+                }
+              ],
+              "id": "1f16aad2-49a4-40e4-8f04-2481d2baa1b7",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-1f16aad2-49a4-40e4-8f04-2481d2baa1b7"
+            },
+            {
+              "name": "dead-letter-source-queues",
+              "item": [
+                {
+                  "name": "Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue",
+                  "id": "73147490-a732-4e90-9010-67946aeb8935",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/dead-letter-source-queues?Action=ListDeadLetterSourceQueues&MaxResults=<integer>&NextToken=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "dead-letter-source-queues"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "ListDeadLetterSourceQueues"
+                        },
+                        {
+                          "description": "Maximum number of results to include in the response",
+                          "key": "MaxResults",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Pagination token to request the next set of results",
+                          "key": "NextToken",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "4d35cc57-300a-4364-8e80-72c5c4575ca1",
+                          "key": "accountId",
+                          "value": "365205431479",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "036dd794-295a-4dcb-b621-f7efee47a5f0",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of your queues that have the RedrivePolicy queue attribute configured with a dead-letter queue."
+                  },
+                  "response": [
+                    {
+                      "id": "a486cd0b-842c-4c61-954a-86c9b7a2d738",
+                      "name": "Dead-letter source queues retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/dead-letter-source-queues?Action=ListDeadLetterSourceQueues&MaxResults=<integer>&NextToken=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "dead-letter-source-queues"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "ListDeadLetterSourceQueues"
+                            },
+                            {
+                              "description": "Maximum number of results to include in the response",
+                              "key": "MaxResults",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Pagination token to request the next set of results",
+                              "key": "NextToken",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ListDeadLetterSourceQueuesResult>\n    <QueueUrl>(string)</QueueUrl>\n    <QueueUrl>(string)</QueueUrl>\n    <NextToken>(string)</NextToken>\n  </ListDeadLetterSourceQueuesResult>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-a486cd0b-842c-4c61-954a-86c9b7a2d738"
+                    },
+                    {
+                      "id": "cf65ea8c-9391-4355-9c93-8f15bf920fe7",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/dead-letter-source-queues?Action=ListDeadLetterSourceQueues&MaxResults=<integer>&NextToken=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "dead-letter-source-queues"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "ListDeadLetterSourceQueues"
+                            },
+                            {
+                              "description": "Maximum number of results to include in the response",
+                              "key": "MaxResults",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Pagination token to request the next set of results",
+                              "key": "NextToken",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:51.000Z",
+                      "updatedAt": "2026-07-28T00:54:51.000Z",
+                      "uid": "35240-cf65ea8c-9391-4355-9c93-8f15bf920fe7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-73147490-a732-4e90-9010-67946aeb8935"
+                }
+              ],
+              "id": "328e8e48-4c9c-4c23-89c3-52c2371f8b42",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-328e8e48-4c9c-4c23-89c3-52c2371f8b42"
+            },
+            {
+              "name": "Amazon Sqs Delete a Queue",
+              "id": "e30525db-e56b-47cf-9f47-46aa937cbd31",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:accountId/:queueName?Action=DeleteQueue",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":accountId",
+                    ":queueName"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "DeleteQueue"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "fb23cf3f-8a3d-43ca-8e88-43fd8ac1cc45",
+                      "key": "accountId",
+                      "value": "365205431479",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "id": "3595418d-077b-4b29-8d44-fd6cb2d7b98b",
+                      "key": "queueName",
+                      "value": "<string>",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    }
+                  ]
+                },
+                "description": "Deletes the queue specified by the QueueUrl, regardless of the queue's contents. When you delete a queue, any messages in the queue are no longer available. When you delete a queue, the deletion process takes up to 60 seconds."
+              },
+              "response": [
+                {
+                  "id": "c1cefe76-56fe-4b68-83ff-f460ae5c3641",
+                  "name": "Queue deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName?Action=DeleteQueue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "DeleteQueue"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        },
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "xml",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/xml"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-c1cefe76-56fe-4b68-83ff-f460ae5c3641"
+                },
+                {
+                  "id": "377cb92e-476b-4bd5-81b3-7256fd3d89ca",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName?Action=DeleteQueue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "DeleteQueue"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        },
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "xml",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/xml"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-377cb92e-476b-4bd5-81b3-7256fd3d89ca"
+                },
+                {
+                  "id": "671f7a95-39e8-4665-a5df-4817171946a3",
+                  "name": "Access denied",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName?Action=DeleteQueue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "DeleteQueue"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        },
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "xml",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/xml"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                  "createdAt": "2026-07-28T00:54:51.000Z",
+                  "updatedAt": "2026-07-28T00:54:51.000Z",
+                  "uid": "35240-671f7a95-39e8-4665-a5df-4817171946a3"
+                }
+              ],
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-e30525db-e56b-47cf-9f47-46aa937cbd31"
+            }
+          ],
+          "id": "e2d80cdb-f492-446f-8fe6-b2b2d7cd78a7",
+          "createdAt": "2026-07-28T00:54:51.000Z",
+          "updatedAt": "2026-07-28T00:54:51.000Z",
+          "uid": "35240-e2d80cdb-f492-446f-8fe6-b2b2d7cd78a7"
+        }
+      ],
+      "id": "8e35d3fb-8a33-4612-ba99-328977650b56",
+      "createdAt": "2026-07-28T00:54:51.000Z",
+      "updatedAt": "2026-07-28T00:54:51.000Z",
+      "uid": "35240-8e35d3fb-8a33-4612-ba99-328977650b56"
+    },
+    {
+      "name": "queues",
+      "item": [
+        {
+          "name": "Amazon Sqs List All Queues in the Account",
+          "id": "04582df3-cf69-4b3f-8626-090116864ff7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/queues?Action=ListQueues&QueueNamePrefix=<string>&MaxResults=<integer>&NextToken=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "queues"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "Action",
+                  "value": "ListQueues"
+                },
+                {
+                  "description": "A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned.",
+                  "key": "QueueNamePrefix",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results to include in the response. Value range is 1 to 1000.",
+                  "key": "MaxResults",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Pagination token to request the next set of results.",
+                  "key": "NextToken",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a list of your queues in the current region. The response includes a maximum of 1,000 results. If you specify a value for the optional QueueNamePrefix parameter, only queues with a name that begins with the specified value are returned. The listQueues methods supports pagination."
+          },
+          "response": [
+            {
+              "id": "d423773d-b884-4fa7-99d9-85675db6ee4d",
+              "name": "List of queues retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queues?Action=ListQueues&QueueNamePrefix=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "ListQueues"
+                    },
+                    {
+                      "description": "A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned.",
+                      "key": "QueueNamePrefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to include in the response. Value range is 1 to 1000.",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Pagination token to request the next set of results.",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ListQueuesResult\": {\n    \"QueueUrl\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"NextToken\": \"<string>\"\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-d423773d-b884-4fa7-99d9-85675db6ee4d"
+            },
+            {
+              "id": "edc70ce7-d08b-4e7d-bf36-0e674ab8af03",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queues?Action=ListQueues&QueueNamePrefix=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "ListQueues"
+                    },
+                    {
+                      "description": "A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned.",
+                      "key": "QueueNamePrefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to include in the response. Value range is 1 to 1000.",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Pagination token to request the next set of results.",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-edc70ce7-d08b-4e7d-bf36-0e674ab8af03"
+            },
+            {
+              "id": "5bcea405-8d3f-4279-8f20-4a4194515595",
+              "name": "Access denied",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queues?Action=ListQueues&QueueNamePrefix=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "ListQueues"
+                    },
+                    {
+                      "description": "A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned.",
+                      "key": "QueueNamePrefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to include in the response. Value range is 1 to 1000.",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Pagination token to request the next set of results.",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-5bcea405-8d3f-4279-8f20-4a4194515595"
+            }
+          ],
+          "createdAt": "2026-07-28T00:54:51.000Z",
+          "updatedAt": "2026-07-28T00:54:51.000Z",
+          "uid": "35240-04582df3-cf69-4b3f-8626-090116864ff7"
+        }
+      ],
+      "id": "5b0b2147-cb93-4ff0-9264-5787198d9efc",
+      "createdAt": "2026-07-28T00:54:51.000Z",
+      "updatedAt": "2026-07-28T00:54:51.000Z",
+      "uid": "35240-5b0b2147-cb93-4ff0-9264-5787198d9efc"
+    },
+    {
+      "name": "queue-url",
+      "item": [
+        {
+          "name": "Amazon Sqs Get the Url for a Queue",
+          "id": "97696c4e-b2ed-4e01-889c-4bfe70d66307",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/queue-url?Action=GetQueueUrl&QueueName=<string>&QueueOwnerAWSAccountId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "queue-url"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "Action",
+                  "value": "GetQueueUrl"
+                },
+                {
+                  "description": "(Required) The name of the queue",
+                  "key": "QueueName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The account ID of the account that created the queue.",
+                  "key": "QueueOwnerAWSAccountId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns the URL of an existing Amazon SQS queue. To access a queue that belongs to another AWS account, use the QueueOwnerAWSAccountId parameter to specify the account ID of the queue's owner."
+          },
+          "response": [
+            {
+              "id": "737ed4d9-d0c9-4426-bb31-f274dc9efba2",
+              "name": "Queue URL retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queue-url?Action=GetQueueUrl&QueueName=<string>&QueueOwnerAWSAccountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queue-url"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "GetQueueUrl"
+                    },
+                    {
+                      "description": "(Required) The name of the queue",
+                      "key": "QueueName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The account ID of the account that created the queue.",
+                      "key": "QueueOwnerAWSAccountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"GetQueueUrlResult\": {\n    \"QueueUrl\": \"<uri>\"\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-737ed4d9-d0c9-4426-bb31-f274dc9efba2"
+            },
+            {
+              "id": "f2eac804-eff5-41c4-8500-d054fcb5ff0a",
+              "name": "Queue does not exist",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queue-url?Action=GetQueueUrl&QueueName=<string>&QueueOwnerAWSAccountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queue-url"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "Action",
+                      "value": "GetQueueUrl"
+                    },
+                    {
+                      "description": "(Required) The name of the queue",
+                      "key": "QueueName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The account ID of the account that created the queue.",
+                      "key": "QueueOwnerAWSAccountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+              "createdAt": "2026-07-28T00:54:51.000Z",
+              "updatedAt": "2026-07-28T00:54:51.000Z",
+              "uid": "35240-f2eac804-eff5-41c4-8500-d054fcb5ff0a"
+            }
+          ],
+          "createdAt": "2026-07-28T00:54:51.000Z",
+          "updatedAt": "2026-07-28T00:54:51.000Z",
+          "uid": "35240-97696c4e-b2ed-4e01-889c-4bfe70d66307"
+        }
+      ],
+      "id": "4aed8de4-86bd-4a3e-81fa-f08768cf3f2f",
+      "createdAt": "2026-07-28T00:54:51.000Z",
+      "updatedAt": "2026-07-28T00:54:51.000Z",
+      "uid": "35240-4aed8de4-86bd-4a3e-81fa-f08768cf3f2f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://sqs.{{region}}.amazonaws.com"
+    }
+  ]
+}

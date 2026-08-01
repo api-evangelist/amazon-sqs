@@ -1,0 +1,496 @@
+{
+  "info": {
+    "_postman_id": "1744c3aa-fc0d-4af3-b211-fb6cc7962721",
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Permissions API",
+    "description": "Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T00:54:49.000Z",
+    "updatedAt": "2026-07-28T00:54:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1744c3aa-fc0d-4af3-b211-fb6cc7962721"
+  },
+  "item": [
+    {
+      "name": "{accountId}",
+      "item": [
+        {
+          "name": "{queueName}",
+          "item": [
+            {
+              "name": "permissions",
+              "item": [
+                {
+                  "name": "Amazon Sqs Add a Permission to a Queue",
+                  "id": "73393490-06c8-4f9f-a4e6-ba158858caf1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "AddPermission"
+                        },
+                        {
+                          "description": "(Required) The unique identification of the permission you are setting.",
+                          "key": "Label",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The account number of the principal to grant permission to",
+                          "key": "AWSAccountId.1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The action the client wants to allow for the specified principal",
+                          "key": "ActionName.1",
+                          "value": "GetQueueUrl"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/permissions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "permissions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "37ba8950-261b-4e5d-b1d5-db102324b7f4",
+                          "key": "accountId",
+                          "value": "139229489912",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "cf1c606f-6098-4732-9af6-7536c53d5d95",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Adds a permission to a queue for a specific principal. This allows sharing access to the queue. When you create a queue, you have full control access rights for the queue."
+                  },
+                  "response": [
+                    {
+                      "id": "37173801-c337-44b6-8a8b-4bc1f50870f6",
+                      "name": "Permission added successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "AddPermission"
+                            },
+                            {
+                              "description": "(Required) The unique identification of the permission you are setting.",
+                              "key": "Label",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The account number of the principal to grant permission to",
+                              "key": "AWSAccountId.1",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The action the client wants to allow for the specified principal",
+                              "key": "ActionName.1",
+                              "value": "GetQueueUrl"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/permissions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "permissions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:54:50.000Z",
+                      "updatedAt": "2026-07-28T00:54:50.000Z",
+                      "uid": "35240-37173801-c337-44b6-8a8b-4bc1f50870f6"
+                    },
+                    {
+                      "id": "a990a2ae-8f4d-4942-96eb-7f86ce9ce688",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "AddPermission"
+                            },
+                            {
+                              "description": "(Required) The unique identification of the permission you are setting.",
+                              "key": "Label",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The account number of the principal to grant permission to",
+                              "key": "AWSAccountId.1",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The action the client wants to allow for the specified principal",
+                              "key": "ActionName.1",
+                              "value": "GetQueueUrl"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/permissions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "permissions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:50.000Z",
+                      "updatedAt": "2026-07-28T00:54:50.000Z",
+                      "uid": "35240-a990a2ae-8f4d-4942-96eb-7f86ce9ce688"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:50.000Z",
+                  "updatedAt": "2026-07-28T00:54:50.000Z",
+                  "uid": "35240-73393490-06c8-4f9f-a4e6-ba158858caf1"
+                },
+                {
+                  "name": "Amazon Sqs Remove a Permission From a Queue",
+                  "id": "09e6c7e3-7bf9-4552-8f65-ea55b2b022aa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/permissions?Action=RemovePermission&Label=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "permissions"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "RemovePermission"
+                        },
+                        {
+                          "description": "(Required) The identification of the permission to remove. This is the label added using the AddPermission action.",
+                          "key": "Label",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f2da3d84-e8c9-450d-8a54-cb21ad4c1aa2",
+                          "key": "accountId",
+                          "value": "139229489912",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "c487cab2-08dc-41d1-a9ad-8d22a50257f2",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Revokes any permissions in the queue policy that matches the specified Label parameter."
+                  },
+                  "response": [
+                    {
+                      "id": "648001bf-44a9-4f91-8658-fe73e9d6d383",
+                      "name": "Permission removed successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/permissions?Action=RemovePermission&Label=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "permissions"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "RemovePermission"
+                            },
+                            {
+                              "description": "(Required) The identification of the permission to remove. This is the label added using the AddPermission action.",
+                              "key": "Label",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:54:50.000Z",
+                      "updatedAt": "2026-07-28T00:54:50.000Z",
+                      "uid": "35240-648001bf-44a9-4f91-8658-fe73e9d6d383"
+                    },
+                    {
+                      "id": "6f228463-8b20-49f2-ad29-2486a2e5f5bd",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/permissions?Action=RemovePermission&Label=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "permissions"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "RemovePermission"
+                            },
+                            {
+                              "description": "(Required) The identification of the permission to remove. This is the label added using the AddPermission action.",
+                              "key": "Label",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:54:50.000Z",
+                      "updatedAt": "2026-07-28T00:54:50.000Z",
+                      "uid": "35240-6f228463-8b20-49f2-ad29-2486a2e5f5bd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:54:50.000Z",
+                  "updatedAt": "2026-07-28T00:54:50.000Z",
+                  "uid": "35240-09e6c7e3-7bf9-4552-8f65-ea55b2b022aa"
+                }
+              ],
+              "id": "287dbd0f-935b-4a21-9c11-cc552eda4bb2",
+              "createdAt": "2026-07-28T00:54:50.000Z",
+              "updatedAt": "2026-07-28T00:54:50.000Z",
+              "uid": "35240-287dbd0f-935b-4a21-9c11-cc552eda4bb2"
+            }
+          ],
+          "id": "97164579-77e8-45ac-a17b-2b2884ab796b",
+          "createdAt": "2026-07-28T00:54:50.000Z",
+          "updatedAt": "2026-07-28T00:54:50.000Z",
+          "uid": "35240-97164579-77e8-45ac-a17b-2b2884ab796b"
+        }
+      ],
+      "id": "31621169-e66c-4a26-8264-af80f95b9e41",
+      "createdAt": "2026-07-28T00:54:50.000Z",
+      "updatedAt": "2026-07-28T00:54:50.000Z",
+      "uid": "35240-31621169-e66c-4a26-8264-af80f95b9e41"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://sqs.{{region}}.amazonaws.com"
+    }
+  ]
+}

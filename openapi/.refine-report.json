@@ -1,0 +1,20 @@
+{
+  "provider": "amazon-sqs",
+  "sources": [
+    "amazon-sqs-messages-api-openapi.yml",
+    "amazon-sqs-permissions-api-openapi.yml",
+    "amazon-sqs-queues-api-openapi.yml",
+    "amazon-sqs-tags-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-sqs-messages-api-openapi.yml",
+    "amazon-sqs-permissions-api-openapi.yml",
+    "amazon-sqs-queues-api-openapi.yml",
+    "amazon-sqs-tags-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

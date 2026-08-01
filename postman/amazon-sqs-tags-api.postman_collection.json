@@ -1,0 +1,653 @@
+{
+  "info": {
+    "_postman_id": "06881aca-622e-490c-984c-d7beabe86492",
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Tags API",
+    "description": "Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T00:55:21.000Z",
+    "updatedAt": "2026-07-28T00:55:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-06881aca-622e-490c-984c-d7beabe86492"
+  },
+  "item": [
+    {
+      "name": "{accountId}",
+      "item": [
+        {
+          "name": "{queueName}",
+          "item": [
+            {
+              "name": "tags",
+              "item": [
+                {
+                  "name": "Amazon Sqs List All Tags for a Queue",
+                  "id": "ac919acc-92cc-4da5-b58d-28e87cb847a8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=ListQueueTags",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "ListQueueTags"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "189aaec8-38f8-4080-b59f-b43b6d8cd3b1",
+                          "key": "accountId",
+                          "value": "531589994335",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "be8e096e-8304-448f-8484-5780ae07f9ba",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "List all cost allocation tags added to the specified Amazon SQS queue."
+                  },
+                  "response": [
+                    {
+                      "id": "ba5e7df2-14ac-40b0-93ad-d71809153978",
+                      "name": "Tags retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=ListQueueTags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "ListQueueTags"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ListQueueTagsResult>\n    <Tag>\n      <Key>(string)</Key>\n      <Value>(string)</Value>\n    </Tag>\n    <Tag>\n      <Key>(string)</Key>\n      <Value>(string)</Value>\n    </Tag>\n  </ListQueueTagsResult>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-ba5e7df2-14ac-40b0-93ad-d71809153978"
+                    },
+                    {
+                      "id": "e46c371b-6163-4c8f-842a-c7fd4cc9a580",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=ListQueueTags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "ListQueueTags"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-e46c371b-6163-4c8f-842a-c7fd4cc9a580"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:55:22.000Z",
+                  "updatedAt": "2026-07-28T00:55:22.000Z",
+                  "uid": "35240-ac919acc-92cc-4da5-b58d-28e87cb847a8"
+                },
+                {
+                  "name": "Amazon Sqs Add Tags to a Queue",
+                  "id": "13c8a614-175f-4db4-bae4-f0ee1efab88f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "TagQueue"
+                        },
+                        {
+                          "description": "(Required) The key of the first tag",
+                          "key": "Tag.1.Key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The value of the first tag",
+                          "key": "Tag.1.Value",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/tags",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "tags"
+                      ],
+                      "variable": [
+                        {
+                          "id": "69786fca-284a-45c7-841a-418fcfc04b25",
+                          "key": "accountId",
+                          "value": "531589994335",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "710174f6-6537-44b6-a376-e4460157ce09",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Add cost allocation tags to the specified Amazon SQS queue. Tags are key-value pairs. For a full list of tag restrictions, see Quotas related to queues in the Amazon SQS Developer Guide. When you use queue tags, keep in mind that SQS supports a maximum of 50 tags per queue."
+                  },
+                  "response": [
+                    {
+                      "id": "790d707b-4a06-48a2-8718-62abb88fa35f",
+                      "name": "Tags added successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "TagQueue"
+                            },
+                            {
+                              "description": "(Required) The key of the first tag",
+                              "key": "Tag.1.Key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The value of the first tag",
+                              "key": "Tag.1.Value",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-790d707b-4a06-48a2-8718-62abb88fa35f"
+                    },
+                    {
+                      "id": "c2bd2702-17c2-449e-80cd-1823deafc916",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "TagQueue"
+                            },
+                            {
+                              "description": "(Required) The key of the first tag",
+                              "key": "Tag.1.Key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The value of the first tag",
+                              "key": "Tag.1.Value",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-c2bd2702-17c2-449e-80cd-1823deafc916"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:55:22.000Z",
+                  "updatedAt": "2026-07-28T00:55:22.000Z",
+                  "uid": "35240-13c8a614-175f-4db4-bae4-f0ee1efab88f"
+                },
+                {
+                  "name": "Amazon Sqs Remove Tags From a Queue",
+                  "id": "9fe328ee-815a-4bd4-9c41-3b7a8842b869",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/xml"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=UntagQueue&TagKey.1=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":accountId",
+                        ":queueName",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "Action",
+                          "value": "UntagQueue"
+                        },
+                        {
+                          "description": "(Required) The tag key to remove",
+                          "key": "TagKey.1",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6797fb6c-550e-45ae-9688-3ebfcc9ac107",
+                          "key": "accountId",
+                          "value": "531589994335",
+                          "description": "(Required) The AWS account ID of the queue owner"
+                        },
+                        {
+                          "id": "56a01f2b-54dc-441c-b2c5-ac20d07081e8",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                        }
+                      ]
+                    },
+                    "description": "Remove cost allocation tags from the specified Amazon SQS queue."
+                  },
+                  "response": [
+                    {
+                      "id": "509ce890-f6f3-432b-a869-6c8e24570183",
+                      "name": "Tags removed successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=UntagQueue&TagKey.1=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "UntagQueue"
+                            },
+                            {
+                              "description": "(Required) The tag key to remove",
+                              "key": "TagKey.1",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>(string)</RequestId>\n  </ResponseMetadata>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-509ce890-f6f3-432b-a869-6c8e24570183"
+                    },
+                    {
+                      "id": "db967e6c-d7fb-4c6a-b8ac-56ea7db4fa74",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/xml"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:accountId/:queueName/tags?Action=UntagQueue&TagKey.1=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":accountId",
+                            ":queueName",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "Action",
+                              "value": "UntagQueue"
+                            },
+                            {
+                              "description": "(Required) The tag key to remove",
+                              "key": "TagKey.1",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            },
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "xml",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/xml"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <Error>\n    <Type>(string)</Type>\n    <Code>(string)</Code>\n    <Message>(string)</Message>\n  </Error>\n  <RequestId>(string)</RequestId>\n</element>",
+                      "createdAt": "2026-07-28T00:55:22.000Z",
+                      "updatedAt": "2026-07-28T00:55:22.000Z",
+                      "uid": "35240-db967e6c-d7fb-4c6a-b8ac-56ea7db4fa74"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T00:55:22.000Z",
+                  "updatedAt": "2026-07-28T00:55:22.000Z",
+                  "uid": "35240-9fe328ee-815a-4bd4-9c41-3b7a8842b869"
+                }
+              ],
+              "id": "4919614f-df06-4ab3-9b4e-f07d2e697da2",
+              "createdAt": "2026-07-28T00:55:22.000Z",
+              "updatedAt": "2026-07-28T00:55:22.000Z",
+              "uid": "35240-4919614f-df06-4ab3-9b4e-f07d2e697da2"
+            }
+          ],
+          "id": "dcda072d-b4f8-40f4-aafa-2766120a2434",
+          "createdAt": "2026-07-28T00:55:22.000Z",
+          "updatedAt": "2026-07-28T00:55:22.000Z",
+          "uid": "35240-dcda072d-b4f8-40f4-aafa-2766120a2434"
+        }
+      ],
+      "id": "9f931d33-d274-4290-b528-17f596f00ca8",
+      "createdAt": "2026-07-28T00:55:22.000Z",
+      "updatedAt": "2026-07-28T00:55:22.000Z",
+      "uid": "35240-9f931d33-d274-4290-b528-17f596f00ca8"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://sqs.{{region}}.amazonaws.com"
+    }
+  ]
+}
