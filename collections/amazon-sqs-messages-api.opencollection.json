@@ -1,0 +1,514 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages API",
+    "version": "2012-11-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Sqs Receive Messages From a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "MaxNumberOfMessages",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value. Valid values are 1 to 10. Default is 1."
+              },
+              {
+                "name": "VisibilityTimeout",
+                "value": "",
+                "type": "query",
+                "description": "The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request."
+              },
+              {
+                "name": "WaitTimeSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a message is available, the call returns sooner than WaitTimeSeconds."
+              },
+              {
+                "name": "AttributeName.1",
+                "value": "",
+                "type": "query",
+                "description": "A list of attributes that need to be returned along with each message."
+              },
+              {
+                "name": "MessageAttributeName.1",
+                "value": "",
+                "type": "query",
+                "description": "The name of the message attribute to include. Use All or .* to return all message attributes."
+              },
+              {
+                "name": "MessageSystemAttributeName.1",
+                "value": "",
+                "type": "query",
+                "description": "The name of the message system attribute to include."
+              },
+              {
+                "name": "ReceiveRequestAttemptId",
+                "value": "",
+                "type": "query",
+                "description": "Used for FIFO queues. The token used for deduplication of ReceiveMessage calls."
+              }
+            ]
+          },
+          "docs": "Retrieves one or more messages (up to 10) from the specified queue. Using the WaitTimeSeconds parameter enables long-poll support. Short poll is the default behavior where a weighted random set of machines is sampled on a ReceiveMessage call. Long polling reduces the number of empty responses and false empty responses."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Send a Message to a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "MessageBody",
+                  "value": ""
+                },
+                {
+                  "name": "DelaySeconds",
+                  "value": ""
+                },
+                {
+                  "name": "MessageAttribute.1.Name",
+                  "value": ""
+                },
+                {
+                  "name": "MessageAttribute.1.Value.StringValue",
+                  "value": ""
+                },
+                {
+                  "name": "MessageAttribute.1.Value.DataType",
+                  "value": ""
+                },
+                {
+                  "name": "MessageDeduplicationId",
+                  "value": ""
+                },
+                {
+                  "name": "MessageGroupId",
+                  "value": ""
+                },
+                {
+                  "name": "MessageSystemAttribute.1.Name",
+                  "value": ""
+                },
+                {
+                  "name": "MessageSystemAttribute.1.Value.StringValue",
+                  "value": ""
+                },
+                {
+                  "name": "MessageSystemAttribute.1.Value.DataType",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Delivers a message to the specified queue. A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed. The maximum message size is 256 KiB."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Delete a Message From a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/delete-message",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "ReceiptHandle",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Deletes the specified message from the specified queue. To select the message to delete, use the ReceiptHandle of the message (not the MessageId which you receive when you send the message). Amazon SQS can delete a message from a queue even if a visibility timeout setting causes the message to be locked by another consumer."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Send up to 10 Messages to a Queue in a Single Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/send-message-batch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "SendMessageBatchRequestEntry.1.Id",
+                  "value": ""
+                },
+                {
+                  "name": "SendMessageBatchRequestEntry.1.MessageBody",
+                  "value": ""
+                },
+                {
+                  "name": "SendMessageBatchRequestEntry.1.DelaySeconds",
+                  "value": ""
+                },
+                {
+                  "name": "SendMessageBatchRequestEntry.1.MessageDeduplicationId",
+                  "value": ""
+                },
+                {
+                  "name": "SendMessageBatchRequestEntry.1.MessageGroupId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Delivers up to ten messages to the specified queue. This is a batch version of SendMessage. For a FIFO queue, multiple messages within a single batch are enqueued in the order they are sent. The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of all of the batched messages) are both 256 KiB."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/delete-message-batch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "DeleteMessageBatchRequestEntry.1.Id",
+                  "value": ""
+                },
+                {
+                  "name": "DeleteMessageBatchRequestEntry.1.ReceiptHandle",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Deletes up to ten messages from the specified queue. This is a batch version of DeleteMessage. The result of the action on each message is reported individually in the response."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Change the Visibility Timeout of a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/change-message-visibility",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "ReceiptHandle",
+                  "value": ""
+                },
+                {
+                  "name": "VisibilityTimeout",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Changes the visibility timeout of a specified message in a queue to a new value. The default visibility timeout for a message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Change the Visibility Timeout of Multiple Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/change-message-visibility-batch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "ChangeMessageVisibilityBatchRequestEntry.1.Id",
+                  "value": ""
+                },
+                {
+                  "name": "ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle",
+                  "value": ""
+                },
+                {
+                  "name": "ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Changes the visibility timeout of multiple messages. This is a batch version of ChangeMessageVisibility. The result of each action is reported individually in the response. Up to 10 messages can be changed per request."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Start an Asynchronous Task to Move Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/start-message-move-task",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "SourceArn",
+                  "value": ""
+                },
+                {
+                  "name": "DestinationArn",
+                  "value": ""
+                },
+                {
+                  "name": "MaxNumberOfMessagesPerSecond",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Starts an asynchronous task to move messages from a specified source queue to a specified destination queue. This action is currently limited to supporting message redrive from queues that are configured as dead-letter queues."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs List Message Move Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/list-message-move-tasks",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "MaxResults",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to include in the response"
+              }
+            ]
+          },
+          "docs": "Gets the most recent message movement tasks (up to 10) under a specific source queue."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Cancel a Message Move Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/cancel-message-move-task",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "TaskHandle",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Cancels a specified message movement task. A message movement can only be cancelled when the current status is RUNNING."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

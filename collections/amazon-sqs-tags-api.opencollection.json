@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Tags API",
+    "version": "2012-11-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Sqs List All Tags for a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/tags",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all cost allocation tags added to the specified Amazon SQS queue."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Add Tags to a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/tags",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "Tag.1.Key",
+                  "value": ""
+                },
+                {
+                  "name": "Tag.1.Value",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Add cost allocation tags to the specified Amazon SQS queue. Tags are key-value pairs. For a full list of tag restrictions, see Quotas related to queues in the Amazon SQS Developer Guide. When you use queue tags, keep in mind that SQS supports a maximum of 50 tags per queue."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Remove Tags From a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/tags",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "TagKey.1",
+                "value": "",
+                "type": "query",
+                "description": "The tag key to remove"
+              }
+            ]
+          },
+          "docs": "Remove cost allocation tags from the specified Amazon SQS queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

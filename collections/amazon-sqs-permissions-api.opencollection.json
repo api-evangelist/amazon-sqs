@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Permissions API",
+    "version": "2012-11-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Sqs Add a Permission to a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/permissions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "Label",
+                  "value": ""
+                },
+                {
+                  "name": "AWSAccountId.1",
+                  "value": ""
+                },
+                {
+                  "name": "ActionName.1",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Adds a permission to a queue for a specific principal. This allows sharing access to the queue. When you create a queue, you have full control access rights for the queue."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Remove a Permission From a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/permissions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Label",
+                "value": "",
+                "type": "query",
+                "description": "The identification of the permission to remove. This is the label added using the AddPermission action."
+              }
+            ]
+          },
+          "docs": "Revokes any permissions in the queue policy that matches the specified Label parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3074 @@
+{
+  "item": [
+    {
+      "id": "aef42adc-163e-4cf0-93ec-ce2010882289",
+      "name": "Messages",
+      "description": {
+        "content": "Operations for sending, receiving, and deleting messages in SQS queues",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0f726ef5-7e19-4aed-a816-37a92cd21a78",
+          "name": "Amazon Sqs Receive Messages From a Queue",
+          "request": {
+            "name": "Amazon Sqs Receive Messages From a Queue",
+            "description": {
+              "content": "Retrieves one or more messages (up to 10) from the specified queue. Using the WaitTimeSeconds parameter enables long-poll support. Short poll is the default behavior where a weighted random set of machines is sampled on a ReceiveMessage call. Long polling reduces the number of empty responses and false empty responses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "MaxNumberOfMessages",
+                  "value": "1",
+                  "description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value. Valid values are 1 to 10. Default is 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "VisibilityTimeout",
+                  "value": "<integer>",
+                  "description": "The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request."
+                },
+                {
+                  "disabled": false,
+                  "key": "WaitTimeSeconds",
+                  "value": "<integer>",
+                  "description": "The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a message is available, the call returns sooner than WaitTimeSeconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "AttributeName.1",
+                  "value": "<string>",
+                  "description": "A list of attributes that need to be returned along with each message."
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageAttributeName.1",
+                  "value": "<string>",
+                  "description": "The name of the message attribute to include. Use All or .* to return all message attributes."
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageSystemAttributeName.1",
+                  "value": "<string>",
+                  "description": "The name of the message system attribute to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "ReceiveRequestAttemptId",
+                  "value": "<string>",
+                  "description": "Used for FIFO queues. The token used for deduplication of ReceiveMessage calls."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69080817-eaaa-45bf-b351-d29bb9e39714",
+              "name": "Messages retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxNumberOfMessages",
+                      "value": "1"
+                    },
+                    {
+                      "key": "VisibilityTimeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "WaitTimeSeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "AttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MessageAttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MessageSystemAttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReceiveRequestAttemptId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ReceiveMessageResult\": {\n    \"Message\": [\n      {\n        \"MessageId\": \"fa387a7f-76f5-7b68-0f36-b7b572f401d5\",\n        \"ReceiptHandle\": \"example_value\",\n        \"MD5OfBody\": \"example_value\",\n        \"Body\": \"example_value\"\n      },\n      {\n        \"MessageId\": \"0ebf6cac-c4ca-ff32-99a0-4520128f3c75\",\n        \"ReceiptHandle\": \"example_value\",\n        \"MD5OfBody\": \"example_value\",\n        \"Body\": \"example_value\"\n      }\n    ]\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8af3644-d3d6-4ec5-b457-fc5c3bf96c81",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxNumberOfMessages",
+                      "value": "1"
+                    },
+                    {
+                      "key": "VisibilityTimeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "WaitTimeSeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "AttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MessageAttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MessageSystemAttributeName.1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReceiveRequestAttemptId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac11bd3e-82d6-45e7-b62c-9b29699755c6",
+          "name": "Amazon Sqs Send a Message to a Queue",
+          "request": {
+            "name": "Amazon Sqs Send a Message to a Queue",
+            "description": {
+              "content": "Delivers a message to the specified queue. A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed. The maximum message size is 256 KiB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageBody",
+                  "value": "<string>",
+                  "description": "(Required) The message to send. The minimum size is one character. The maximum size is 256 KiB."
+                },
+                {
+                  "disabled": false,
+                  "key": "DelaySeconds",
+                  "value": "<integer>",
+                  "description": "The length of time, in seconds, for which to delay a specific message. Valid values are 0 to 900."
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageAttribute.1.Name",
+                  "value": "<string>",
+                  "description": "The name of the first message attribute"
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageAttribute.1.Value.StringValue",
+                  "value": "<string>",
+                  "description": "The string value of the first message attribute"
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageAttribute.1.Value.DataType",
+                  "value": "<string>",
+                  "description": "The data type of the first message attribute (String, Number, or Binary)"
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageDeduplicationId",
+                  "value": "<string>",
+                  "description": "The token used for deduplication of sent messages. Required for FIFO queues. Each message must have a unique MessageDeduplicationId."
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageGroupId",
+                  "value": "<string>",
+                  "description": "The tag that specifies that a message belongs to a specific message group. Required for FIFO queues."
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageSystemAttribute.1.Name",
+                  "value": "<string>",
+                  "description": "The name of a system message attribute"
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageSystemAttribute.1.Value.StringValue",
+                  "value": "<string>",
+                  "description": "The string value of a system message attribute"
+                },
+                {
+                  "disabled": false,
+                  "key": "MessageSystemAttribute.1.Value.DataType",
+                  "value": "<string>",
+                  "description": "The data type of a system message attribute"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "981fb220-fe06-4048-8a26-6d53e2a0d8ce",
+              "name": "Message sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The message to send. The minimum size is one character. The maximum size is 256 KiB.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageBody",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The length of time, in seconds, for which to delay a specific message. Valid values are 0 to 900.",
+                        "type": "text/plain"
+                      },
+                      "key": "DelaySeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the first message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The string value of the first message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Value.StringValue",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data type of the first message attribute (String, Number, or Binary)",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Value.DataType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The token used for deduplication of sent messages. Required for FIFO queues. Each message must have a unique MessageDeduplicationId.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageDeduplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The tag that specifies that a message belongs to a specific message group. Required for FIFO queues.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The string value of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Value.StringValue",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data type of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Value.DataType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SendMessageResult\": {\n    \"MD5OfMessageBody\": \"string\",\n    \"MD5OfMessageAttributes\": \"string\",\n    \"MD5OfMessageSystemAttributes\": \"string\",\n    \"MessageId\": \"0d66ad1b-f390-844e-8c7b-f94abbfe961b\",\n    \"SequenceNumber\": \"string\"\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e2c3ca8-ae4d-452d-88e1-e42b125e5f73",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The message to send. The minimum size is one character. The maximum size is 256 KiB.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageBody",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The length of time, in seconds, for which to delay a specific message. Valid values are 0 to 900.",
+                        "type": "text/plain"
+                      },
+                      "key": "DelaySeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the first message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The string value of the first message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Value.StringValue",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data type of the first message attribute (String, Number, or Binary)",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageAttribute.1.Value.DataType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The token used for deduplication of sent messages. Required for FIFO queues. Each message must have a unique MessageDeduplicationId.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageDeduplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The tag that specifies that a message belongs to a specific message group. Required for FIFO queues.",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The string value of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Value.StringValue",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data type of a system message attribute",
+                        "type": "text/plain"
+                      },
+                      "key": "MessageSystemAttribute.1.Value.DataType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee091751-30bc-4f3c-84f9-b24021091ad3",
+          "name": "Amazon Sqs Delete a Message From a Queue",
+          "request": {
+            "name": "Amazon Sqs Delete a Message From a Queue",
+            "description": {
+              "content": "Deletes the specified message from the specified queue. To select the message to delete, use the ReceiptHandle of the message (not the MessageId which you receive when you send the message). Amazon SQS can delete a message from a queue even if a visibility timeout setting causes the message to be locked by another consumer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "delete-message"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ReceiptHandle",
+                  "value": "<string>",
+                  "description": "(Required) The receipt handle associated with the message to delete. This is returned by the ReceiveMessage action."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9dd31a03-4c04-4f9d-b844-d03a07d0a83b",
+              "name": "Message deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "delete-message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The receipt handle associated with the message to delete. This is returned by the ReceiveMessage action.",
+                        "type": "text/plain"
+                      },
+                      "key": "ReceiptHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "6e5fc68e-b6eb-44ef-850a-f9732bcf1a5c",
+              "name": "Bad request - invalid receipt handle",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "delete-message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The receipt handle associated with the message to delete. This is returned by the ReceiveMessage action.",
+                        "type": "text/plain"
+                      },
+                      "key": "ReceiptHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e930c8d-b1ac-41b3-906c-bae8f36b01bf",
+          "name": "Amazon Sqs Send up to 10 Messages to a Queue in a Single Request",
+          "request": {
+            "name": "Amazon Sqs Send up to 10 Messages to a Queue in a Single Request",
+            "description": {
+              "content": "Delivers up to ten messages to the specified queue. This is a batch version of SendMessage. For a FIFO queue, multiple messages within a single batch are enqueued in the order they are sent. The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of all of the batched messages) are both 256 KiB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "send-message-batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "SendMessageBatchRequestEntry.1.Id",
+                  "value": "<string>",
+                  "description": "(Required) An identifier for a message in this batch used to communicate the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "SendMessageBatchRequestEntry.1.MessageBody",
+                  "value": "<string>",
+                  "description": "(Required) The body of the message"
+                },
+                {
+                  "disabled": false,
+                  "key": "SendMessageBatchRequestEntry.1.DelaySeconds",
+                  "value": "<integer>",
+                  "description": "Delay in seconds for this message"
+                },
+                {
+                  "disabled": false,
+                  "key": "SendMessageBatchRequestEntry.1.MessageDeduplicationId",
+                  "value": "<string>",
+                  "description": "Deduplication ID for FIFO queues"
+                },
+                {
+                  "disabled": false,
+                  "key": "SendMessageBatchRequestEntry.1.MessageGroupId",
+                  "value": "<string>",
+                  "description": "Group ID for FIFO queues"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d8e9c788-10da-45b7-a9e1-e82bb5fd62fb",
+              "name": "Batch send completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "send-message-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for a message in this batch used to communicate the result.",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The body of the message",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageBody",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Delay in seconds for this message",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.DelaySeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Deduplication ID for FIFO queues",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageDeduplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Group ID for FIFO queues",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageGroupId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SendMessageBatchResult\": {\n    \"SendMessageBatchResultEntry\": [\n      {\n        \"Id\": \"string\",\n        \"MessageId\": \"3cfd02d1-76e3-0077-d54c-d9c5530d2623\",\n        \"MD5OfMessageBody\": \"string\",\n        \"MD5OfMessageAttributes\": \"string\",\n        \"SequenceNumber\": \"string\"\n      },\n      {\n        \"Id\": \"string\",\n        \"MessageId\": \"5427a0e6-a837-14d6-17b8-c6e359082c91\",\n        \"MD5OfMessageBody\": \"string\",\n        \"MD5OfMessageAttributes\": \"string\",\n        \"SequenceNumber\": \"string\"\n      }\n    ],\n    \"BatchResultErrorEntry\": [\n      {\n        \"Id\": \"abc123\",\n        \"Code\": \"example_value\",\n        \"Message\": \"example_value\",\n        \"SenderFault\": true\n      },\n      {\n        \"Id\": \"abc123\",\n        \"Code\": \"example_value\",\n        \"Message\": \"example_value\",\n        \"SenderFault\": true\n      }\n    ]\n  },\n  \"ResponseMetadata\": {\n    \"RequestId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9253e922-c25d-4ffa-8aaa-3a732e45b748",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "send-message-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for a message in this batch used to communicate the result.",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The body of the message",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageBody",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Delay in seconds for this message",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.DelaySeconds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Deduplication ID for FIFO queues",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageDeduplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Group ID for FIFO queues",
+                        "type": "text/plain"
+                      },
+                      "key": "SendMessageBatchRequestEntry.1.MessageGroupId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4aaf917-d74a-4f69-b4bd-96e1cf1ecce6",
+          "name": "Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request",
+          "request": {
+            "name": "Amazon Sqs Delete up to 10 Messages From a Queue in a Single Request",
+            "description": {
+              "content": "Deletes up to ten messages from the specified queue. This is a batch version of DeleteMessage. The result of the action on each message is reported individually in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "delete-message-batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "DeleteMessageBatchRequestEntry.1.Id",
+                  "value": "<string>",
+                  "description": "(Required) An identifier for this particular receipt handle"
+                },
+                {
+                  "disabled": false,
+                  "key": "DeleteMessageBatchRequestEntry.1.ReceiptHandle",
+                  "value": "<string>",
+                  "description": "(Required) A receipt handle"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c0a7647e-7152-4d16-aad0-94b22fb11244",
+              "name": "Batch delete completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "delete-message-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for this particular receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "DeleteMessageBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) A receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "DeleteMessageBatchRequestEntry.1.ReceiptHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "a62c4ed2-99a5-4633-9073-60f6d5402bbd",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "delete-message-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for this particular receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "DeleteMessageBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) A receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "DeleteMessageBatchRequestEntry.1.ReceiptHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3181e12-4e04-4382-9b9c-bc8d0e7f38d8",
+          "name": "Amazon Sqs Change the Visibility Timeout of a Message",
+          "request": {
+            "name": "Amazon Sqs Change the Visibility Timeout of a Message",
+            "description": {
+              "content": "Changes the visibility timeout of a specified message in a queue to a new value. The default visibility timeout for a message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "change-message-visibility"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ReceiptHandle",
+                  "value": "<string>",
+                  "description": "(Required) The receipt handle associated with the message whose visibility timeout is changed."
+                },
+                {
+                  "disabled": false,
+                  "key": "VisibilityTimeout",
+                  "value": "<integer>",
+                  "description": "(Required) The new value for the message's visibility timeout (in seconds). Values range from 0 to 43200."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4b65bfa9-024b-4634-8697-daadc6dfe6f5",
+              "name": "Visibility timeout changed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "change-message-visibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The receipt handle associated with the message whose visibility timeout is changed.",
+                        "type": "text/plain"
+                      },
+                      "key": "ReceiptHandle",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The new value for the message's visibility timeout (in seconds). Values range from 0 to 43200.",
+                        "type": "text/plain"
+                      },
+                      "key": "VisibilityTimeout",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "726bafa5-ff35-48b1-99a9-bbe4908676fa",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "change-message-visibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The receipt handle associated with the message whose visibility timeout is changed.",
+                        "type": "text/plain"
+                      },
+                      "key": "ReceiptHandle",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The new value for the message's visibility timeout (in seconds). Values range from 0 to 43200.",
+                        "type": "text/plain"
+                      },
+                      "key": "VisibilityTimeout",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25aeb984-43e2-4334-987c-5a2466d877fa",
+          "name": "Amazon Sqs Change the Visibility Timeout of Multiple Messages",
+          "request": {
+            "name": "Amazon Sqs Change the Visibility Timeout of Multiple Messages",
+            "description": {
+              "content": "Changes the visibility timeout of multiple messages. This is a batch version of ChangeMessageVisibility. The result of each action is reported individually in the response. Up to 10 messages can be changed per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "change-message-visibility-batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ChangeMessageVisibilityBatchRequestEntry.1.Id",
+                  "value": "<string>",
+                  "description": "(Required) An identifier for this particular receipt handle"
+                },
+                {
+                  "disabled": false,
+                  "key": "ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle",
+                  "value": "<string>",
+                  "description": "(Required) A receipt handle"
+                },
+                {
+                  "disabled": false,
+                  "key": "ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout",
+                  "value": "<integer>",
+                  "description": "(Required) The new value for the message's visibility timeout"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c8f642d-0035-4029-a778-3dcdf07d5ff9",
+              "name": "Batch visibility change completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "change-message-visibility-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for this particular receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) A receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The new value for the message's visibility timeout",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "bda97d4a-0460-41ba-82cf-eed136eb5e15",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "change-message-visibility-batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier for this particular receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.Id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) A receipt handle",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The new value for the message's visibility timeout",
+                        "type": "text/plain"
+                      },
+                      "key": "ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00701b21-b54e-40a7-abe8-4e40e1882ee7",
+          "name": "Amazon Sqs Start an Asynchronous Task to Move Messages",
+          "request": {
+            "name": "Amazon Sqs Start an Asynchronous Task to Move Messages",
+            "description": {
+              "content": "Starts an asynchronous task to move messages from a specified source queue to a specified destination queue. This action is currently limited to supporting message redrive from queues that are configured as dead-letter queues.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "start-message-move-task"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "SourceArn",
+                  "value": "<string>",
+                  "description": "(Required) The ARN of the queue that contains the messages to be moved"
+                },
+                {
+                  "disabled": false,
+                  "key": "DestinationArn",
+                  "value": "<string>",
+                  "description": "The ARN of the queue that receives the moved messages. If not specified, the source queue's dead-letter queue configuration is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "MaxNumberOfMessagesPerSecond",
+                  "value": "<integer>",
+                  "description": "The number of messages to be moved per second. If not specified, the system chooses an optimal rate."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6ef3936-de9a-4647-89a8-bb03db6f15b7",
+              "name": "Message move task started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "start-message-move-task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ARN of the queue that contains the messages to be moved",
+                        "type": "text/plain"
+                      },
+                      "key": "SourceArn",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The ARN of the queue that receives the moved messages. If not specified, the source queue's dead-letter queue configuration is used.",
+                        "type": "text/plain"
+                      },
+                      "key": "DestinationArn",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The number of messages to be moved per second. If not specified, the system chooses an optimal rate.",
+                        "type": "text/plain"
+                      },
+                      "key": "MaxNumberOfMessagesPerSecond",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "2f62ad80-0ee5-45be-8519-488c9671d343",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "start-message-move-task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ARN of the queue that contains the messages to be moved",
+                        "type": "text/plain"
+                      },
+                      "key": "SourceArn",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The ARN of the queue that receives the moved messages. If not specified, the source queue's dead-letter queue configuration is used.",
+                        "type": "text/plain"
+                      },
+                      "key": "DestinationArn",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The number of messages to be moved per second. If not specified, the system chooses an optimal rate.",
+                        "type": "text/plain"
+                      },
+                      "key": "MaxNumberOfMessagesPerSecond",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53ff06aa-6a4f-4f29-a551-90c7aa496f5a",
+          "name": "Amazon Sqs List Message Move Tasks",
+          "request": {
+            "name": "Amazon Sqs List Message Move Tasks",
+            "description": {
+              "content": "Gets the most recent message movement tasks (up to 10) under a specific source queue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "list-message-move-tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "MaxResults",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to include in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed865741-58b0-451d-84a6-59ccc0b5429d",
+              "name": "Message move tasks retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "list-message-move-tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "6cf56d66-bdb4-4d56-b79a-4142175b3a08",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "list-message-move-tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2042bd5e-9e6e-46ce-af18-4aa05eeee0be",
+          "name": "Amazon Sqs Cancel a Message Move Task",
+          "request": {
+            "name": "Amazon Sqs Cancel a Message Move Task",
+            "description": {
+              "content": "Cancels a specified message movement task. A message movement can only be cancelled when the current status is RUNNING.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":accountId",
+                ":queueName",
+                "cancel-message-move-task"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The AWS account ID of the queue owner"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                },
+                {
+                  "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "Action",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "TaskHandle",
+                  "value": "<string>",
+                  "description": "(Required) An identifier associated with a message movement task."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a3f7fad-4063-4da2-831e-ef8bfa29b270",
+              "name": "Message move task cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "cancel-message-move-task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier associated with a message movement task.",
+                        "type": "text/plain"
+                      },
+                      "key": "TaskHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <ResponseMetadata>\n    <RequestId>500123</RequestId>\n  </ResponseMetadata>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "def22ddf-ee80-407a-9ac7-e671fc810721",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":accountId",
+                    ":queueName",
+                    "cancel-message-move-task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The AWS account ID of the queue owner"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+                    },
+                    {
+                      "description": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "Action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An identifier associated with a message movement task.",
+                        "type": "text/plain"
+                      },
+                      "key": "TaskHandle",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\nexample_value\n  <RequestId>500123</RequestId>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The AWS region (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,af-south-1,ap-east-1,ap-south-1,ap-south-2,ap-southeast-1,ap-southeast-2,ap-southeast-3,ap-northeast-1,ap-northeast-2,ap-northeast-3,ca-central-1,eu-central-1,eu-central-2,eu-west-1,eu-west-2,eu-west-3,eu-south-1,eu-south-2,eu-north-1,me-south-1,me-central-1,sa-east-1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://sqs.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "de85035b-5487-4f0f-ba2b-52b1a0b09d4a",
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

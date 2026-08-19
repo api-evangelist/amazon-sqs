@@ -1,0 +1,316 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SQS Amazon Simple Queue Service (SQS) Messages Queues API",
+    "version": "2012-11-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Sqs Create a New Sqs Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "QueueName",
+                  "value": ""
+                },
+                {
+                  "name": "Attribute.1.Name",
+                  "value": ""
+                },
+                {
+                  "name": "Attribute.1.Value",
+                  "value": ""
+                },
+                {
+                  "name": "Tag.1.Key",
+                  "value": ""
+                },
+                {
+                  "name": "Tag.1.Value",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new standard or FIFO queue. You can pass one or more attributes in the request. If you do not provide a value for an attribute, the queue is created with the default value for the attribute. A FIFO queue name must end with the .fifo suffix."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Delete a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes the queue specified by the QueueUrl, regardless of the queue's contents. When you delete a queue, any messages in the queue are no longer available. When you delete a queue, the deletion process takes up to 60 seconds."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Get Attributes for a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/attributes",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "AttributeName.1",
+                "value": "",
+                "type": "query",
+                "description": "An attribute name to retrieve information for."
+              }
+            ]
+          },
+          "docs": "Gets attributes for the specified queue. To determine whether a queue is FIFO, you can check whether QueueName ends with the .fifo suffix."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Set Attributes for a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/attributes",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                },
+                {
+                  "name": "Attribute.1.Name",
+                  "value": ""
+                },
+                {
+                  "name": "Attribute.1.Value",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Sets the value of one or more queue attributes, like a policy. When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to propagate throughout the Amazon SQS system."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Purge All Messages From a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/purge",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "Action",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Deletes all messages in a queue. When you use the PurgeQueue action, you cannot retrieve any messages deleted from a queue. The message deletion process takes up to 60 seconds. You cannot purge a queue more than once every 60 seconds."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs List All Queues in the Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/queues",
+            "params": [
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "QueueNamePrefix",
+                "value": "",
+                "type": "query",
+                "description": "A string to use for filtering the list results. Only those queues whose name begins with the specified string are returned."
+              },
+              {
+                "name": "MaxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to include in the response. Value range is 1 to 1000."
+              },
+              {
+                "name": "NextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token to request the next set of results."
+              }
+            ]
+          },
+          "docs": "Returns a list of your queues in the current region. The response includes a maximum of 1,000 results. If you specify a value for the optional QueueNamePrefix parameter, only queues with a name that begins with the specified value are returned. The listQueues methods supports pagination."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs Get the Url for a Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/queue-url",
+            "params": [
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "QueueName",
+                "value": "",
+                "type": "query",
+                "description": "The name of the queue"
+              },
+              {
+                "name": "QueueOwnerAWSAccountId",
+                "value": "",
+                "type": "query",
+                "description": "The account ID of the account that created the queue."
+              }
+            ]
+          },
+          "docs": "Returns the URL of an existing Amazon SQS queue. To access a queue that belongs to another AWS account, use the QueueOwnerAWSAccountId parameter to specify the account ID of the queue's owner."
+        },
+        {
+          "info": {
+            "name": "Amazon Sqs List Queues That Have This Queue as a Dead-letter Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sqs.{region}.amazonaws.com/:accountId/:queueName/dead-letter-source-queues",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The AWS account ID of the queue owner"
+              },
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the queue. For FIFO queues, the name must end with the .fifo suffix."
+              },
+              {
+                "name": "Action",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "MaxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to include in the response"
+              },
+              {
+                "name": "NextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token to request the next set of results"
+              }
+            ]
+          },
+          "docs": "Returns a list of your queues that have the RedrivePolicy queue attribute configured with a dead-letter queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
