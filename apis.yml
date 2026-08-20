@@ -35,6 +35,8 @@ apis:
   humanURL: https://aws.amazon.com/sqs/
   baseURL: https://sqs.{region}.amazonaws.com/
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
