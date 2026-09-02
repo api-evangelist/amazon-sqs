@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon SQS Amazon Simple Queue Service (SQS) Messages API
   description: 'Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. Using SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available. SQS offers two types of message queues: Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.'
@@ -609,31 +609,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    SendMessageResponse:
-      type: object
-      properties:
-        SendMessageResult:
-          type: object
-          properties:
-            MD5OfMessageBody:
-              type: string
-              description: An MD5 digest of the non-URL-encoded message body string
-            MD5OfMessageAttributes:
-              type: string
-              description: An MD5 digest of the non-URL-encoded message attribute string
-            MD5OfMessageSystemAttributes:
-              type: string
-              description: An MD5 digest of the non-URL-encoded system attribute string
-            MessageId:
-              type: string
-              description: An attribute containing the MessageId of the message sent
-              format: uuid
-            SequenceNumber:
-              type: string
-              description: This parameter applies only to FIFO queues. The large, non-consecutive number that Amazon SQS assigns to each message.
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     ListMessageMoveTasksResponse:
       type: object
       properties:
@@ -671,6 +646,46 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
+    ChangeMessageVisibilityBatchResponse:
+      type: object
+      properties:
+        ChangeMessageVisibilityBatchResult:
+          type: object
+          properties:
+            ChangeMessageVisibilityBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
+    ReceiveMessageResponse:
+      type: object
+      properties:
+        ReceiveMessageResult:
+          type: object
+          properties:
+            Message:
+              type: array
+              items:
+                $ref: '#/components/schemas/Message'
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
     StartMessageMoveTaskResponse:
       type: object
       properties:
@@ -703,88 +718,6 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    GenericResponse:
-      type: object
-      properties:
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    ReceiveMessageResponse:
-      type: object
-      properties:
-        ReceiveMessageResult:
-          type: object
-          properties:
-            Message:
-              type: array
-              items:
-                $ref: '#/components/schemas/Message'
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    ErrorResponse:
-      type: object
-      properties:
-        Error:
-          type: object
-          properties:
-            Type:
-              type: string
-              description: The error type (Sender or Receiver)
-              enum:
-              - Sender
-              - Receiver
-            Code:
-              type: string
-              description: The error code
-              examples:
-              - AWS.SimpleQueueService.NonExistentQueue
-              - AWS.SimpleQueueService.QueueDeletedRecently
-              - InvalidParameterValue
-              - MissingParameter
-              - QueueAlreadyExists
-              - OverLimit
-              - AccessDenied
-              - InvalidAddress
-              - InvalidAction
-              - InvalidAttributeName
-              - InvalidAttributeValue
-              - InvalidBatchEntryId
-              - TooManyEntriesInBatchRequest
-              - BatchEntryIdsNotDistinct
-              - EmptyBatchRequest
-              - BatchRequestTooLong
-              - UnsupportedOperation
-              - PurgeQueueInProgress
-              - MessageNotInflight
-              - ReceiptHandleIsInvalid
-              - ResourceNotFoundException
-            Message:
-              type: string
-              description: A human-readable description of the error
-          example: example_value
-        RequestId:
-          type: string
-          description: The unique request identifier
-          example: '500123'
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
-    CancelMessageMoveTaskResponse:
-      type: object
-      properties:
-        CancelMessageMoveTaskResult:
-          type: object
-          properties:
-            ApproximateNumberOfMessagesMoved:
-              type: integer
-              description: The approximate number of messages already moved to the destination queue.
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     BatchResultErrorEntry:
       type: object
       description: A batch result error entry
@@ -805,53 +738,34 @@ components:
           type: boolean
           description: Specifies whether the error happened due to the caller of the batch API action
           example: true
-    SendMessageBatchResponse:
+    SendMessageResponse:
       type: object
       properties:
-        SendMessageBatchResult:
+        SendMessageResult:
           type: object
           properties:
-            SendMessageBatchResultEntry:
-              type: array
-              items:
-                type: object
-                properties:
-                  Id:
-                    type: string
-                  MessageId:
-                    type: string
-                    format: uuid
-                  MD5OfMessageBody:
-                    type: string
-                  MD5OfMessageAttributes:
-                    type: string
-                  SequenceNumber:
-                    type: string
-            BatchResultErrorEntry:
-              type: array
-              items:
-                $ref: '#/components/schemas/BatchResultErrorEntry'
+            MD5OfMessageBody:
+              type: string
+              description: An MD5 digest of the non-URL-encoded message body string
+            MD5OfMessageAttributes:
+              type: string
+              description: An MD5 digest of the non-URL-encoded message attribute string
+            MD5OfMessageSystemAttributes:
+              type: string
+              description: An MD5 digest of the non-URL-encoded system attribute string
+            MessageId:
+              type: string
+              description: An attribute containing the MessageId of the message sent
+              format: uuid
+            SequenceNumber:
+              type: string
+              description: This parameter applies only to FIFO queues. The large, non-consecutive number that Amazon SQS assigns to each message.
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    ChangeMessageVisibilityBatchResponse:
+    GenericResponse:
       type: object
       properties:
-        ChangeMessageVisibilityBatchResult:
-          type: object
-          properties:
-            ChangeMessageVisibilityBatchResultEntry:
-              type: array
-              items:
-                type: object
-                properties:
-                  Id:
-                    type: string
-            BatchResultErrorEntry:
-              type: array
-              items:
-                $ref: '#/components/schemas/BatchResultErrorEntry'
-          example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
     Message:
@@ -915,15 +829,93 @@ components:
                     type: string
                     description: The message attribute data type. Supported types include String, Number, and Binary.
           example: []
+    SendMessageBatchResponse:
+      type: object
+      properties:
+        SendMessageBatchResult:
+          type: object
+          properties:
+            SendMessageBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+                  MessageId:
+                    type: string
+                    format: uuid
+                  MD5OfMessageBody:
+                    type: string
+                  MD5OfMessageAttributes:
+                    type: string
+                  SequenceNumber:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          type: object
+          properties:
+            Type:
+              type: string
+              description: The error type (Sender or Receiver)
+              enum:
+              - Sender
+              - Receiver
+            Code:
+              type: string
+              description: The error code
+              examples:
+              - AWS.SimpleQueueService.NonExistentQueue
+              - AWS.SimpleQueueService.QueueDeletedRecently
+              - InvalidParameterValue
+              - MissingParameter
+              - QueueAlreadyExists
+              - OverLimit
+              - AccessDenied
+              - InvalidAddress
+              - InvalidAction
+              - InvalidAttributeName
+              - InvalidAttributeValue
+              - InvalidBatchEntryId
+              - TooManyEntriesInBatchRequest
+              - BatchEntryIdsNotDistinct
+              - EmptyBatchRequest
+              - BatchRequestTooLong
+              - UnsupportedOperation
+              - PurgeQueueInProgress
+              - MessageNotInflight
+              - ReceiptHandleIsInvalid
+              - ResourceNotFoundException
+            Message:
+              type: string
+              description: A human-readable description of the error
+          example: example_value
+        RequestId:
+          type: string
+          description: The unique request identifier
+          example: '500123'
+    CancelMessageMoveTaskResponse:
+      type: object
+      properties:
+        CancelMessageMoveTaskResult:
+          type: object
+          properties:
+            ApproximateNumberOfMessagesMoved:
+              type: integer
+              description: The approximate number of messages already moved to the destination queue.
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
   parameters:
-    QueueName:
-      name: queueName
-      in: path
-      required: true
-      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
-      schema:
-        type: string
-        maxLength: 80
     AccountId:
       name: accountId
       in: path
@@ -932,6 +924,14 @@ components:
       schema:
         type: string
         pattern: ^\d{12}$
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
   securitySchemes:
     aws_sig_v4:
       type: apiKey

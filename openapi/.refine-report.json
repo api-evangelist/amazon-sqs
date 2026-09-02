@@ -15,6 +15,12 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "amazon-sqs-messages-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "amazon-sqs-permissions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "amazon-sqs-queues-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "amazon-sqs-tags-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }
