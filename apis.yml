@@ -39,6 +39,13 @@ tags:
 - Distributed Systems
 - Messaging
 - Microservices
+- Queues
+tags_raw:
+- AWS
+- Cloud
+- Distributed Systems
+- Messaging
+- Microservices
 - Queue
 apis:
 - aid: amazon-sqs:amazon-sqs-messages-api
