@@ -1,10 +1,7 @@
 {
   "provider": "amazon-sqs",
   "sources": [
-    "amazon-sqs-messages-api-openapi.yml",
-    "amazon-sqs-permissions-api-openapi.yml",
-    "amazon-sqs-queues-api-openapi.yml",
-    "amazon-sqs-tags-api-openapi.yml"
+    "_original/amazon-sqs-openapi.yml"
   ],
   "outputs": [
     "amazon-sqs-messages-api-openapi.yml",
@@ -16,11 +13,18 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "amazon-sqs-messages-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "amazon-sqs-permissions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "amazon-sqs-queues-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "amazon-sqs-tags-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-sqs-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "amazon-sqs-openapi.yml: tagged paths GET /{accountId}/{queueName}/tags -> Tags",
+    "amazon-sqs-openapi.yml: tagged paths POST /{accountId}/{queueName}/tags -> Tags",
+    "amazon-sqs-openapi.yml: tagged paths DELETE /{accountId}/{queueName}/tags -> Tags",
+    "amazon-sqs-openapi.yml: declared missing tag: Tags",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "amazon-sqs-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-sqs-permissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-sqs-queues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-sqs-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
