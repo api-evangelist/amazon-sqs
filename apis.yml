@@ -4,15 +4,19 @@ description: Amazon Simple Queue Service (SQS) is a fully managed message queuin
   you to decouple and scale microservices, distributed systems, and serverless applications.
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - awsdocs/aws-doc-sdk-examples
+  open_source: unknown
   commercial: true
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -220,7 +224,7 @@ apis:
     url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
 common:
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/sqs/
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/amazon-sqs/overview
 - type: AgenticAccess
@@ -300,5 +304,5 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com/
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product

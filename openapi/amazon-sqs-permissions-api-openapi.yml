@@ -148,11 +148,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GenericResponse:
-      type: object
-      properties:
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     ErrorResponse:
       type: object
       properties:
@@ -198,6 +193,11 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
     ResponseMetadata:
       type: object
       properties:

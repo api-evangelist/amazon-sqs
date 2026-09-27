@@ -165,11 +165,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GenericResponse:
-      type: object
-      properties:
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     ErrorResponse:
       type: object
       properties:
@@ -215,13 +210,6 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
     ListQueueTagsResponse:
       type: object
       properties:
@@ -240,6 +228,18 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
   parameters:
     AccountId:
       name: accountId
