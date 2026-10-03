@@ -165,6 +165,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListQueueTagsResponse:
+      type: object
+      properties:
+        ListQueueTagsResult:
+          type: object
+          properties:
+            Tag:
+              type: array
+              items:
+                type: object
+                properties:
+                  Key:
+                    type: string
+                  Value:
+                    type: string
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
     ErrorResponse:
       type: object
       properties:
@@ -210,45 +235,12 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
-    ListQueueTagsResponse:
-      type: object
-      properties:
-        ListQueueTagsResult:
-          type: object
-          properties:
-            Tag:
-              type: array
-              items:
-                type: object
-                properties:
-                  Key:
-                    type: string
-                  Value:
-                    type: string
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     GenericResponse:
       type: object
       properties:
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
   parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
     QueueName:
       name: queueName
       in: path
@@ -257,6 +249,14 @@ components:
       schema:
         type: string
         maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey

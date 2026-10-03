@@ -609,6 +609,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ChangeMessageVisibilityBatchResponse:
+      type: object
+      properties:
+        ChangeMessageVisibilityBatchResult:
+          type: object
+          properties:
+            ChangeMessageVisibilityBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
     ReceiveMessageResponse:
       type: object
       properties:
@@ -622,6 +642,13 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
     SendMessageResponse:
       type: object
       properties:
@@ -644,38 +671,6 @@ components:
             SequenceNumber:
               type: string
               description: This parameter applies only to FIFO queues. The large, non-consecutive number that Amazon SQS assigns to each message.
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    StartMessageMoveTaskResponse:
-      type: object
-      properties:
-        StartMessageMoveTaskResult:
-          type: object
-          properties:
-            TaskHandle:
-              type: string
-              description: An identifier associated with a message movement task
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    ChangeMessageVisibilityBatchResponse:
-      type: object
-      properties:
-        ChangeMessageVisibilityBatchResult:
-          type: object
-          properties:
-            ChangeMessageVisibilityBatchResultEntry:
-              type: array
-              items:
-                type: object
-                properties:
-                  Id:
-                    type: string
-            BatchResultErrorEntry:
-              type: array
-              items:
-                $ref: '#/components/schemas/BatchResultErrorEntry'
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
@@ -724,18 +719,46 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
-    CancelMessageMoveTaskResponse:
+    DeleteMessageBatchResponse:
       type: object
       properties:
-        CancelMessageMoveTaskResult:
+        DeleteMessageBatchResult:
           type: object
           properties:
-            ApproximateNumberOfMessagesMoved:
-              type: integer
-              description: The approximate number of messages already moved to the destination queue.
+            DeleteMessageBatchResultEntry:
+              type: array
+              items:
+                type: object
+                properties:
+                  Id:
+                    type: string
+            BatchResultErrorEntry:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchResultErrorEntry'
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
+    BatchResultErrorEntry:
+      type: object
+      description: A batch result error entry
+      properties:
+        Id:
+          type: string
+          description: The Id of the entry that caused the error
+          example: abc123
+        Code:
+          type: string
+          description: An error code representing the type of error
+          example: example_value
+        Message:
+          type: string
+          description: A message explaining the error
+          example: example_value
+        SenderFault:
+          type: boolean
+          description: Specifies whether the error happened due to the caller of the batch API action
+          example: true
     SendMessageBatchResponse:
       type: object
       properties:
@@ -765,29 +788,33 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    DeleteMessageBatchResponse:
+    CancelMessageMoveTaskResponse:
       type: object
       properties:
-        DeleteMessageBatchResult:
+        CancelMessageMoveTaskResult:
           type: object
           properties:
-            DeleteMessageBatchResultEntry:
-              type: array
-              items:
-                type: object
-                properties:
-                  Id:
-                    type: string
-            BatchResultErrorEntry:
-              type: array
-              items:
-                $ref: '#/components/schemas/BatchResultErrorEntry'
+            ApproximateNumberOfMessagesMoved:
+              type: integer
+              description: The approximate number of messages already moved to the destination queue.
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
     GenericResponse:
       type: object
       properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    StartMessageMoveTaskResponse:
+      type: object
+      properties:
+        StartMessageMoveTaskResult:
+          type: object
+          properties:
+            TaskHandle:
+              type: string
+              description: An identifier associated with a message movement task
+          example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
     Message:
@@ -851,13 +878,6 @@ components:
                     type: string
                     description: The message attribute data type. Supported types include String, Number, and Binary.
           example: []
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
     ListMessageMoveTasksResponse:
       type: object
       properties:
@@ -895,35 +915,7 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    BatchResultErrorEntry:
-      type: object
-      description: A batch result error entry
-      properties:
-        Id:
-          type: string
-          description: The Id of the entry that caused the error
-          example: abc123
-        Code:
-          type: string
-          description: An error code representing the type of error
-          example: example_value
-        Message:
-          type: string
-          description: A message explaining the error
-          example: example_value
-        SenderFault:
-          type: boolean
-          description: Specifies whether the error happened due to the caller of the batch API action
-          example: true
   parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
     QueueName:
       name: queueName
       in: path
@@ -932,6 +924,14 @@ components:
       schema:
         type: string
         maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey

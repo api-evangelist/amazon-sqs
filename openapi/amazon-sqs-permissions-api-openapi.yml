@@ -148,6 +148,13 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ResponseMetadata:
+      type: object
+      properties:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
     ErrorResponse:
       type: object
       properties:
@@ -198,22 +205,7 @@ components:
       properties:
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
   parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
     QueueName:
       name: queueName
       in: path
@@ -222,6 +214,14 @@ components:
       schema:
         type: string
         maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey
