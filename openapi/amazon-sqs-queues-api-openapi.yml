@@ -480,18 +480,51 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
   schemas:
-    GetQueueUrlResponse:
+    CreateQueueResponse:
       type: object
       properties:
-        GetQueueUrlResult:
+        CreateQueueResult:
           type: object
           properties:
             QueueUrl:
               type: string
-              description: The URL of the queue
+              description: The URL of the created Amazon SQS queue
               format: uri
-          example: https://www.example.com
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    ListDeadLetterSourceQueuesResponse:
+      type: object
+      properties:
+        ListDeadLetterSourceQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+          example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
     GetQueueAttributesResponse:
@@ -519,10 +552,10 @@ components:
           type: string
           description: A unique identifier for the request
           example: '500123'
-    ListDeadLetterSourceQueuesResponse:
+    ListQueuesResponse:
       type: object
       properties:
-        ListDeadLetterSourceQueuesResult:
+        ListQueuesResult:
           type: object
           properties:
             QueueUrl:
@@ -532,6 +565,7 @@ components:
                 format: uri
             NextToken:
               type: string
+              description: Pagination token for the next set of results
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
@@ -580,58 +614,24 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
-    CreateQueueResponse:
-      type: object
-      properties:
-        CreateQueueResult:
-          type: object
-          properties:
-            QueueUrl:
-              type: string
-              description: The URL of the created Amazon SQS queue
-              format: uri
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
     GenericResponse:
       type: object
       properties:
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    ListQueuesResponse:
+    GetQueueUrlResponse:
       type: object
       properties:
-        ListQueuesResult:
+        GetQueueUrlResult:
           type: object
           properties:
             QueueUrl:
-              type: array
-              items:
-                type: string
-                format: uri
-            NextToken:
               type: string
-              description: Pagination token for the next set of results
-          example: example_value
+              description: The URL of the queue
+              format: uri
+          example: https://www.example.com
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-  parameters:
-    QueueName:
-      name: queueName
-      in: path
-      required: true
-      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
-      schema:
-        type: string
-        maxLength: 80
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey

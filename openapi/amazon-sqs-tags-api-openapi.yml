@@ -164,6 +164,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
   schemas:
     ListQueueTagsResponse:
       type: object
@@ -240,23 +257,6 @@ components:
       properties:
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-  parameters:
-    QueueName:
-      name: queueName
-      in: path
-      required: true
-      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
-      schema:
-        type: string
-        maxLength: 80
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey
