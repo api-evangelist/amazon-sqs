@@ -223,6 +223,12 @@ apis:
   - type: ReleaseNotes
     url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html
 common:
+- type: Plans
+  url: plans/amazon-sqs-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/amazon-sqs-rate-limits.yml
+- type: FinOps
+  url: finops/amazon-sqs-finops.yml
 - type: Website
   url: https://aws.amazon.com/sqs/
 - type: PostmanWorkspace
