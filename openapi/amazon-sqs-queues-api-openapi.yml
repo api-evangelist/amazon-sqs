@@ -480,24 +480,24 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: The AWS account ID of the queue owner
-      schema:
-        type: string
-        pattern: ^\d{12}$
-    QueueName:
-      name: queueName
-      in: path
-      required: true
-      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
-      schema:
-        type: string
-        maxLength: 80
   schemas:
+    ListQueuesResponse:
+      type: object
+      properties:
+        ListQueuesResult:
+          type: object
+          properties:
+            QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
+              type: string
+              description: Pagination token for the next set of results
+          example: example_value
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
     CreateQueueResponse:
       type: object
       properties:
@@ -511,20 +511,29 @@ components:
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
-    ListDeadLetterSourceQueuesResponse:
+    ResponseMetadata:
       type: object
       properties:
-        ListDeadLetterSourceQueuesResult:
+        RequestId:
+          type: string
+          description: A unique identifier for the request
+          example: '500123'
+    GenericResponse:
+      type: object
+      properties:
+        ResponseMetadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+    GetQueueUrlResponse:
+      type: object
+      properties:
+        GetQueueUrlResult:
           type: object
           properties:
             QueueUrl:
-              type: array
-              items:
-                type: string
-                format: uri
-            NextToken:
               type: string
-          example: example_value
+              description: The URL of the queue
+              format: uri
+          example: https://www.example.com
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
     GetQueueAttributesResponse:
@@ -542,30 +551,6 @@ components:
                     type: string
                   Value:
                     type: string
-          example: example_value
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    ResponseMetadata:
-      type: object
-      properties:
-        RequestId:
-          type: string
-          description: A unique identifier for the request
-          example: '500123'
-    ListQueuesResponse:
-      type: object
-      properties:
-        ListQueuesResult:
-          type: object
-          properties:
-            QueueUrl:
-              type: array
-              items:
-                type: string
-                format: uri
-            NextToken:
-              type: string
-              description: Pagination token for the next set of results
           example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
@@ -614,24 +599,39 @@ components:
           type: string
           description: The unique request identifier
           example: '500123'
-    GenericResponse:
+    ListDeadLetterSourceQueuesResponse:
       type: object
       properties:
-        ResponseMetadata:
-          $ref: '#/components/schemas/ResponseMetadata'
-    GetQueueUrlResponse:
-      type: object
-      properties:
-        GetQueueUrlResult:
+        ListDeadLetterSourceQueuesResult:
           type: object
           properties:
             QueueUrl:
+              type: array
+              items:
+                type: string
+                format: uri
+            NextToken:
               type: string
-              description: The URL of the queue
-              format: uri
-          example: https://www.example.com
+          example: example_value
         ResponseMetadata:
           $ref: '#/components/schemas/ResponseMetadata'
+  parameters:
+    QueueName:
+      name: queueName
+      in: path
+      required: true
+      description: The name of the queue. For FIFO queues, the name must end with the .fifo suffix.
+      schema:
+        type: string
+        maxLength: 80
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: The AWS account ID of the queue owner
+      schema:
+        type: string
+        pattern: ^\d{12}$
   securitySchemes:
     aws_sig_v4:
       type: apiKey
