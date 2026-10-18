@@ -70,5 +70,5 @@
     - bronze
     - gold
     builder: 'community (Meltano Hub variant maintainers: airbyte, hotgluexyz)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
