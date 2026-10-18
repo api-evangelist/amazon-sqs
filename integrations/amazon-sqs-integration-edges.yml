@@ -44,8 +44,41 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Meltano
+  partner: meltano
+  partner_match: aggregator
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://hub.meltano.com/extractors/tap-amazon-sqs--airbyte
+  category: null
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Amazon SQS
+    matched_domain: amazon.com
+    matched_by: domain+name-among-holders
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-amazon-sqs--airbyte
+    - target-sqs--hotgluexyz
+    maintenance_status:
+    - active
+    - beta
+    quality:
+    - bronze
+    - gold
+    builder: 'community (Meltano Hub variant maintainers: airbyte, hotgluexyz)'
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
 method: searched
 checked:
 - https://docs.mparticle.com/integrations/amazonsqs/event/
+- https://github.com/meltano/hub
 - https://zapier.com/api/v4/apps/
 source: https://docs.mparticle.com/integrations/amazonsqs/event/
