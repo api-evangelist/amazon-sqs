@@ -1,4 +1,4 @@
-# Amazon SQS (amazon-sqs)
+# Amazon SQS
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,76 +66,239 @@
 
 Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/amazon-sqs/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/amazon-sqs/refs/heads/main/apis.yml)
+**Areas:** AWS · Cloud · Distributed Systems · Messaging · Microservices · Queues
 
-## Tags
+## Amazon SQS on APIs.io
 
-- AWS
-- Cloud
-- Distributed Systems
-- Messaging
-- Microservices
-- Queue
+Everything profiled for Amazon SQS is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/amazon-sqs/](https://apis.io/providers/amazon-sqs/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
+- [Amazon SQS Messages API](https://apis.io/apis/amazon-sqs/amazon-sqs-messages-api/) — Operations for sending, receiving, and deleting messages in SQS queues
+- [Amazon SQS Permissions API](https://apis.io/apis/amazon-sqs/amazon-sqs-permissions-api/) — Operations for managing queue access permissions
+- [Amazon SQS Queues API](https://apis.io/apis/amazon-sqs/amazon-sqs-queues-api/) — Operations for creating, managing, and deleting SQS queues
+- [Amazon SQS Tags API](https://apis.io/apis/amazon-sqs/amazon-sqs-tags-api/) — The Tags API from Amazon SQS — 1 operation(s) for tags.
 
-## APIs
+### Published properties
 
-### Amazon SQS API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-RESTful API for Amazon Simple Queue Service operations including queue management, message sending and receiving, batch operations, dead-letter queues, and access control.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://aws.amazon.com/sqs/](https://aws.amazon.com/sqs/)
-- **Base URL:** `https://sqs.{region}.amazonaws.com/`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Amazon Simple Queue Service (SQS) Event Source Mapping](https://apis.io/asyncapis/amazon-sqs/amazon-sqs-asyncapi/)
 
-- AWS
-- Messaging
-- Queue
+#### Event channels (4)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://docs.aws.amazon.com/sqs/)
-- [OpenAPI](openapi/amazon-sqs-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/amazon-sqs.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/amazon-sqs.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/)
-- [Getting Started](https://aws.amazon.com/sqs/getting-started/)
-- [Pricing](https://aws.amazon.com/sqs/pricing/)
-- [F A Q](https://aws.amazon.com/sqs/faqs/)
-- [Best Practices](https://docs.aws.amazon.com/sqs/latest/dg/best-practices.html)
-- [SDK](https://aws.amazon.com/tools/)
-- [Tutorials](https://docs.aws.amazon.com/sqs/latest/dg/sqs-tutorials.html)
-- [Features](https://aws.amazon.com/sqs/features/)
-- [Security](https://docs.aws.amazon.com/sqs/latest/dg/sqs-security.html)
-- [Compliance](https://aws.amazon.com/compliance/services-in-scope/)
-- [C L I](https://docs.aws.amazon.com/cli/latest/reference/sqs/)
-- [Code Examples](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/service_code_examples.html)
-- [Rate Limits](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html)
-- [Regions](https://docs.aws.amazon.com/general/latest/gr/sqs-service.html)
-- [Release Notes](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-release-notes.html)
+- [arn:aws:sqs:{region}:{accountId}:{queueName}](https://apis.io/channels/amazon-sqs/arn-aws-sqs-region-accountid-queuename/)
+- [https://sqs.{region}.amazonaws.com/{accountId}/{dlqName}](https://apis.io/channels/amazon-sqs/https-sqs-region-amazonaws-com-accountid-dlqname/)
+- [https://sqs.{region}.amazonaws.com/{accountId}/{queueName}](https://apis.io/channels/amazon-sqs/https-sqs-region-amazonaws-com-accountid-queuename/)
+- [https://sqs.{region}.amazonaws.com/{accountId}/{queueName}.fifo](https://apis.io/channels/amazon-sqs/https-sqs-region-amazonaws-com-accountid-queuename-fifo/)
 
-## Common Properties
+#### Agentic access (1)
 
-- [Blog](https://aws.amazon.com/blogs/compute/)
-- [Console](https://console.aws.amazon.com/sqs/)
-- [Status Page](https://status.aws.amazon.com/)
-- [Terms of Service](https://aws.amazon.com/service-terms/)
-- [Privacy Policy](https://aws.amazon.com/privacy/)
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Amazon Sqs Agentic Access](https://apis.io/agentic-access/amazon-sqs/amazon-sqs-agentic-access/)
+
+#### JSON Schema (19)
+
+The data models the API reads and writes.
+
+- [BatchResultErrorEntry](https://apis.io/schemas/amazon-sqs/amazon-sqs-batch-result-error-entry/)
+- [CancelMessageMoveTaskResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-cancel-message-move-task-response/)
+- [ChangeMessageVisibilityBatchResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-change-message-visibility-batch-response/)
+- [CreateQueueResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-create-queue-response/)
+- [DeleteMessageBatchResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-delete-message-batch-response/)
+- [ErrorResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-error-response/)
+- [GenericResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-generic-response/)
+- [GetQueueAttributesResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-get-queue-attributes-response/)
+- [GetQueueUrlResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-get-queue-url-response/)
+- [ListDeadLetterSourceQueuesResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-list-dead-letter-source-queues-response/)
+- [ListMessageMoveTasksResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-list-message-move-tasks-response/)
+- [ListQueueTagsResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-list-queue-tags-response/)
+- [ListQueuesResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-list-queues-response/)
+- [Message](https://apis.io/schemas/amazon-sqs/amazon-sqs-message/)
+- [ReceiveMessageResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-receive-message-response/)
+- [ResponseMetadata](https://apis.io/schemas/amazon-sqs/amazon-sqs-response-metadata/)
+- [SendMessageBatchResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-send-message-batch-response/)
+- [SendMessageResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-send-message-response/)
+- [StartMessageMoveTaskResponse](https://apis.io/schemas/amazon-sqs/amazon-sqs-start-message-move-task-response/)
+
+#### JSON Structure (19)
+
+Data models expressed in JSON Structure.
+
+- [Amazon Sqs Batch Result Error Entry Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-batch-result-error-entry-structure/)
+- [Amazon Sqs Cancel Message Move Task Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-cancel-message-move-task-response-structure/)
+- [Amazon Sqs Change Message Visibility Batch Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-change-message-visibility-batch-response-structure/)
+- [Amazon Sqs Create Queue Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-create-queue-response-structure/)
+- [Amazon Sqs Delete Message Batch Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-delete-message-batch-response-structure/)
+- [Amazon Sqs Error Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-error-response-structure/)
+- [Amazon Sqs Generic Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-generic-response-structure/)
+- [Amazon Sqs Get Queue Attributes Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-get-queue-attributes-response-structure/)
+- [Amazon Sqs Get Queue Url Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-get-queue-url-response-structure/)
+- [Amazon Sqs List Dead Letter Source Queues Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-list-dead-letter-source-queues-response-structure/)
+- [Amazon Sqs List Message Move Tasks Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-list-message-move-tasks-response-structure/)
+- [Amazon Sqs List Queue Tags Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-list-queue-tags-response-structure/)
+- [Amazon Sqs List Queues Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-list-queues-response-structure/)
+- [Amazon Sqs Message Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-message-structure/)
+- [Amazon Sqs Receive Message Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-receive-message-response-structure/)
+- [Amazon Sqs Response Metadata Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-response-metadata-structure/)
+- [Amazon Sqs Send Message Batch Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-send-message-batch-response-structure/)
+- [Amazon Sqs Send Message Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-send-message-response-structure/)
+- [Amazon Sqs Start Message Move Task Response Structure](https://apis.io/json-structure/amazon-sqs/amazon-sqs-start-message-move-task-response-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Amazon Sqs Context](https://apis.io/jsonld/amazon-sqs/amazon-sqs-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [amazon-sqs API Vocabulary](https://apis.io/vocabularies/amazon-sqs/amazon-sqs-vocabulary/)
+
+#### Examples (19)
+
+Example requests and responses.
+
+- [Amazon Sqs Batch Result Error Entry Example](https://apis.io/examples/amazon-sqs/amazon-sqs-batch-result-error-entry-example/)
+- [Amazon Sqs Cancel Message Move Task Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-cancel-message-move-task-response-example/)
+- [Amazon Sqs Change Message Visibility Batch Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-change-message-visibility-batch-response-example/)
+- [Amazon Sqs Create Queue Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-create-queue-response-example/)
+- [Amazon Sqs Delete Message Batch Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-delete-message-batch-response-example/)
+- [Amazon Sqs Error Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-error-response-example/)
+- [Amazon Sqs Generic Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-generic-response-example/)
+- [Amazon Sqs Get Queue Attributes Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-get-queue-attributes-response-example/)
+- [Amazon Sqs Get Queue Url Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-get-queue-url-response-example/)
+- [Amazon Sqs List Dead Letter Source Queues Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-list-dead-letter-source-queues-response-example/)
+- [Amazon Sqs List Message Move Tasks Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-list-message-move-tasks-response-example/)
+- [Amazon Sqs List Queue Tags Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-list-queue-tags-response-example/)
+- [Amazon Sqs List Queues Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-list-queues-response-example/)
+- [Amazon Sqs Message Example](https://apis.io/examples/amazon-sqs/amazon-sqs-message-example/)
+- [Amazon Sqs Receive Message Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-receive-message-response-example/)
+- [Amazon Sqs Response Metadata Example](https://apis.io/examples/amazon-sqs/amazon-sqs-response-metadata-example/)
+- [Amazon Sqs Send Message Batch Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-send-message-batch-response-example/)
+- [Amazon Sqs Send Message Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-send-message-response-example/)
+- [Amazon Sqs Start Message Move Task Response Example](https://apis.io/examples/amazon-sqs/amazon-sqs-start-message-move-task-response-example/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Amazon SQS Amazon Simple Queue Service (SQS) API](https://apis.io/collections/amazon-sqs/open-amazon-sqs/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages API](https://apis.io/collections/amazon-sqs/open-amazon-sqs-messages-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Permissions API](https://apis.io/collections/amazon-sqs/open-amazon-sqs-permissions-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Queues API](https://apis.io/collections/amazon-sqs/open-amazon-sqs-queues-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Tags API](https://apis.io/collections/amazon-sqs/open-amazon-sqs-tags-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages API](https://apis.io/collections/amazon-sqs/postman-amazon-sqs-messages-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Permissions API](https://apis.io/collections/amazon-sqs/postman-amazon-sqs-permissions-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Queues API](https://apis.io/collections/amazon-sqs/postman-amazon-sqs-queues-api/)
+- [Amazon SQS Amazon Simple Queue Service (SQS) Messages Tags API](https://apis.io/collections/amazon-sqs/postman-amazon-sqs-tags-api/)
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [Amazon SQS — asyncapi rules](https://apis.io/rules/amazon-sqs/amazon-sqs-asyncapi-spectral-rules/)
+- [Amazon SQS — jsonschema rules](https://apis.io/rules/amazon-sqs/amazon-sqs-jsonschema-spectral-rules/)
+- [Amazon SQS API Rules](https://apis.io/rules/amazon-sqs/amazon-sqs-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Amazon Sqs Authentication](https://apis.io/security/amazon-sqs/amazon-sqs-authentication/)
+- [Amazon Sqs Domain Security](https://apis.io/security/amazon-sqs/amazon-sqs-domain-security/)
+- [Amazon Sqs Trust Center](https://apis.io/security/amazon-sqs/amazon-sqs-trust-center/)
+- [Amazon Sqs Vulnerability Disclosure](https://apis.io/security/amazon-sqs/amazon-sqs-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Amazon Sqs Plans Pricing](https://apis.io/plans/amazon-sqs/amazon-sqs-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Amazon Sqs Rate Limits](https://apis.io/rate-limits/amazon-sqs/amazon-sqs-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Amazon Sqs Finops](https://apis.io/finops/amazon-sqs/amazon-sqs-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aws.amazon.com/sqs/)
 - [Support](https://console.aws.amazon.com/support/home)
-- [Knowledge Center](https://repost.aws/knowledge-center)
-- [Code Examples](https://docs.aws.amazon.com/code-library/latest/ug/sqs_code_examples.html)
-- [GitHub Repository](https://github.com/awsdocs/aws-doc-sdk-examples)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
+- [Blog](https://aws.amazon.com/blogs/compute/)
+- [Terms of service](https://aws.amazon.com/service-terms/)
+- [Privacy policy](https://aws.amazon.com/privacy/)
+- [Status](https://status.aws.amazon.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com/
+**Kin Score 57.2** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 66.3 |
+| Contract governance | 13.6 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 70.2 |
+| Access clarity | 55.3 |
+
+**Agent readiness 31.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/amazon-sqs/](https://apis.io/providers/amazon-sqs/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Amazon SQS: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/amazon-sqs/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
