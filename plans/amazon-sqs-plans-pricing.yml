@@ -2,6 +2,7 @@
 generated: '2026-10-28'
 method: searched
 source: https://aws.amazon.com/sqs/pricing/
+name: Amazon SQS API Plans
 sources:
 - https://aws.amazon.com/sqs/pricing/
 provenance:
@@ -32,7 +33,7 @@ rate_limit_statements:
 - Each 64 KB chunk of a payload is billed as 1 request (for example, an API action with a 1 MiB payload
   is billed as 16 requests).
 x-canonical:
-  generated: '2026-11-06'
+  generated: '2026-11-13'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - metered

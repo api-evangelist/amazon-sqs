@@ -11,6 +11,15 @@ artifacts:
   authentication/amazon-sqs-authentication.yml:
     method: derived
     evidence: declared in the artifact
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
+  changelog/amazon-sqs-changelog.yml:
+    method: searched
+    evidence: declared in the artifact
+  cli/amazon-sqs-cli.yml:
+    method: searched
+    evidence: declared in the artifact
   collections/amazon-sqs-messages-api.opencollection.json:
     method: derived
     evidence: openapi/amazon-sqs-messages-api
@@ -41,6 +50,27 @@ artifacts:
   collections/amazon-sqs.postman_collection.json:
     method: derived
     evidence: openapi/amazon-sqs
+  compliance/amazon-sqs-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
+  conformance/amazon-sqs-conformance.yml:
+    method: derived
+    evidence: declared in the artifact
+  conventions/amazon-sqs-conventions.yml:
+    method: searched
+    evidence: declared in the artifact
+  data-model/amazon-sqs-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  eligibility/amazon-sqs-eligibility.yml:
+    method: harvested
+    evidence: declared in the artifact
+  errors/amazon-sqs-error-codes.yml:
+    method: searched
+    evidence: declared in the artifact
+  errors/amazon-sqs-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   examples/amazon-sqs-batch-result-error-entry-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -104,6 +134,9 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/amazon-sqs-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -113,13 +146,25 @@ artifacts:
   json-ld/amazon-sqs-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-add-permission-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-batch-result-error-entry-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/amazon-sqs-cancel-message-move-task-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-change-message-visibility-batch-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-change-message-visibility-batch-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-change-message-visibility-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-create-queue-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/amazon-sqs-create-queue-response-schema.json:
@@ -134,10 +179,19 @@ artifacts:
   json-schema/amazon-sqs-generic-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-get-queue-attributes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-get-queue-attributes-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-get-queue-url-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-get-queue-url-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-list-dead-letter-source-queues-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/amazon-sqs-list-dead-letter-source-queues-response-schema.json:
@@ -146,7 +200,16 @@ artifacts:
   json-schema/amazon-sqs-list-message-move-tasks-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-list-queue-tags-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-list-queue-tags-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-list-queue-tags-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-list-queues-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/amazon-sqs-list-queues-response-schema.json:
@@ -155,7 +218,13 @@ artifacts:
   json-schema/amazon-sqs-message-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-receive-message-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-receive-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-remove-permission-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/amazon-sqs-response-metadata-schema.json:
@@ -164,10 +233,28 @@ artifacts:
   json-schema/amazon-sqs-send-message-batch-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-send-message-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-send-message-response-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-sqs-send-message-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-set-queue-attributes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-start-message-move-task-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-sqs-start-message-move-task-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-tag-queue-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-sqs-untag-queue-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-structure/amazon-sqs-batch-result-error-entry-structure.json:
@@ -230,7 +317,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -299,22 +386,39 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  openapi/_original/amazon-sqs-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  lifecycle/amazon-sqs-lifecycle.yml:
+    method: searched
+    evidence: declared in the artifact
+  llms/amazon-sqs-llms-provenance.yml:
+    method: unknown
+    evidence: no authorship recorded
+  llms/amazon-sqs-llms.txt:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/amazon-sqs-mcp.yml:
+    method: derived
+    evidence: declared in the artifact
   openapi/amazon-sqs-messages-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-sqs-permissions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-sqs-queues-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-sqs-tags-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  packages/amazon-sqs-packages.yml:
+    method: searched
+    evidence: declared in the artifact
+  patterns/amazon-sqs-patterns.yml:
     method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    evidence: declared in the artifact
   plans/amazon-sqs-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
@@ -330,13 +434,22 @@ artifacts:
   postman/amazon-sqs-tags-api.postman_collection.json:
     method: derived
     evidence: openapi/amazon-sqs-tags-api
-  rate-limits/amazon-sqs-rate-limits.yml:
-    method: generated
+  privacy/amazon-sqs-privacy-policy.yml:
+    method: harvested
     evidence: declared in the artifact
+  rate-limits/amazon-sqs-rate-limits.yml:
+    method: searched
+    evidence: declared in the artifact
+  regulatory/amazon-sqs-regulatory-posture.yml:
+    method: unknown
+    evidence: no authorship recorded
   rules/amazon-sqs-asyncapi-spectral-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-sqs-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/amazon-sqs-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-sqs-spectral-rules.yml:
@@ -351,12 +464,46 @@ artifacts:
   security/amazon-sqs-vulnerability-disclosure.yml:
     method: searched
     evidence: declared in the artifact
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-sqs-manage-queues.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-sqs-redrive-dead-letter-queue.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-sqs-send-and-process-messages.md:
+    method: generated
+    evidence: declared in the artifact
   sla/amazon-sqs-sla.yml:
     method: generated
     evidence: declared in the artifact
   smithy/sqs-2012-11-05.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/sqs/service/2012-11-05/sqs-2012-11-05.json
+      (sha256 f34a7d2560fb, fetched 2026-11-11T21:15:38+00:00)
+  terms/amazon-sqs-terms-of-service.yml:
+    method: harvested
+    evidence: declared in the artifact
+  vendors/amazon-sqs-vendors.yml:
     method: unknown
     evidence: no authorship recorded
   vocabulary/amazon-sqs-vocabulary.yaml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/amazon-sqs-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
+  well-known/amazon-sqs-midway-auth-openid-configuration.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-sqs-repost-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-sqs-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-sqs-well-known.yml:
     method: unknown
     evidence: no authorship recorded
